@@ -133,3 +133,5 @@ dist
 *.doc
 *.docx
 
+# Documentation and notes
+documentation/
