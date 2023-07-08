@@ -130,6 +130,6 @@ dist
 .pnp.*
 
 # Doc files
-.doc
-.docx
+*.doc
+*.docx
 
