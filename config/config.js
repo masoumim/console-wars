@@ -1,3 +1,8 @@
+// Require in the dotenv module
+// Will load environment variables contained in .env file
+require('dotenv').config();
+
+// Export the credentials to connect to the db
 module.exports = {
   development: {
     username: process.env.DATABASE_USERNAME,
