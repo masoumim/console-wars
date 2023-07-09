@@ -12,18 +12,6 @@ const { Manufacturers } = require("../db/models/manufacturers.js");
 const getAllSystems = async () => {
     try {
         const getQuery = await Systems.findAll();
-        
-
-        // Extract all of the id, name and email from the query result
-        // let users = [];
-        // for (const element in getQuery) {
-        //     // Create obj that contains user id, name and email
-        //     const obj = {};
-        //     obj.id = getQuery[element].dataValues.id;
-        //     obj.name = getQuery[element].dataValues.name;
-        //     obj.email = getQuery[element].dataValues.email;
-        //     users.push(obj);
-        // }
         return getQuery;
     } catch (err) {
         return err;
