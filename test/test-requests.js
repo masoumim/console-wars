@@ -46,4 +46,16 @@ describe('Requests', () => {
             await Manufacturers.destroy({ where: { id: id } });
         });
     });
+    describe('addManufacturer', () => {
+        it('Will add and return an object if insert is successful', async () =>{
+            // Exercise:
+            const result = await requests.addManufacturer("Manufacturer Test");
+
+            // Verify:
+            assert.isObject(result);
+
+            // Teardown:
+            await Manufacturers.destroy({where: {name: "Manufacturer Test"}});
+        });
+    });
 });
