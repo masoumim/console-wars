@@ -8,6 +8,9 @@ const { Systems } = require("../db/models/systems.js");
 // Get the Manufacturers model
 const { Manufacturers } = require("../db/models/manufacturers.js");
 
+// Get the system specs model
+const { Systemspecs } = require('../db/models/systemspecs.js');
+
 // GET ALL SYSTEMS
 const getAllSystems = async () => {
     try {
@@ -38,8 +41,19 @@ const addManufacturer = async (name) => {
     }
 }
 
+// ADD SYSTEM SPECS TO DB
+const addSystemspecs = async (cpu, ram, storage, mediaType, maxRes, systemID) => {
+    try {        
+        const insertQuery = await Systemspecs.create({cpu: cpu, ram: ram, storage: storage, media_type: mediaType, max_res: maxRes, system_id: systemID});
+        return insertQuery;
+    } catch (err) {
+        return err;
+    }
+}
+
 module.exports = {
     getAllSystems,
     addSystem,
-    addManufacturer
+    addManufacturer,
+    addSystemspecs
 }
