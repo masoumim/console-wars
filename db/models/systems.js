@@ -17,16 +17,6 @@ Systems.init({
     name: { type: DataTypes.STRING, allowNull: false },
     release_year: { type: DataTypes.INTEGER, allowNull: false },
     discontinue_year: { type: DataTypes.INTEGER, allowNull: true },
-    lifespan: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        get() {
-            const releaseYear = this.getDataValue("release_year");
-            const discontinueYear = this.getDataValue("discontinue_year");
-            const lifeSpan = discontinueYear - releaseYear;
-            return lifeSpan ? lifeSpan : null;
-        }
-    },
     game_titles: { type: DataTypes.INTEGER, allowNull: true },
     generation: { type: DataTypes.INTEGER, allowNull: true },
     units_sold: { type: DataTypes.INTEGER, allowNull: true },

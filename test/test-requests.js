@@ -13,6 +13,8 @@ const requests = require("../services/requests.js");
 
 // Get the Systems model
 const { Systems } = require("../db/models/systems.js");
+
+// Get the manufacturers model
 const { Manufacturers } = require('../db/models/manufacturers.js');
 
 describe('Requests', () => {
@@ -35,7 +37,7 @@ describe('Requests', () => {
 
             // Exercise:
             const result = await requests.addSystem("Test System", 1990, 1995, 120, 4, 100000, "Console", 10, "Successor System", "Predecessor System", 15, null, id);
-            
+
             // Verify:
             assert.isObject(result);
 
@@ -47,7 +49,7 @@ describe('Requests', () => {
         });
     });
     describe('addManufacturer', () => {
-        it('Will add and return an object if insert is successful', async () =>{
+        it('Will add manufacturer and return an object if insert is successful', async () => {
             // Exercise:
             const result = await requests.addManufacturer("Manufacturer Test");
 
@@ -55,7 +57,7 @@ describe('Requests', () => {
             assert.isObject(result);
 
             // Teardown:
-            await Manufacturers.destroy({where: {name: "Manufacturer Test"}});
+            await Manufacturers.destroy({ where: { name: "Manufacturer Test" } });
         });
     });
 });
