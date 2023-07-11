@@ -4,24 +4,24 @@ const express = require("express");
 // Create the user router
 const router = express.Router();
 
+// Requre in the requests module
+const requests = require("../services/requests.js");
+
 // GET systems (/systems)
 router.get("/systems", async (req, res) => {
     try {
-        // // Get the image filename & image id matching imageId parameter
-        // const image = await requests.getImg(req.params.id);
+        // Get all systems from the DB
+        const result = await requests.getAllSystems();
 
-        // // Append the public folder to the image file name
-        // const imgpath = path.join("/public/", image.filename);
-
-        // // Get all of the captions for this image
-        // const captions = await requests.getCaptionsByImgID(req.params.id);
-
-        // // Get all of the users for each caption
-        // const users = await requests.getUsersByCaptionID(captions);
-
-        // // Render page with retrieved image filename and user's captions
-        // res.status(200).render("image", { image: image, imgpath: imgpath, captions: captions, users: users, id: req.params.id });
-        res.json({ test: "Hello World" });
+        // Store only the dataValue objects in a systems array
+        // (dataValue objects are single objects that contain the data of one system)
+        const systems = [];
+        for(element in result){
+            systems.push(result[element].dataValues);
+        }
+        
+        // Render the systems page using systems data
+        res.status(200).render("systems", {systems: systems});
     } catch (err) {
         res.status(500).send(err);
     }
