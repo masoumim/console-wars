@@ -19,7 +19,7 @@ router.get("/systems", async (req, res) => {
         for(element in result){
             systems.push(result[element].dataValues);
         }
-        
+
         // Render the systems page using systems data
         res.status(200).render("systems", {systems: systems});
     } catch (err) {

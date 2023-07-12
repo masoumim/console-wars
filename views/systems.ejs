@@ -1,1 +1,47 @@
-<b>Systems</b>
+<!-- CSS FILE -->
+<link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+
+<!-- JS (The defer attribute specifies scripts should be executed after the HTML file is completely parsed) -->
+<script type="text/javascript" src="../public/controllers/systems-controller.js" defer></script>
+
+<!-- BUTTONS -->
+<button class="sort-by-release-year-asc" onclick="sortByReleaseYearAsc()">Sort by release year (asc)</button>
+<button class="sort-by-release-year-des" onclick="sortByReleaseYearDes()">Sort by release year (des)</button>
+
+<!-- TODO: Integrate Bootstap 4 table formatting -->  
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Release Year</th>
+            <th scope="col">Discontinued Year</th>
+            <th scope="col">Lifespan</th>
+            <th scope="col">Game Titles</th>
+            <th scope="col">Generation</th>
+            <th scope="col">Units Sold</th>
+            <th scope="col">System Type</th>
+            <th scope="col">Successor</th>
+            <th scope="col">Predecessor</th>
+            <th scope="col">Comments</th>
+            <th scope="col">Votes</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">        
+        <% systems.forEach(function(system){%>
+            <tr>
+                <td class="systemName"><%=system.name%></td>
+                <td class="systemReleaseYear"><%=system.release_year%></td>
+                <td class="systemDiscontinueYear"><%=system.discontinue_year%></td>
+                <td class="systemLifespan"><%=system.lifespan%></td>
+                <td class="systemGameTitles"><%=system.game_titles%></td>
+                <td class="systemGeneration"><%=system.generation%></td>
+                <td class="systemUnitsSold"><%=system.units_sold%></td>
+                <td class="systemType"><%=system.system_type%></td>
+                <td class="systemSuccessor"><%=system.successor%></td>
+                <td class="systemPredecessor"><%=system.predecessor%></td>
+                <td class="systemComments"><%=system.comments%></td>
+                <td class="systemTotalVotes"><%=system.total_votes%></td>                          
+            </tr>
+        <%});%>
+    </tbody>
+</table>
