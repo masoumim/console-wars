@@ -62,23 +62,55 @@ function buildTable(systemsArray) {
     document.getElementById("tableBody").innerHTML = htmlString;
 }
 
+/*
+====================================================
+                Sorting Methods
+====================================================
+*/
+
+// Sorts data by Release Year in Ascending order
 function sortByReleaseYearAsc() {
     // Get the systems    
     const systems = getTableData();
 
     // Sort by Release Year (ascending)
-    const sortedSystems = quicksort(systems);
+    const sortedSystems = quicksort({ array: systems, sortingField: "releaseYear" });
 
     // Build the table
     buildTable(sortedSystems);
 }
 
-function sortByReleaseYearDes(){
+// Sorts data by Release Year in Descending order
+function sortByReleaseYearDes() {
     // Get the systems
     const systems = getTableData();
 
     // Sort by Release Year (descending)
-    const sortedSystems = reverseBubbleSort(systems);
+    const sortedSystems = reverseBubbleSort(systems, "releaseYear");
+
+    // Build the table
+    buildTable(sortedSystems);
+}
+
+// Sorts data by Discontinued Year in Ascending Order
+function sortByDiscontinuedYearAsc() {
+    // Get the systems
+    const systems = getTableData();
+
+    // Sort by Discontinued Year (ascending)
+    const sortedSystems = quicksort({ array: systems, sortingField: "discontinueYear" });
+
+    // Build the table
+    buildTable(sortedSystems);
+}
+
+// Sorts data by Discontinued Year in Descending Order
+function sortByDiscontinuedYearDes() {
+    // Get the systems
+    const systems = getTableData();
+
+    // Sort by Discontinued Year (ascending)
+    const sortedSystems = reverseBubbleSort(systems, "discontinueYear");
 
     // Build the table
     buildTable(sortedSystems);
@@ -91,26 +123,31 @@ function sortByReleaseYearDes(){
 */
 
 
-// QUICK SORT (ASCENDING ORDER)
-function quicksort(array, leftBound = 0, rightBound = array.length - 1) {
-
+// QUICK SORT (ASCENDING ORDER) *using named arguments
+function quicksort({ array, leftBound = 0, rightBound = array.length - 1, sortingField }) {
     if (leftBound < rightBound) {
         // Set the pivot index
-        const pivotIndex = partition(array, leftBound, rightBound);
+        const pivotIndex = partition(array, leftBound, rightBound, sortingField);
 
         // Left Partition
-        quicksort(array, leftBound, pivotIndex - 1);
+        quicksort({ array: array, leftBound: leftBound, rightBound: pivotIndex - 1, sortingField: sortingField });
 
         // Right Partition
-        quicksort(array, pivotIndex, rightBound);
+        quicksort({ array: array, leftBound: pivotIndex, rightBound: rightBound, sortingField: sortingField });
     }
     return array;
 }
 
 // QUICK SORT - PARTITION
-function partition(array, leftIndex, rightIndex) {
+function partition(array, leftIndex, rightIndex, sortingField) {
     // Set the pivot value
-    const pivot = array[Math.floor((rightIndex + leftIndex) / 2)].releaseYear;
+    let pivot = 0;
+    if (sortingField === "releaseYear") {
+        pivot = array[Math.floor((rightIndex + leftIndex) / 2)].releaseYear;
+    }
+    if (sortingField === "discontinueYear") {
+        pivot = array[Math.floor((rightIndex + leftIndex) / 2)].discontinueYear;
+    }
 
     // Loop while leftIndex <= rightIndex
     // (While you haven't looked though the whole array)
@@ -118,14 +155,36 @@ function partition(array, leftIndex, rightIndex) {
 
         // Keep incrementing leftIndex while array at leftIndex < pivot value
         // (Move leftIndex UP until you find something greater than PIVOT)
-        while (array[leftIndex].releaseYear < pivot) {
-            leftIndex++;
+
+        // sorting by: releaseYear
+        if (sortingField === "releaseYear") {
+            while (array[leftIndex].releaseYear < pivot) {
+                leftIndex++;
+            }
+        }
+
+        // sorting by: discontinueYear
+        if (sortingField === "discontinueYear") {
+            while (array[leftIndex].discontinueYear < pivot) {
+                leftIndex++;
+            }
         }
 
         // Keep decrementing rightIndex while array at rightIndex is > pivot value
         // (Move rightIndex DOWN until you find something less than PIVOT)
-        while (array[rightIndex].releaseYear > pivot) {
-            rightIndex--;
+
+        // sorting by: releaseYear
+        if (sortingField === "releaseYear") {
+            while (array[rightIndex].releaseYear > pivot) {
+                rightIndex--;
+            }
+        }
+
+        // sorting by: discontinueYear
+        if (sortingField === "discontinueYear") {
+            while (array[rightIndex].discontinueYear > pivot) {
+                rightIndex--;
+            }
         }
 
         // Perform a swap when leftIndex <= rightIndex
@@ -140,28 +199,42 @@ function partition(array, leftIndex, rightIndex) {
 }
 
 // REVERSE BUBBLE SORT (DESCENDING ORDER)
-function reverseBubbleSort(array){
+function reverseBubbleSort(array, sortingField) {
     // Variable to keep track of the number of swaps that are performed
     let swapCount = 0
     // Boolean flag used to control if swapping should continue or not
     let swapping = true;
-    
+
     // While swapping is true
     while (swapping) {
         // Set swapping to false before entering the inner loop
         swapping = false;
-        
+
         // Iterate though each element in array up to the SECOND LAST element
         for (let i = 0; i < array.length - 1; i++) {
-            
             // Check if current element is less than the next
-            if (array[i].releaseYear < array[i + 1].releaseYear) {                
-                // If so, perform swap of elements
-                swap(array, i, i + 1);
-                // Increment the swap counter
-                swapCount++;
-                // Set the swapping flag to true
-                swapping = true;
+
+            // sorting by: releaseYear
+            if (sortingField === "releaseYear") {
+                if (array[i].releaseYear < array[i + 1].releaseYear) {
+                    // If so, perform swap of elements
+                    swap(array, i, i + 1);
+                    // Increment the swap counter
+                    swapCount++;
+                    // Set the swapping flag to true
+                    swapping = true;
+                }
+            }
+            // sorting by: discontinueYear
+            if (sortingField === "discontinueYear") {
+                if (array[i].discontinueYear < array[i + 1].discontinueYear) {
+                    // If so, perform swap of elements
+                    swap(array, i, i + 1);
+                    // Increment the swap counter
+                    swapCount++;
+                    // Set the swapping flag to true
+                    swapping = true;
+                }
             }
         }
     }
