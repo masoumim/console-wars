@@ -17,19 +17,46 @@ function getTableData() {
     // Reassemble each system's property into a single object and store in array for sorting    
     const systemsArray = [];
     for (let i = 0; i < systemNames.length; i++) {
+        // System object to be populated with system data
         const obj = {}
+
+        // System Name
         obj.name = systemNames[i].textContent;
-        obj.releaseYear = systemReleaseYears[i].textContent;
-        obj.discontinueYear = systemDiscontinueYears[i].textContent;
+        
+        // Release Year
+        obj.releaseYear = parseInt(systemReleaseYears[i].textContent);
+        
+        // Discontinue Year
+        if (parseInt(systemDiscontinueYears[i].textContent) > 0) { obj.discontinueYear = parseInt(systemDiscontinueYears[i].textContent) } else { obj.discontinueYear = ""; }
+        
+        // Lifespan
         if (obj.discontinueYear > 0) { obj.lifespan = parseInt(systemLifespans[i].textContent); } else { obj.lifespan = ""; }
+        
+        // Game Titles
         obj.gameTitles = parseInt(systemGameTitles[i].textContent);
-        obj.generation = systemGenerations[i].textContent;
-        obj.unitsSold = systemUnitsSold[i].textContent;
+        
+        // Generation
+        obj.generation = parseInt(systemGenerations[i].textContent);
+        
+        // Units Sold
+        if (parseInt(systemUnitsSold[i].textContent) > 0) { obj.unitsSold = parseInt(systemUnitsSold[i].textContent) } else { obj.unitsSold = ""; }
+        
+        // System Type
         obj.systemType = systemTypes[i].textContent;
+        
+        // Successor
         obj.successor = systemSuccessors[i].textContent;
+        
+        // Predecessor
         obj.predecessor = systemPredecessors[i].textContent;
-        obj.comments = systemComments[i].textContent;
-        obj.totalVotes = systemTotalVotes[i].textContent;
+        
+        // Comments
+        obj.comments = parseInt(systemComments[i].textContent);
+        
+        // Total Votes
+        obj.totalVotes = parseInt(systemTotalVotes[i].textContent);
+        
+        // Add System object to array
         systemsArray.push(obj);
     }
 
@@ -109,7 +136,7 @@ function sortByDiscontinuedYearDes() {
     // Get the systems
     const systems = getTableData();
 
-    // Sort by Discontinued Year (ascending)
+    // Sort by Discontinued Year (descending)
     const sortedSystems = reverseBubbleSort(systems, "discontinueYear");
 
     // Build the table
@@ -121,7 +148,7 @@ function sortByLifespanAsc() {
     // Get the systems    
     const systems = getTableData();
 
-    // Sort by Release Year (ascending)
+    // Sort by Lifespan (ascending)
     const sortedSystems = quicksort({ array: systems, sortingField: "lifespan" });
 
     // Build the table
@@ -133,7 +160,7 @@ function sortByLifespanDes() {
     // Get the systems
     const systems = getTableData();
 
-    // Sort by Discontinued Year (ascending)
+    // Sort by Lifespan (descending)
     const sortedSystems = reverseBubbleSort(systems, "lifespan");
 
     // Build the table
@@ -145,7 +172,7 @@ function sortByGameTitlesAsc() {
     // Get the systems    
     const systems = getTableData();
 
-    // Sort by Release Year (ascending)
+    // Sort by Game Titles (ascending)
     const sortedSystems = quicksort({ array: systems, sortingField: "gameTitles" });
 
     // Build the table
@@ -157,8 +184,104 @@ function sortByGameTitlesDes() {
     // Get the systems
     const systems = getTableData();
 
-    // Sort by Discontinued Year (ascending)
+    // Sort by Game Titles (descending)
     const sortedSystems = reverseBubbleSort(systems, "gameTitles");
+
+    // Build the table
+    buildTable(sortedSystems);
+}
+
+// Sorts data by Generation in Ascending order
+function sortByGenerationAsc() {
+    // Get the systems    
+    const systems = getTableData();
+
+    // Sort by Generation (ascending)
+    const sortedSystems = quicksort({ array: systems, sortingField: "generation" });
+
+    // Build the table
+    buildTable(sortedSystems);
+}
+
+// Sorts data by Generation in Descending Order
+function sortByGenerationDes() {
+    // Get the systems
+    const systems = getTableData();
+
+    // Sort by Generation (descending)
+    const sortedSystems = reverseBubbleSort(systems, "generation");
+
+    // Build the table
+    buildTable(sortedSystems);
+}
+
+// Sorts data by Units Sold in Ascending order
+function sortByUnitsSoldAsc() {
+    // Get the systems    
+    const systems = getTableData();
+
+    // Sort by Units Sold (ascending)
+    const sortedSystems = quicksort({ array: systems, sortingField: "unitsSold" });
+
+    // Build the table
+    buildTable(sortedSystems);
+}
+
+// Sorts data by Units Sold in Descending Order
+function sortByUnitsSoldDes() {
+    // Get the systems
+    const systems = getTableData();
+
+    // Sort by Units Sold (descending)
+    const sortedSystems = reverseBubbleSort(systems, "unitsSold");
+
+    // Build the table
+    buildTable(sortedSystems);
+}
+
+// Sorts data by Comments in Ascending order
+function sortByCommentsAsc() {
+    // Get the systems    
+    const systems = getTableData();
+
+    // Sort by Comments (ascending)
+    const sortedSystems = quicksort({ array: systems, sortingField: "comments" });
+
+    // Build the table
+    buildTable(sortedSystems);
+}
+
+// Sorts data by Comments in Descending Order
+function sortByCommentsDes() {
+    // Get the systems
+    const systems = getTableData();
+
+    // Sort by Comments (descending)
+    const sortedSystems = reverseBubbleSort(systems, "comments");
+
+    // Build the table
+    buildTable(sortedSystems);
+}
+
+// Sorts data by Votes in Ascending order
+function sortByTotalVotesAsc() {
+    // Get the systems    
+    const systems = getTableData();
+
+    // Sort by Total Votes (ascending)
+    const sortedSystems = quicksort({ array: systems, sortingField: "totalVotes" });
+
+    // Build the table
+    buildTable(sortedSystems);
+}
+
+// Sorts data by Votes in Descending Order
+function sortByTotalVotesDes() {
+    // Get the systems
+    const systems = getTableData();
+
+    // Sort by Total Votes (descending)
+    const sortedSystems = reverseBubbleSort(systems, "totalVotes");
 
     // Build the table
     buildTable(sortedSystems);
@@ -211,6 +334,26 @@ function partition(array, leftIndex, rightIndex, sortingField) {
         pivot = array[Math.floor((rightIndex + leftIndex) / 2)].gameTitles;
     }
 
+    // sorting by: generation
+    if (sortingField === "generation") {
+        pivot = array[Math.floor((rightIndex + leftIndex) / 2)].generation;
+    }
+
+    // sorting by: unitsSold
+    if (sortingField === "unitsSold") {
+        pivot = array[Math.floor((rightIndex + leftIndex) / 2)].unitsSold;
+    }
+
+    // sorting by: comments
+    if (sortingField === "comments") {
+        pivot = array[Math.floor((rightIndex + leftIndex) / 2)].comments;
+    }
+
+    // sorting by: totalVotes
+    if (sortingField === "totalVotes") {
+        pivot = array[Math.floor((rightIndex + leftIndex) / 2)].totalVotes;
+    }
+
     // Loop while leftIndex <= rightIndex
     // (While you haven't looked though the whole array)
     while (leftIndex <= rightIndex) {
@@ -246,6 +389,34 @@ function partition(array, leftIndex, rightIndex, sortingField) {
             }
         }
 
+        // sorting by: generation
+        if (sortingField === "generation") {
+            while (array[leftIndex].generation < pivot) {
+                leftIndex++;
+            }
+        }
+
+        // sorting by: unitsSold
+        if (sortingField === "unitsSold") {
+            while (array[leftIndex].unitsSold < pivot) {
+                leftIndex++;
+            }
+        }
+
+        // sorting by: comments
+        if (sortingField === "comments") {
+            while (array[leftIndex].comments < pivot) {
+                leftIndex++;
+            }
+        }
+
+        // sorting by: totalVotes
+        if (sortingField === "totalVotes") {
+            while (array[leftIndex].totalVotes < pivot) {
+                leftIndex++;
+            }
+        }
+
         // Keep decrementing rightIndex while array at rightIndex is > pivot value
         // (Move rightIndex DOWN until you find something less than PIVOT)
 
@@ -273,6 +444,34 @@ function partition(array, leftIndex, rightIndex, sortingField) {
         // sorting by: gameTitles
         if (sortingField === "gameTitles") {
             while (array[rightIndex].gameTitles > pivot) {
+                rightIndex--;
+            }
+        }
+
+        // sorting by: generation
+        if (sortingField === "generation") {
+            while (array[rightIndex].generation > pivot) {
+                rightIndex--;
+            }
+        }
+
+        // sorting by: unitsSold
+        if (sortingField === "unitsSold") {
+            while (array[rightIndex].unitsSold > pivot) {
+                rightIndex--;
+            }
+        }
+
+        // sorting by: comments
+        if (sortingField === "comments") {
+            while (array[rightIndex].comments > pivot) {
+                rightIndex--;
+            }
+        }
+
+        // sorting by: totalVotes
+        if (sortingField === "totalVotes") {
+            while (array[rightIndex].totalVotes > pivot) {
                 rightIndex--;
             }
         }
@@ -340,6 +539,50 @@ function reverseBubbleSort(array, sortingField) {
             // sorting by: gameTitles
             if (sortingField === "gameTitles") {
                 if (array[i].gameTitles < array[i + 1].gameTitles) {
+                    // If so, perform swap of elements
+                    swap(array, i, i + 1);
+                    // Increment the swap counter
+                    swapCount++;
+                    // Set the swapping flag to true
+                    swapping = true;
+                }
+            }
+            // sorting by: generation
+            if (sortingField === "generation") {
+                if (array[i].generation < array[i + 1].generation) {
+                    // If so, perform swap of elements
+                    swap(array, i, i + 1);
+                    // Increment the swap counter
+                    swapCount++;
+                    // Set the swapping flag to true
+                    swapping = true;
+                }
+            }
+            // sorting by: unitsSold
+            if (sortingField === "unitsSold") {
+                if (array[i].unitsSold < array[i + 1].unitsSold) {
+                    // If so, perform swap of elements
+                    swap(array, i, i + 1);
+                    // Increment the swap counter
+                    swapCount++;
+                    // Set the swapping flag to true
+                    swapping = true;
+                }
+            }
+            // sorting by: comments
+            if (sortingField === "comments") {
+                if (array[i].comments < array[i + 1].comments) {
+                    // If so, perform swap of elements
+                    swap(array, i, i + 1);
+                    // Increment the swap counter
+                    swapCount++;
+                    // Set the swapping flag to true
+                    swapping = true;
+                }
+            }
+            // sorting by: totalVotes
+            if (sortingField === "totalVotes") {
+                if (array[i].totalVotes < array[i + 1].totalVotes) {
                     // If so, perform swap of elements
                     swap(array, i, i + 1);
                     // Increment the swap counter
