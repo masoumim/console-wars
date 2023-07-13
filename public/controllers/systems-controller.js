@@ -1,6 +1,7 @@
 // Gets systems from the table and adds them to array for sorting
 function getTableData() {
     // Get the table contents
+    const systemIDs = document.querySelectorAll(".systemID");
     const systemNames = document.querySelectorAll(".systemName");
     const systemReleaseYears = document.querySelectorAll(".systemReleaseYear");
     const systemDiscontinueYears = document.querySelectorAll(".systemDiscontinueYear");
@@ -19,6 +20,9 @@ function getTableData() {
     for (let i = 0; i < systemNames.length; i++) {
         // System object to be populated with system data
         const obj = {}
+
+        // System ID
+        obj.id = systemIDs[i].textContent;
 
         // System Name
         obj.name = systemNames[i].textContent;
@@ -72,7 +76,7 @@ function buildTable(systemsArray) {
     let htmlString = "";
     for (element in systemsArray) {
         htmlString += `<tr>\n
-        <td class=\"systemName\">${systemsArray[element].name}</td>`
+        <td class=\"systemName\"><a href=\"/systems/${systemsArray[element].id}\">${systemsArray[element].name}</a></td>`
             + `<td class=\"systemReleaseYear\">${systemsArray[element].releaseYear}</td>`
             + `<td class=\"systemDiscontinueYear\">${systemsArray[element].discontinueYear}</td>`
             + `<td class=\"systemLifespan\">${systemsArray[element].lifespan}</td>`
