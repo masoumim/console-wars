@@ -7,7 +7,7 @@ addAllsystems = async () => {
         await requests.addSystem("Color TV-Game 6", 1977, 1983, 6, 1, 1000000, "Console", 0, "Nintendo Entertainment System", null, 0, null, 31);
         await requests.addSystem("Telstar Arcade", 1977, null, 4, 1, null, "Console", 0, null, null, 0, null, 32);
         await requests.addSystem("Telstar Marksman", 1978, null, 6, 1, null, "Console", 0, null, null, 0, null, 32);
-        await requests.addSystem("TV Tennis Electrotennis", 1975, null, null, 1, 10000, "Console", 0, "TV Game System 10", null, 0, null, 33);
+        await requests.addSystem("TV Tennis Electrotennis", 1975, null, 1, 1, 10000, "Console", 0, "TV Game System 10", null, 0, null, 33);
         await requests.addSystem("Fairchild Channel F", 1976, 1983, 27, 2, 350000, "Console", 0, "Channel F System II", null, 0, null, 34);
         await requests.addSystem("Atari 2600", 1977, 1992, 519, 2, 30000000, "Console", 0, "Atari 5200", "Atari Home Pong", 0, null, 35);
         await requests.addSystem("Atari 5200", 1982, 1984, 69, 2, 1000000, "Console", 0, "Atari 7800", "Atari 2600", 0, null, 35);
