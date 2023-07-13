@@ -21,11 +21,31 @@ const getAllSystems = async () => {
     }
 }
 
+// GET SYSTEM BY ID
+const getSystem = async (id) => {
+    try {
+        const getQuery = await Systems.findAll({ where: { id: id } });                
+        return getQuery;        
+    } catch (err) {
+        return err;
+    }
+}
+
 // ADD SYSTEM TO DB
 const addSystem = async (name, releaseYear, discontinueYear, gameTitles, generation, unitsSold, systemType, comments, successor, predecessor, totalVotes, addedByUser, manufacturerId) => {
-    try {        
-        const insertQuery = await Systems.create({ name: name, release_year: releaseYear, discontinue_year: discontinueYear, game_titles: gameTitles, generation: generation, units_sold: unitsSold, system_type: systemType, comments: comments, successor: successor, predecessor: predecessor, total_votes: totalVotes, added_by_user: addedByUser, manufacturer_id: manufacturerId});
+    try {
+        const insertQuery = await Systems.create({ name: name, release_year: releaseYear, discontinue_year: discontinueYear, game_titles: gameTitles, generation: generation, units_sold: unitsSold, system_type: systemType, comments: comments, successor: successor, predecessor: predecessor, total_votes: totalVotes, added_by_user: addedByUser, manufacturer_id: manufacturerId });
         return insertQuery;
+    } catch (err) {
+        return err;
+    }
+}
+
+// GET MANUFACTURER BY ID
+const getManufacturerByID = async (id) => {
+    try {
+        const getQuery = await Manufacturers.findAll({ where: { id: id } });                
+        return getQuery;        
     } catch (err) {
         return err;
     }
@@ -33,9 +53,19 @@ const addSystem = async (name, releaseYear, discontinueYear, gameTitles, generat
 
 // ADD MANUFACTURER TO DB
 const addManufacturer = async (name) => {
-    try {        
-        const insertQuery = await Manufacturers.create({ name: name});
+    try {
+        const insertQuery = await Manufacturers.create({ name: name });
         return insertQuery;
+    } catch (err) {
+        return err;
+    }
+}
+
+// GET SYSTEM SPECS BY SYSTEM ID
+const getSystemSpecsBySystemID = async (id) => {
+    try {
+        const getQuery = await Systemspecs.findAll({ where: { system_id: id } });                
+        return getQuery;        
     } catch (err) {
         return err;
     }
@@ -43,8 +73,8 @@ const addManufacturer = async (name) => {
 
 // ADD SYSTEM SPECS TO DB
 const addSystemspecs = async (cpu, ram, storage, mediaType, maxRes, systemID) => {
-    try {        
-        const insertQuery = await Systemspecs.create({cpu: cpu, ram: ram, storage: storage, media_type: mediaType, max_res: maxRes, system_id: systemID});
+    try {
+        const insertQuery = await Systemspecs.create({ cpu: cpu, ram: ram, storage: storage, media_type: mediaType, max_res: maxRes, system_id: systemID });
         return insertQuery;
     } catch (err) {
         return err;
@@ -53,7 +83,10 @@ const addSystemspecs = async (cpu, ram, storage, mediaType, maxRes, systemID) =>
 
 module.exports = {
     getAllSystems,
+    getSystem,
     addSystem,
     addManufacturer,
+    getManufacturerByID,
+    getSystemSpecsBySystemID,
     addSystemspecs
 }

@@ -42,8 +42,8 @@
     </thead>
     <tbody id="tableBody">        
         <% systems.forEach(function(system){%>
-            <tr>
-                <td class="systemName"><%=system.name%></td>
+            <tr>                
+                <td class="systemName"><a href="/systems/<%=system.id%>"><%=system.name%></a></td>                
                 <td class="systemReleaseYear"><%=system.release_year%></td>
                 <td class="systemDiscontinueYear"><%=system.discontinue_year%></td>                
                 <td class="systemLifespan"><% if (system.discontinue_year > 0){%><%=system.discontinue_year - system.release_year%><%}%></td>

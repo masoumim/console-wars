@@ -11,88 +11,51 @@ const requests = require("../services/requests.js");
 router.get("/systems", async (req, res) => {
     try {
         // Get all systems from the DB
-        const result = await requests.getAllSystems();
+        const resultArray = await requests.getAllSystems();
 
         // Store only the dataValue objects in a systems array
         // (dataValue objects are single objects that contain the data of one system)
         const systems = [];
-        for(element in result){
-            systems.push(result[element].dataValues);
+        for (element in resultArray) {
+            systems.push(resultArray[element].dataValues);
         }
 
         // Render the systems page using systems data
-        res.status(200).render("systems", {systems: systems});
+        res.status(200).render("systems", { systems: systems });
     } catch (err) {
         res.status(500).send(err);
     }
 });
 
-// // GET all images and captions for each image (/images)
-// router.get("/images", async (req, res) => {
-//     try {
-//         if (myCache.has(key)) {
-//             // CACHE HIT
-//             // Get the cache data using the key
-//             const allImagesCache = myCache.get(key);
+// GET system (/systems/:systemId)
+router.get("/systems/:id", async (req, res) => {
+    try {
+        // Get the system by id
+        const resultArray = await requests.getSystem(req.params.id);
 
-//             // Render page with cached data
-//             res.status(200).render("images", { images: allImagesCache.images, captions: allImagesCache.captions, users: allImagesCache.users });
-//         }
-//         else {
-//             // CACHE MISS
+        // Throw error if no system has that ID
+        if (resultArray.length === 0) {
+            throw "That system doesn't exist!";
+        }
+        else {
+            // Get the system data from the result array
+            const systemData = resultArray[0].dataValues;
 
-//             // Get all images and image data (comments and users)
-//             const data = await utils.getAllImageData();
+            // Get the system's manufacturer
+            const systemManufacturerResult = await requests.getManufacturerByID(systemData.manufacturer_id);
+            const systemManufacturer = systemManufacturerResult[0].dataValues.name;
 
-//             // Save cache
-//             myCache.set(key, data);
+            // Get the system's specs
+            const systemSpcesResult = await requests.getSystemSpecsBySystemID(systemData.id);
+            const systemSpecs = systemSpcesResult[0].dataValues;
 
-//             // Render page with array of img paths, captions and users
-//             res.status(200).render("images", { images: data.images, captions: data.captions, users: data.users });
-//         }
-//     }
-//     catch (err) {
-//         res.status(500).send(err);
-//     }
-// });
-
-// // POST caption (/image/:imageId)
-// router.post("/image/:id",
-//     [
-//         check('comment').not().isEmpty().withMessage('Comment can not be empty'),
-//         check('comment').isLength({ min: 3 }).withMessage('Comment must be at least 3 characters long')
-//     ], async (req, res) => {
-//         try {            
-//             // If express-validator catches any errors, throw them to catch block
-//             const errors = validationResult(req).array();
-//             if (errors.length > 0) {
-//                 throw errors[0].msg;
-//             }
-
-//             // Check if there is an active, authenticated User currently logged in
-//             if (req.user) {                
-//                 // Get the submitted comment
-//                 const submittedComment = req.body.comment;
-
-//                 // Add the caption to the db
-//                 await requests.addCaption(submittedComment, req.user.id, parseInt(req.params.id));
-
-//                 // Update the cache:            
-//                 utils.updateAllImagesCache(key, myCache);
-
-//                 // Update user data cache:
-//                 utils.updateUserDataCache(req.user.id, user.userDataCache);
-                
-//                 // Reload the page to show the new comment
-//                 res.status(201).redirect(req.originalUrl);
-//             }
-//             else {
-//                 res.redirect("/");
-//             }
-//         } catch (err) {
-//             res.status(500).send(err);
-//         }
-//     });
+            // Render page with retrieved system        
+            res.status(200).render("system", { system: systemData, manufacturer: systemManufacturer, specs: systemSpecs });
+        }
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
 
 // Export the user router
 module.exports = router;

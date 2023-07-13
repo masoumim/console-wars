@@ -1,0 +1,20 @@
+<h3>System Info:</h3>
+<h4>System Name: <%=system.name%></h4>
+<h4>Manufacturer: <%=manufacturer%></h4>
+<h4>Release Year: <%=system.release_year%></h4>
+<h4>Discontinue Year: <%=system.discontinue_year%></h4>
+<h4>Lifespan (Years): <% if (system.discontinue_year > 0){%><%=system.discontinue_year - system.release_year%><%}%></h4>
+<h4>Game Titles: <%=system.game_titles%></h4>
+<h4>Generation: <%=system.generation%></h4>
+<h4>Units Sold: <%=system.units_sold%></h4>
+<h4>System Type: <%=system.system_type%></h4>
+<h4>Successor: <%=system.successor%></h4>
+<h4>Predecessor: <%=system.predecessor%></h4>
+<h3>System Specs:</h3>
+<h4>CPU: <%=specs.cpu%></h4>
+<h4>RAM: <%=specs.ram%></h4>
+<h4>Storage: <%=specs.storage%></h4>
+<h4>Media Type: <%=specs.media_type%></h4>
+<h4>Max Resolution: <%=specs.max_res%></h4>
+<h4>Comments: <%=system.comments%></h4>
+<h4>Votes: <%=system.total_votes%></h4>
