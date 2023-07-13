@@ -21,7 +21,7 @@ function getTableData() {
         obj.name = systemNames[i].textContent;
         obj.releaseYear = systemReleaseYears[i].textContent;
         obj.discontinueYear = systemDiscontinueYears[i].textContent;
-        obj.lifespan = systemLifespans[i].textContent;
+        if (obj.discontinueYear > 0) { obj.lifespan = parseInt(systemLifespans[i].textContent); } else { obj.lifespan = ""; }
         obj.gameTitles = systemGameTitles[i].textContent;
         obj.generation = systemGenerations[i].textContent;
         obj.unitsSold = systemUnitsSold[i].textContent;
@@ -116,6 +116,30 @@ function sortByDiscontinuedYearDes() {
     buildTable(sortedSystems);
 }
 
+// Sorts data by Lifespan in Ascending order
+function sortByLifespanAsc() {
+    // Get the systems    
+    const systems = getTableData();
+
+    // Sort by Release Year (ascending)
+    const sortedSystems = quicksort({ array: systems, sortingField: "lifespan" });
+
+    // Build the table
+    buildTable(sortedSystems);
+}
+
+// Sorts data by Lifespan in Descending Order
+function sortByLifespanDes() {    
+    // Get the systems
+    const systems = getTableData();
+
+    // Sort by Discontinued Year (ascending)
+    const sortedSystems = reverseBubbleSort(systems, "lifespan");
+
+    // Build the table
+    buildTable(sortedSystems);
+}
+
 /*
 ====================================================
                 Sorting Algorithms
@@ -142,11 +166,20 @@ function quicksort({ array, leftBound = 0, rightBound = array.length - 1, sortin
 function partition(array, leftIndex, rightIndex, sortingField) {
     // Set the pivot value
     let pivot = 0;
+
+    // sorting by: releaseYear
     if (sortingField === "releaseYear") {
         pivot = array[Math.floor((rightIndex + leftIndex) / 2)].releaseYear;
     }
+
+    // sorting by: discontinueYear
     if (sortingField === "discontinueYear") {
         pivot = array[Math.floor((rightIndex + leftIndex) / 2)].discontinueYear;
+    }
+
+    // sorting by: lifespan
+    if (sortingField === "lifespan") {
+        pivot = array[Math.floor((rightIndex + leftIndex) / 2)].lifespan;
     }
 
     // Loop while leftIndex <= rightIndex
@@ -170,6 +203,13 @@ function partition(array, leftIndex, rightIndex, sortingField) {
             }
         }
 
+        // sorting by: lifespan
+        if (sortingField === "lifespan") {
+            while (array[leftIndex].lifespan < pivot) {
+                leftIndex++;
+            }
+        }
+
         // Keep decrementing rightIndex while array at rightIndex is > pivot value
         // (Move rightIndex DOWN until you find something less than PIVOT)
 
@@ -183,6 +223,13 @@ function partition(array, leftIndex, rightIndex, sortingField) {
         // sorting by: discontinueYear
         if (sortingField === "discontinueYear") {
             while (array[rightIndex].discontinueYear > pivot) {
+                rightIndex--;
+            }
+        }
+
+        // sorting by: lifespan
+        if (sortingField === "lifespan") {
+            while (array[rightIndex].lifespan > pivot) {
                 rightIndex--;
             }
         }
@@ -228,6 +275,17 @@ function reverseBubbleSort(array, sortingField) {
             // sorting by: discontinueYear
             if (sortingField === "discontinueYear") {
                 if (array[i].discontinueYear < array[i + 1].discontinueYear) {
+                    // If so, perform swap of elements
+                    swap(array, i, i + 1);
+                    // Increment the swap counter
+                    swapCount++;
+                    // Set the swapping flag to true
+                    swapping = true;
+                }
+            }
+            // sorting by: lifespan
+            if (sortingField === "lifespan") {
+                if (array[i].lifespan < array[i + 1].lifespan) {
                     // If so, perform swap of elements
                     swap(array, i, i + 1);
                     // Increment the swap counter
