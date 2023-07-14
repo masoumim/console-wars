@@ -1,0 +1,23 @@
+<!-- JS (The defer attribute specifies scripts should be executed after the HTML file is completely parsed) -->
+<script type="text/javascript" src="../public/controllers/compare-controller.js" defer></script>
+
+Select Consoles
+<form action="/systems/vs" method="get">
+    <label for="system1">Choose console 1 from the list:</label>
+    <input list="systems1" name="system1" id="system1" class="system1" onchange="checkSelections()">
+    <datalist id="systems1" class="dataList1">
+        <% systems.forEach(function(system){%>
+            <option value="<%=system.name%>">
+            <%});%>
+    </datalist>
+    <br>
+    <label for="system2">Choose console 2 from the list:</label>
+    <input list="systems2" name="system2" id="system2" class="system2" onchange="checkSelections()">
+    <datalist id="systems2">
+        <% systems.forEach(function(system){%>
+            <option value="<%=system.name%>">
+            <%});%>
+    </datalist>
+    <br>
+    <input type="submit" class="submit-btn">
+  </form>
