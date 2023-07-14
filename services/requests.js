@@ -1,6 +1,6 @@
 // Require in the dotenv module
 // Will load environment variables contained in .env file
-require('dotenv').config();
+// require('dotenv').config();
 
 // Get the Systems model
 const { Systems } = require("../db/models/systems.js");
@@ -10,6 +10,9 @@ const { Manufacturers } = require("../db/models/manufacturers.js");
 
 // Get the system specs model
 const { Systemspecs } = require('../db/models/systemspecs.js');
+
+// Get the User model
+const { User } = require('../db/models/appusers.js');
 
 // GET ALL SYSTEMS
 const getAllSystems = async () => {
@@ -91,6 +94,46 @@ const addSystemspecs = async (cpu, ram, storage, mediaType, maxRes, systemID) =>
     }
 }
 
+// GET ALL USERS
+const getAllUsers = async () => {
+    try {
+        const getQuery = await User.findAll();
+        return getQuery;
+    } catch (err) {
+        return err;
+    }
+}
+
+// ADD USER TO DB
+const addUser = async (name, password, email) => {
+    try {
+        const insertQuery = await User.create({ name: name, password: password, email: email });
+        return insertQuery;
+    } catch (err) {
+        return err;
+    }
+}
+
+// GET USER BY NAME
+const getUserByName = async (name) => {
+    try {
+        const getQuery = await User.findAll({ where: { name: name } });
+        return getQuery;
+    } catch (err) {
+        return err;
+    }
+}
+
+// GET USER BY ID
+const getUserByID = async (id) => {
+    try {
+        const getQuery = await User.findAll({ where: { id: id } });
+        return getQuery;
+    } catch (err) {
+        return err;
+    }
+}
+    
 module.exports = {
     getAllSystems,
     getSystem,
@@ -99,5 +142,9 @@ module.exports = {
     addManufacturer,
     getManufacturerByID,
     getSystemSpecsBySystemID,
-    addSystemspecs
+    addSystemspecs,
+    getAllUsers,
+    addUser,
+    getUserByName,
+    getUserByID
 }
