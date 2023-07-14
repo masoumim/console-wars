@@ -60,8 +60,8 @@ const addSystemspecs = async () => {
     await requests.addSystemspecs("2.3GHz", "12gigabytes", "1terabytes", "Blu-ray", "3840x2160", 107);
     await requests.addSystemspecs("268MHz", "128megabytes", "2gigabytes", "Nintendo 3DS Game Card", "800x240", 108);
     await requests.addSystemspecs("444MHz", "512megabytes", "1gigabytes", "PS Vita Card", "960x544", 109);
-    await requests.addSystemspecs("3.5GHz", "16gigabytes", "825gigabytes", "Ultra HD Blu-ray", "7680×4320", 110);
-    await requests.addSystemspecs("3.8GHz", "16gigabytes", "1terabytes", "Ultra HD Blu-ray", "7680×4320", 111);
+    await requests.addSystemspecs("3.5GHz", "16gigabytes", "825gigabytes", "Ultra HD Blu-ray", "7680x4320", 110);
+    await requests.addSystemspecs("3.8GHz", "16gigabytes", "1terabytes", "Ultra HD Blu-ray", "7680x4320", 111);
 }
 addSystemspecs();
 // Systems

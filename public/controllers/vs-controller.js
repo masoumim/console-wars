@@ -1,3 +1,9 @@
+/*
+=============================================================
+                    Comparison Functions
+=============================================================
+*/
+
 // Compare the number of game titles
 function compareGameTitles() {
     // Get system 1 game titles
@@ -16,7 +22,10 @@ function compareGameTitles() {
 
 
     // Compare values
-    if (system1GameTitles === Math.max(system1GameTitles, system2GameTitles)) {
+    if (system1GameTitles === system2GameTitles) {
+        return;
+    }
+    else if (system1GameTitles === Math.max(system1GameTitles, system2GameTitles)) {
         // Set System 1 arrow to up
         system1GameTitlesArrow.className = "arrow up";
         // Set system 2 arrow to down
@@ -49,7 +58,10 @@ function compareGeneration() {
 
 
     // Compare values
-    if (system1Generation === Math.max(system1Generation, system2Generation)) {
+    if (system1Generation === system2Generation) {
+        return;
+    }
+    else if (system1Generation === Math.max(system1Generation, system2Generation)) {
         // Set System 1 arrow to up
         system1GenerationArrow.className = "arrow up";
         // Set system 2 arrow to down
@@ -84,7 +96,10 @@ function compareUnitsSold() {
         let system2UnitsSoldArrow = document.querySelector(".system2UnitsSoldArrow");
 
         // Compare values
-        if (system1UnitsSold === Math.max(system1UnitsSold, system2UnitsSold)) {
+        if (system1UnitsSold === system2UnitsSold) {
+            return;
+        }
+        else if (system1UnitsSold === Math.max(system1UnitsSold, system2UnitsSold)) {
             // Set System 1 arrow to up
             system1UnitsSoldArrow.className = "arrow up";
             // Set system 2 arrow to down
@@ -120,7 +135,10 @@ function compareLifespan() {
         let system2LifespanArrow = document.querySelector(".system2LifespanArrow");
 
         // Compare values
-        if (system1Lifespan === Math.max(system1Lifespan, system2Lifespan)) {
+        if (system1Lifespan === system2Lifespan) {
+            return;
+        }
+        else if (system1Lifespan === Math.max(system1Lifespan, system2Lifespan)) {
             // Set System 1 arrow to up
             system1LifespanArrow.className = "arrow up";
             // Set system 2 arrow to down
@@ -157,7 +175,10 @@ function compareCPU() {
         let system2CPUArrow = document.querySelector(".system2CPUArrow");
 
         // Compare values
-        if (system1CpuSpeed === Math.max(system1CpuSpeed, system2CpuSpeed)) {
+        if (system1CpuSpeed === system2CpuSpeed) {
+            return;
+        }
+        else if (system1CpuSpeed === Math.max(system1CpuSpeed, system2CpuSpeed)) {
             // Set System 1 arrow to up
             system1CPUArrow.className = "arrow up";
             // Set system 2 arrow to down
@@ -172,6 +193,172 @@ function compareCPU() {
         }
     }
 }
+
+// Compare the RAM
+function compareRAM() {
+    // Get system 1 RAM
+    let system1RAM = document.querySelector(".system1RAM").textContent;
+    // Get system 2 RAM
+    let system2RAM = document.querySelector(".system2RAM").textContent;
+
+    // A system may not have data for RAM.
+    // Only perform comparison if values exist
+    if (system1RAM && system2RAM) {
+
+        // Convert values to Megebytes
+        system1RAM = sizeConversion(system1RAM);
+        system2RAM = sizeConversion(system2RAM);
+
+        // Get system 1 RAM arrow element
+        let system1RAMArrow = document.querySelector(".system1RAMArrow");
+        // Get system 2 RAM arrow element
+        let system2RAMArrow = document.querySelector(".system2RAMArrow");
+
+        // Compare values
+        if (system1RAM === system2RAM) {
+            return;
+        }
+        else if (system1RAM === Math.max(system1RAM, system2RAM)) {
+            // Set System 1 arrow to up
+            system1RAMArrow.className = "arrow up";
+            // Set system 2 arrow to down
+            system2RAMArrow.className = "arrow down";
+        }
+        else {
+            // Set System 1 arrow to down
+            system1RAMArrow.className = "arrow down";
+
+            // Set System 2 arrow to up
+            system2RAMArrow.className = "arrow up";
+        }
+    }
+}
+
+// Compare the Storage
+function compareStorage() {
+    // Get system 1 Storage
+    let system1Storage = document.querySelector(".system1Storage").textContent;
+    // Get system 2 Storage
+    let system2Storage = document.querySelector(".system2Storage").textContent;
+
+    // A system may not have data for Storage.
+    // Only perform comparison if values exist
+    if (system1Storage && system2Storage) {
+
+        // Convert values to Megebytes
+        system1Storage = sizeConversion(system1Storage);
+        system2Storage = sizeConversion(system2Storage);
+
+        // Get system 1 Storage arrow element
+        let system1StorageArrow = document.querySelector(".system1StorageArrow");
+        // Get system 2 Storage arrow element
+        let system2StorageArrow = document.querySelector(".system2StorageArrow");
+
+        // Compare values
+        if (system1Storage === system2Storage) {
+            return;
+        }
+        else if (system1Storage === Math.max(system1Storage, system2Storage)) {
+            // Set System 1 arrow to up
+            system1StorageArrow.className = "arrow up";
+            // Set system 2 arrow to down
+            system2StorageArrow.className = "arrow down";
+        }
+        else {
+            // Set System 1 arrow to down
+            system1StorageArrow.className = "arrow down";
+
+            // Set System 2 arrow to up
+            system2StorageArrow.className = "arrow up";
+        }
+    }
+}
+
+// Compare Max Resolution
+function compareMaxResolution() {
+    // Get system 1 max res
+    let system1MaxRes = document.querySelector(".system1MaxRes").textContent;
+    // Get system 2 max res
+    let system2MaxRes = document.querySelector(".system2MaxRes").textContent;
+
+    // A system may not have data for resolution.
+    // Only perform comparison if values exist
+    if (system1MaxRes && system2MaxRes) {
+
+        // Multiply AxB resolution and compare final number
+        system1MaxRes = getMaxRes(system1MaxRes);
+        system2MaxRes = getMaxRes(system2MaxRes);
+
+        // Get system 1 max res arrow element
+        let system1MaxResArrow = document.querySelector(".system1MaxResArrow");
+        // Get system 2 max res arrow element
+        let system2MaxResArrow = document.querySelector(".system2MaxResArrow");
+
+        // Compare values
+        if (system1MaxRes === system2MaxRes) {
+            return;
+        }
+        else if (system1MaxRes === Math.max(system1MaxRes, system2MaxRes)) {
+            // Set System 1 arrow to up
+            system1MaxResArrow.className = "arrow up";
+            // Set system 2 arrow to down
+            system2MaxResArrow.className = "arrow down";
+        }
+        else {
+            // Set System 1 arrow to down
+            system1MaxResArrow.className = "arrow down";
+
+            // Set System 2 arrow to up
+            system2MaxResArrow.className = "arrow up";
+        }
+    }
+}
+
+/*
+=============================================================
+        When page loads, run the comparison functions
+=============================================================
+*/
+
+compareGameTitles();
+compareGeneration();
+compareUnitsSold();
+compareLifespan();
+compareCPU();
+compareRAM();
+compareStorage();
+compareMaxResolution();
+
+/*
+=============================================================
+                     Helper Functions
+=============================================================
+*/
+
+// Multiplies WxH resolution and returns the product
+function getMaxRes(resolution) {
+    // Get string length
+    const strLen = resolution.length;
+
+    // Get index position of "x"
+    const indexOfX = resolution.indexOf("x");
+
+    // Extract number of pixels in width
+    let widthStr = resolution.substring(0, indexOfX);
+
+    // Extract number of pixels in height
+    let heightStr = resolution.substring(indexOfX + 1, strLen);
+
+    // Convert width to integer
+    const w = parseInt(widthStr);
+
+    // Convert height to integer
+    const h = parseInt(heightStr);
+
+    // Multiply WxH and return the product
+    return w * h;
+}
+
 
 // Converts a string representing a CPU speed into MHz and returns the value
 function cpuConversion(cpu) {
@@ -190,15 +377,74 @@ function cpuConversion(cpu) {
         // Trim the whitespace from the result
         numberString = numberString.trim();
         // Convert the the number to a float
-        const cpuSpeedGHz =  parseFloat(numberString);
+        const cpuSpeedGHz = parseFloat(numberString);
         // Convert the GHz value to MHz and return the value
         return cpuSpeedGHz * 1000;
     }
 }
 
-// When page loads, run the comparison functions
-compareGameTitles();
-compareGeneration();
-compareUnitsSold();
-compareLifespan();
-compareCPU();
+// Converts a string representing a size into Megabytes and returns the value
+function sizeConversion(size) {
+    // Extract the measurement type (either bytes, kilobytes, megabytes, gigabytes or terabytes)
+    if (size.includes("terabytes")) {
+        // Extract the number from the string
+        let numberString = size.replace("terabytes", "");
+        // Trim the whitespace from the result
+        numberString = numberString.trim();
+        // Convert the the string to a float
+        let sizeValue = parseFloat(numberString);
+        // Convert the float value in TB to MB
+        sizeValue = sizeValue * 1000000;
+        // Return the value in MB
+        return sizeValue;
+
+    }
+    else if (size.includes("gigabytes")) {
+        // Extract the number from the string
+        let numberString = size.replace("gigabytes", "");
+        // Trim the whitespace from the result
+        numberString = numberString.trim();
+        // Convert the the string to a float
+        let sizeValue = parseFloat(numberString);
+        // Convert the float value in GB to MB
+        sizeValue = sizeValue * 1000;
+        // Return the value in MB
+        return sizeValue;
+
+    }
+    else if (size.includes("megabytes")) {
+        // Extract the number from the string
+        let numberString = size.replace("megebytes", "");
+        // Trim the whitespace from the result
+        numberString = numberString.trim();
+        // Convert the the string to a float
+        let sizeValue = parseFloat(numberString);
+        // Return the value in MB
+        return sizeValue;
+    }
+    else if (size.includes("kilobytes")) {
+        // Extract the number from the string
+        let numberString = size.replace("kilobytes", "");
+        // Trim the whitespace from the result
+        numberString = numberString.trim();
+        // Convert the the string to a float
+        let sizeValue = parseFloat(numberString);
+        // Convert the float value in KB to MB
+        sizeValue = sizeValue / 1000;
+        // Return the value in MB
+        return sizeValue;
+    }
+    // else, size is in Bytes
+    else {
+        // Extract the number from the string
+        let numberString = size.replace("bytes", "");
+        // Trim the whitespace from the result
+        numberString = numberString.trim();
+        // Convert the the string to a float
+        let sizeValue = parseFloat(numberString);
+        // Convert the float value in B to MB
+        sizeValue = sizeValue / 1000000;
+        // Return the value in MB
+        return sizeValue;
+    }
+}
