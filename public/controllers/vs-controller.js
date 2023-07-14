@@ -314,6 +314,76 @@ function compareMaxResolution() {
     }
 }
 
+// Compare Comments
+function compareComments() {
+    // Get system 1 comment count
+    let system1Comments = document.querySelector(".system1Comments").textContent;
+    // Get system 2 comment count
+    let system2Comments = document.querySelector(".system2Comments").textContent;
+
+    // Convert to integers
+    system1Comments = parseInt(system1Comments);
+    system2Comments = parseInt(system2Comments);
+
+    // Get system 1 comments arrow element
+    let system1CommentsArrow = document.querySelector(".system1CommentsArrow");
+    // Get system 2 comments arrow element
+    let system2CommentsArrow = document.querySelector(".system2CommentsArrow");
+
+    // Compare values
+    if (system1Comments === system2Comments) {
+        return;
+    }
+    else if (system1Comments === Math.max(system1Comments, system2Comments)) {
+        // Set System 1 arrow to up
+        system1CommentsArrow.className = "arrow up";
+        // Set system 2 arrow to down
+        system2CommentsArrow.className = "arrow down";
+    }
+    else {
+        // Set System 1 arrow to down
+        system1CommentsArrow.className = "arrow down";
+
+        // Set System 2 arrow to up
+        system2CommentsArrow.className = "arrow up";
+    }
+}
+
+// Compare Votes
+function compareVotes() {
+    // Get system 1 vote count
+    let system1Votes = document.querySelector(".system1Votes").textContent;
+    // Get system 2 vote count
+    let system2Votes = document.querySelector(".system2Votes").textContent;
+
+    // Convert to integers
+    system1Votes = parseInt(system1Votes);
+    system2Votes = parseInt(system2Votes);
+
+    // Get system 1 votes arrow element
+    let system1VotesArrow = document.querySelector(".system1VotesArrow");
+    // Get system 2 votes arrow element
+    let system2VotesArrow = document.querySelector(".system2VotesArrow");
+
+    // Compare values
+    if (system1Votes === system2Votes) {
+        return;
+    }
+    else if (system1Votes === Math.max(system1Votes, system2Votes)) {
+        // Set System 1 arrow to up
+        system1VotesArrow.className = "arrow up";
+        // Set system 2 arrow to down
+        system2VotesArrow.className = "arrow down";
+    }
+    else {
+        // Set System 1 arrow to down
+        system1VotesArrow.className = "arrow down";
+
+        // Set System 2 arrow to up
+        system2VotesArrow.className = "arrow up";
+    }
+}
+
 /*
 =============================================================
         When page loads, run the comparison functions
@@ -328,6 +398,7 @@ compareCPU();
 compareRAM();
 compareStorage();
 compareMaxResolution();
+compareComments();
 
 /*
 =============================================================
@@ -358,7 +429,6 @@ function getMaxRes(resolution) {
     // Multiply WxH and return the product
     return w * h;
 }
-
 
 // Converts a string representing a CPU speed into MHz and returns the value
 function cpuConversion(cpu) {
