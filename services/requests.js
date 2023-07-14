@@ -31,6 +31,16 @@ const getSystem = async (id) => {
     }
 }
 
+// GET SYSTEM BY NAME
+const getSystemByName = async (systemName) =>{
+    try{
+        const getQuery = await Systems.findAll({where: {name: systemName}});
+        return getQuery;
+    }catch(err){
+        return err;
+    }
+}
+
 // ADD SYSTEM TO DB
 const addSystem = async (name, releaseYear, discontinueYear, gameTitles, generation, unitsSold, systemType, comments, successor, predecessor, totalVotes, addedByUser, manufacturerId) => {
     try {
@@ -84,6 +94,7 @@ const addSystemspecs = async (cpu, ram, storage, mediaType, maxRes, systemID) =>
 module.exports = {
     getAllSystems,
     getSystem,
+    getSystemByName,
     addSystem,
     addManufacturer,
     getManufacturerByID,

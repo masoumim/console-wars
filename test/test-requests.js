@@ -54,6 +54,28 @@ describe('Requests', () => {
             await Manufacturers.destroy({ where: { id: manufacturer_id } });
         });
     });
+    describe('getSystemByName', () => {
+        it('Will return an array representing a system and its data', async () => {
+            // Setup:
+            // Add dummy data row in manufacturers table because adding a row to the system table requires a valid manufacturer foreign key 
+            await requests.addManufacturer("Test Manufacturer");
+            const manufacturer = await Manufacturers.findAll({ where: { name: "Test Manufacturer" } });
+            const manufacturer_id = manufacturer[0].dataValues.id;
+            await requests.addSystem("Test System", 1972, 1975, 28, 1, 350000, "Console", 0, "Test System 2", null, 0, null, manufacturer_id);
+            
+            // Exercise:
+            const response = await requests.getSystemByName("Test System");
+
+            // Verify
+            assert.isArray(response);
+
+            // Teardown
+            // Delete systems dummy data
+            await Systems.destroy({ where: { name: "Test System" } });
+            // Delete manufacturers dummy data
+            await Manufacturers.destroy({ where: { id: manufacturer_id } });
+        });
+    });
     describe('addSystem', () => {
         it('Will add system and return an object if insert is successful', async () => {
             // Setup:

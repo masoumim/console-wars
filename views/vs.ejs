@@ -1,1 +1,177 @@
-CONSOLE VS CONSOLE
+<!-- CSS FILE -->
+<link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+
+<!-- JS (The defer attribute specifies scripts should be executed after the HTML file is completely parsed) -->
+<script type="text/javascript" src="../public/controllers/vs-controller.js" defer></script>
+
+<h4><%=system1.name%> VS <%=system2.name%></h4>
+
+<table>
+    <tr>
+        <td>System Name</td>
+        <td><%=system1.name%></td>
+    </tr>
+    <tr>
+        <td>Manufacturer</td>
+        <td><%=system1Manufacturer.name%></td>
+    </tr>
+    <tr>
+        <td>Release Year</td>
+        <td><%=system1.release_year%></td>
+    </tr>
+    <tr>
+        <td>Discontinued Year</td>
+        <td><%=system1.discontinue_year%></td>
+    </tr>
+    <tr>
+        <td>Lifespan (years)</td>
+        <td class="system1Lifespan"><% if (system1.discontinue_year > 0){%><%=system1.discontinue_year - system1.release_year%><%}%></td>
+        <td><i class="system1LifespanArrow"></i></td>
+    </tr>
+    <tr>
+        <td>Game Titles</td>
+        <td class="system1GameTitles"><%=system1.game_titles%></td>
+        <td><i class="system1GameTitlesArrow"></i></td>
+    </tr>
+    <tr>
+        <td>Generation</td>
+        <td class="system1Generation"><%=system1.generation%></td>
+        <td><i class="system1GenerationArrow"></i></td>
+    </tr>
+    <tr>
+        <td>Units Sold</td>
+        <td class="system1UnitsSold"><%=system1.units_sold%></td>
+        <td><i class="system1UnitsSoldArrow"></i></td>
+    </tr>
+    <tr>
+        <td>System Type</td>
+        <td><%=system1.system_type%></td>
+    </tr>
+    <tr>
+        <td>Successor</td>
+        <td><%=system1.successor%></td>
+    </tr>
+    <tr>
+        <td>Predecessor</td>
+        <td><%=system1.predecessor%></td>
+    </tr>
+    <tr>
+        <td>CPU</td>
+        <td class="system1CPU"><%=system1Specs.cpu%></td>
+        <td><i class="system1CPUArrow"></i></td>
+    </tr>
+    <tr>
+        <td>RAM</td>
+        <td><%=system1Specs.ram%></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Storage</td>
+        <td><%=system1Specs.storage%></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Media Type</td>
+        <td><%=system1Specs.media_type%></td>
+    </tr>
+    <tr>
+        <td>Max Resolution</td>
+        <td><%=system1Specs.max_res%></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Comments</td>
+        <td><%=system1.comments%></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Votes</td>
+        <td><%=system1.total_votes%></td>
+        <td></td>
+    </tr>
+</table>
+<br>
+<table>
+    <tr>
+        <td>System Name</td>
+        <td><%=system2.name%></td>
+    </tr>
+    <tr>
+        <td>Manufacturer</td>
+        <td><%=system2Manufacturer.name%></td>
+    </tr>
+    <tr>
+        <td>Release Year</td>
+        <td><%=system2.release_year%></td>
+    </tr>
+    <tr>
+        <td>Discontinued Year</td>
+        <td><%=system2.discontinue_year%></td>
+    </tr>
+    <tr>
+        <td>Lifespan (years)</td>
+        <td class="system2Lifespan"><% if (system2.discontinue_year > 0){%><%=system2.discontinue_year - system2.release_year%><%}%></td>
+        <td><i class="system2LifespanArrow"></i></td>
+    </tr>
+    <tr>
+        <td>Game Titles</td>
+        <td class="system2GameTitles"><%=system2.game_titles%></td>
+        <td><i class="system2GameTitlesArrow"></i></td>
+    </tr>
+    <tr>
+        <td>Generation</td>
+        <td class="system2Generation"><%=system2.generation%></td>
+        <td><i class="system2GenerationArrow"></i></td>
+    </tr>
+    <tr>
+        <td>Units Sold</td>
+        <td class="system2UnitsSold"><%=system2.units_sold%></td>
+        <td><i class="system2UnitsSoldArrow"></i></td>
+    </tr>
+    <tr>
+        <td>System Type</td>
+        <td><%=system2.system_type%></td>
+    </tr>
+    <tr>
+        <td>Successor</td>
+        <td><%=system2.successor%></td>
+    </tr>
+    <tr>
+        <td>Predecessor</td>
+        <td><%=system2.predecessor%></td>
+    </tr>
+    <tr>
+        <td>CPU</td>
+        <td class="system2CPU"><%=system2Specs.cpu%></td>
+        <td><i class="system2CPUArrow"></i></td>
+    </tr>
+    <tr>
+        <td>RAM</td>
+        <td><%=system2Specs.ram%></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Storage</td>
+        <td><%=system2Specs.storage%></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Media Type</td>
+        <td><%=system2Specs.media_type%></td>
+    </tr>
+    <tr>
+        <td>Max Resolution</td>
+        <td><%=system2Specs.max_res%></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Comments</td>
+        <td><%=system2.comments%></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Votes</td>
+        <td><%=system2.total_votes%></td>
+        <td></td>
+    </tr>
+</table>
