@@ -1,3 +1,30 @@
+/*
+====================================================
+                Button Listners
+====================================================
+*/
+document.querySelector(".sort-by-release-year-asc").addEventListener("click", sortByReleaseYearAsc);
+document.querySelector(".sort-by-release-year-des").addEventListener("click", sortByReleaseYearDes);
+document.querySelector(".sort-by-discontinue-year-asc").addEventListener("click", sortByDiscontinuedYearAsc);
+document.querySelector(".sort-by-discontinue-year-des").addEventListener("click", sortByDiscontinuedYearDes);
+document.querySelector(".sort-by-lifespan-asc").addEventListener("click", sortByLifespanAsc);
+document.querySelector(".sort-by-lifespan-des").addEventListener("click", sortByLifespanDes);
+document.querySelector(".sort-by-gametitles-asc").addEventListener("click", sortByGameTitlesAsc);
+document.querySelector(".sort-by-gametitles-des").addEventListener("click", sortByGameTitlesDes);
+document.querySelector(".sort-by-generation-asc").addEventListener("click", sortByGenerationAsc);
+document.querySelector(".sort-by-generation-des").addEventListener("click", sortByGenerationDes);
+document.querySelector(".sort-by-units-sold-asc").addEventListener("click", sortByUnitsSoldAsc);
+document.querySelector(".sort-by-units-sold-des").addEventListener("click", sortByUnitsSoldDes);
+document.querySelector(".sort-by-comments-asc").addEventListener("click", sortByCommentsAsc);
+document.querySelector(".sort-by-comments-des").addEventListener("click", sortByCommentsDes);
+document.querySelector(".sort-by-votes-asc").addEventListener("click", sortByTotalVotesAsc);
+document.querySelector(".sort-by-votes-des").addEventListener("click", sortByTotalVotesDes);
+
+/*
+====================================================
+            Get Table Data & Build Table
+====================================================
+*/
 // Gets systems from the table and adds them to array for sorting
 function getTableData() {
     // Get the table contents

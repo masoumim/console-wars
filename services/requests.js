@@ -12,7 +12,7 @@ const { Manufacturers } = require("../db/models/manufacturers.js");
 const { Systemspecs } = require('../db/models/systemspecs.js');
 
 // Get the User model
-const { User } = require('../db/models/appusers.js');
+const { AppUsers } = require('../db/models/appusers.js');
 
 // GET ALL SYSTEMS
 const getAllSystems = async () => {
@@ -97,7 +97,7 @@ const addSystemspecs = async (cpu, ram, storage, mediaType, maxRes, systemID) =>
 // GET ALL USERS
 const getAllUsers = async () => {
     try {
-        const getQuery = await User.findAll();
+        const getQuery = await AppUsers.findAll();
         return getQuery;
     } catch (err) {
         return err;
@@ -107,7 +107,7 @@ const getAllUsers = async () => {
 // ADD USER TO DB
 const addUser = async (name, password, email) => {
     try {
-        const insertQuery = await User.create({ name: name, password: password, email: email });
+        const insertQuery = await AppUsers.create({ name: name, password: password, email: email });
         return insertQuery;
     } catch (err) {
         return err;
@@ -117,7 +117,7 @@ const addUser = async (name, password, email) => {
 // GET USER BY NAME
 const getUserByName = async (name) => {
     try {
-        const getQuery = await User.findAll({ where: { name: name } });
+        const getQuery = await AppUsers.findAll({ where: { name: name } });
         return getQuery;
     } catch (err) {
         return err;
@@ -127,7 +127,7 @@ const getUserByName = async (name) => {
 // GET USER BY ID
 const getUserByID = async (id) => {
     try {
-        const getQuery = await User.findAll({ where: { id: id } });
+        const getQuery = await AppUsers.findAll({ where: { id: id } });
         return getQuery;
     } catch (err) {
         return err;

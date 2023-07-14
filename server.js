@@ -32,6 +32,9 @@ const pgSession = require('connect-pg-simple')(session);
 // Helmet sets HTTP headers to comply with web security standards
 const helmet = require("helmet");
 
+// Use the Helment library
+app.use(helmet());
+
 // Enables body parsing
 app.use(express.json());
 
