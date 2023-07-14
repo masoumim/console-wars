@@ -63,10 +63,7 @@ function getTableData() {
         // Add System object to array
         systemsArray.push(obj);
     }
-
-    // Clear the table contents
-    document.getElementById("tableBody").textContent = "";
-
+    
     // Return the array of systems
     return systemsArray;
 }
@@ -93,6 +90,9 @@ function buildTable(systemsArray) {
     document.getElementById("tableBody").innerHTML = htmlString;
 }
 
+// Get the table data from systems.ejs and store in array
+const systems = getTableData();
+
 /*
 ====================================================
                 Sorting Methods
@@ -101,9 +101,6 @@ function buildTable(systemsArray) {
 
 // Sorts data by Release Year in Ascending order
 function sortByReleaseYearAsc() {
-    // Get the systems    
-    const systems = getTableData();
-
     // Sort by Release Year (ascending)
     const sortedSystems = quicksort({ array: systems, sortingField: "releaseYear" });
 
@@ -113,9 +110,6 @@ function sortByReleaseYearAsc() {
 
 // Sorts data by Release Year in Descending order
 function sortByReleaseYearDes() {
-    // Get the systems
-    const systems = getTableData();
-
     // Sort by Release Year (descending)
     const sortedSystems = reverseBubbleSort(systems, "releaseYear");
 
@@ -125,9 +119,6 @@ function sortByReleaseYearDes() {
 
 // Sorts data by Discontinued Year in Ascending Order
 function sortByDiscontinuedYearAsc() {
-    // Get the systems
-    const systems = getTableData();
-
     // Sort by Discontinued Year (ascending)
     const sortedSystems = quicksort({ array: systems, sortingField: "discontinueYear" });
 
@@ -137,9 +128,6 @@ function sortByDiscontinuedYearAsc() {
 
 // Sorts data by Discontinued Year in Descending Order
 function sortByDiscontinuedYearDes() {
-    // Get the systems
-    const systems = getTableData();
-
     // Sort by Discontinued Year (descending)
     const sortedSystems = reverseBubbleSort(systems, "discontinueYear");
 
@@ -149,9 +137,6 @@ function sortByDiscontinuedYearDes() {
 
 // Sorts data by Lifespan in Ascending order
 function sortByLifespanAsc() {
-    // Get the systems    
-    const systems = getTableData();
-
     // Sort by Lifespan (ascending)
     const sortedSystems = quicksort({ array: systems, sortingField: "lifespan" });
 
@@ -161,9 +146,6 @@ function sortByLifespanAsc() {
 
 // Sorts data by Lifespan in Descending Order
 function sortByLifespanDes() {
-    // Get the systems
-    const systems = getTableData();
-
     // Sort by Lifespan (descending)
     const sortedSystems = reverseBubbleSort(systems, "lifespan");
 
@@ -173,9 +155,6 @@ function sortByLifespanDes() {
 
 // Sorts data by Game Titles in Ascending order
 function sortByGameTitlesAsc() {
-    // Get the systems    
-    const systems = getTableData();
-
     // Sort by Game Titles (ascending)
     const sortedSystems = quicksort({ array: systems, sortingField: "gameTitles" });
 
@@ -185,9 +164,6 @@ function sortByGameTitlesAsc() {
 
 // Sorts data by Game Titles in Descending Order
 function sortByGameTitlesDes() {
-    // Get the systems
-    const systems = getTableData();
-
     // Sort by Game Titles (descending)
     const sortedSystems = reverseBubbleSort(systems, "gameTitles");
 
@@ -197,9 +173,6 @@ function sortByGameTitlesDes() {
 
 // Sorts data by Generation in Ascending order
 function sortByGenerationAsc() {
-    // Get the systems    
-    const systems = getTableData();
-
     // Sort by Generation (ascending)
     const sortedSystems = quicksort({ array: systems, sortingField: "generation" });
 
@@ -209,9 +182,6 @@ function sortByGenerationAsc() {
 
 // Sorts data by Generation in Descending Order
 function sortByGenerationDes() {
-    // Get the systems
-    const systems = getTableData();
-
     // Sort by Generation (descending)
     const sortedSystems = reverseBubbleSort(systems, "generation");
 
@@ -221,9 +191,6 @@ function sortByGenerationDes() {
 
 // Sorts data by Units Sold in Ascending order
 function sortByUnitsSoldAsc() {
-    // Get the systems    
-    const systems = getTableData();
-
     // Sort by Units Sold (ascending)
     const sortedSystems = quicksort({ array: systems, sortingField: "unitsSold" });
 
@@ -233,9 +200,6 @@ function sortByUnitsSoldAsc() {
 
 // Sorts data by Units Sold in Descending Order
 function sortByUnitsSoldDes() {
-    // Get the systems
-    const systems = getTableData();
-
     // Sort by Units Sold (descending)
     const sortedSystems = reverseBubbleSort(systems, "unitsSold");
 
@@ -245,9 +209,6 @@ function sortByUnitsSoldDes() {
 
 // Sorts data by Comments in Ascending order
 function sortByCommentsAsc() {
-    // Get the systems    
-    const systems = getTableData();
-
     // Sort by Comments (ascending)
     const sortedSystems = quicksort({ array: systems, sortingField: "comments" });
 
@@ -257,9 +218,6 @@ function sortByCommentsAsc() {
 
 // Sorts data by Comments in Descending Order
 function sortByCommentsDes() {
-    // Get the systems
-    const systems = getTableData();
-
     // Sort by Comments (descending)
     const sortedSystems = reverseBubbleSort(systems, "comments");
 
@@ -269,9 +227,6 @@ function sortByCommentsDes() {
 
 // Sorts data by Votes in Ascending order
 function sortByTotalVotesAsc() {
-    // Get the systems    
-    const systems = getTableData();
-
     // Sort by Total Votes (ascending)
     const sortedSystems = quicksort({ array: systems, sortingField: "totalVotes" });
 
@@ -281,9 +236,6 @@ function sortByTotalVotesAsc() {
 
 // Sorts data by Votes in Descending Order
 function sortByTotalVotesDes() {
-    // Get the systems
-    const systems = getTableData();
-
     // Sort by Total Votes (descending)
     const sortedSystems = reverseBubbleSort(systems, "totalVotes");
 
