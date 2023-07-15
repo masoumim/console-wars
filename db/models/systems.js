@@ -22,8 +22,7 @@ Systems.init({
     units_sold: { type: DataTypes.INTEGER, allowNull: true },
     system_type: { type: DataTypes.STRING, allowNull: true },    
     successor: { type: DataTypes.STRING, allowNull: true },
-    predecessor: { type: DataTypes.STRING, allowNull: true },
-    total_votes: { type: DataTypes.INTEGER, allowNull: true },
+    predecessor: { type: DataTypes.STRING, allowNull: true },    
     added_by_user: { type: DataTypes.INTEGER, allowNull: true },
     manufacturer_id: { type: DataTypes.INTEGER, allowNull: false }
 }, {

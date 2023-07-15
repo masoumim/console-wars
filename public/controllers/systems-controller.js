@@ -19,6 +19,8 @@ document.querySelector(".sort-by-comments-asc").addEventListener("click", sortBy
 document.querySelector(".sort-by-comments-des").addEventListener("click", sortByCommentsDes);
 document.querySelector(".sort-by-votes-asc").addEventListener("click", sortByTotalVotesAsc);
 document.querySelector(".sort-by-votes-des").addEventListener("click", sortByTotalVotesDes);
+document.querySelector(".sort-by-rank-asc").addEventListener("click", sortByRankAsc);
+document.querySelector(".sort-by-rank-des").addEventListener("click", sortByRankDes);
 
 /*
 ====================================================
@@ -29,6 +31,7 @@ document.querySelector(".sort-by-votes-des").addEventListener("click", sortByTot
 function getTableData() {
     // Get the table contents
     const systemIDs = document.querySelectorAll(".systemID");
+    const systemRank = document.querySelectorAll(".systemRank");
     const systemNames = document.querySelectorAll(".systemName");
     const systemReleaseYears = document.querySelectorAll(".systemReleaseYear");
     const systemDiscontinueYears = document.querySelectorAll(".systemDiscontinueYear");
@@ -51,6 +54,9 @@ function getTableData() {
         // System ID
         obj.id = systemIDs[i].textContent;
 
+        // System Rank
+        obj.rank = systemRank[i].textContent;
+        
         // System Name
         obj.name = systemNames[i].textContent;
         
@@ -100,7 +106,8 @@ function buildTable(systemsArray) {
     let htmlString = "";
     for (element in systemsArray) {
         htmlString += `<tr>\n
-        <td class=\"systemName\"><a href=\"/systems/${systemsArray[element].id}\">${systemsArray[element].name}</a></td>`
+        <td class=\"systemRank\">${systemsArray[element].rank}</td>`
+            + `<td class=\"systemName\"><a href=\"/systems/${systemsArray[element].id}\">${systemsArray[element].name}</a></td>`
             + `<td class=\"systemReleaseYear\">${systemsArray[element].releaseYear}</td>`
             + `<td class=\"systemDiscontinueYear\">${systemsArray[element].discontinueYear}</td>`
             + `<td class=\"systemLifespan\">${systemsArray[element].lifespan}</td>`
@@ -119,6 +126,9 @@ function buildTable(systemsArray) {
 
 // Get the table data from systems.ejs and store in array
 const systems = getTableData();
+
+// When Systems page is loaded, automatically sort by Rank Descending
+sortByRankDes();
 
 /*
 ====================================================
@@ -270,6 +280,24 @@ function sortByTotalVotesDes() {
     buildTable(sortedSystems);
 }
 
+// Sorts data by Rank in Ascending order
+function sortByRankAsc() {
+    // Sort by Rank (ascending)
+    const sortedSystems = quicksort({ array: systems, sortingField: "rank" });
+
+    // Build the table
+    buildTable(sortedSystems);
+}
+
+// Sorts data by Rank in Descending Order
+function sortByRankDes() {
+    // Sort by Rank (descending)
+    const sortedSystems = reverseBubbleSort(systems, "rank");
+
+    // Build the table
+    buildTable(sortedSystems);
+}
+
 /*
 ====================================================
                 Sorting Algorithms
@@ -337,6 +365,11 @@ function partition(array, leftIndex, rightIndex, sortingField) {
         pivot = array[Math.floor((rightIndex + leftIndex) / 2)].totalVotes;
     }
 
+    // sorting by: rank
+    if (sortingField === "rank") {
+        pivot = array[Math.floor((rightIndex + leftIndex) / 2)].rank;
+    }
+
     // Loop while leftIndex <= rightIndex
     // (While you haven't looked though the whole array)
     while (leftIndex <= rightIndex) {
@@ -399,6 +432,13 @@ function partition(array, leftIndex, rightIndex, sortingField) {
                 leftIndex++;
             }
         }
+             
+        // sorting by: rank
+        if (sortingField === "rank") {
+            while (array[leftIndex].rank < pivot) {
+                leftIndex++;
+            }
+        }
 
         // Keep decrementing rightIndex while array at rightIndex is > pivot value
         // (Move rightIndex DOWN until you find something less than PIVOT)
@@ -455,6 +495,13 @@ function partition(array, leftIndex, rightIndex, sortingField) {
         // sorting by: totalVotes
         if (sortingField === "totalVotes") {
             while (array[rightIndex].totalVotes > pivot) {
+                rightIndex--;
+            }
+        }
+
+        // sorting by: rank
+        if (sortingField === "rank") {
+            while (array[rightIndex].rank > pivot) {
                 rightIndex--;
             }
         }
@@ -566,6 +613,17 @@ function reverseBubbleSort(array, sortingField) {
             // sorting by: totalVotes
             if (sortingField === "totalVotes") {
                 if (array[i].totalVotes < array[i + 1].totalVotes) {
+                    // If so, perform swap of elements
+                    swap(array, i, i + 1);
+                    // Increment the swap counter
+                    swapCount++;
+                    // Set the swapping flag to true
+                    swapping = true;
+                }
+            }
+            // sorting by: rank
+            if (sortingField === "rank") {
+                if (array[i].rank < array[i + 1].rank) {
                     // If so, perform swap of elements
                     swap(array, i, i + 1);
                     // Increment the swap counter

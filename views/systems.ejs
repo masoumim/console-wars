@@ -21,11 +21,14 @@
 <button class="sort-by-comments-des">Sort by Comments (des)</button>
 <button class="sort-by-votes-asc">Sort by Votes (asc)</button>
 <button class="sort-by-votes-des">Sort by Votes (des)</button>
+<button class="sort-by-rank-asc">Sort by Rank (asc)</button>
+<button class="sort-by-rank-des">Sort by Rank (des)</button>
 
 <!-- TODO: Integrate Bootstap 4 table formatting -->  
 <table class="table">
     <thead>
-        <tr>
+        <tr>            
+            <th scope="col">Rank</th>
             <th scope="col">Name</th>
             <th scope="col">Release Year</th>
             <th scope="col">Discontinued Year</th>
@@ -44,6 +47,11 @@
         <% systems.forEach(function(system){%>       
             <tr>
                 <div class="systemID" hidden><%=system.id%></div>               
+                <% systemRanks.forEach(function(ranking){%>
+                <%if (system.id === ranking.systemID) {%>
+                <td class="systemRank"><%=ranking.rank%></td>
+                <%}%>
+                <%});%>
                 <td class="systemName"><a href="/systems/<%=system.id%>"><%=system.name%></a></td>                
                 <td class="systemReleaseYear"><%=system.release_year%></td>
                 <td class="systemDiscontinueYear"><%=system.discontinue_year%></td>                
@@ -54,12 +62,16 @@
                 <td class="systemType"><%=system.system_type%></td>
                 <td class="systemSuccessor"><%=system.successor%></td>
                 <td class="systemPredecessor"><%=system.predecessor%></td>
-                <% numComments.forEach(function(commentCount){%>
-                <%if (system.id === commentCount.systemID) { %>
-                <td class="systemComments"><%=commentCount.numComments%></td>
+                <% numComments.forEach(function(comment){%>
+                <%if (system.id === comment.systemID) { %>
+                <td class="systemComments"><%=comment.numComments%></td>
                 <%}%>
                 <%});%>
-                <td class="systemTotalVotes"><%=system.total_votes%></td>                          
+                <% numVotes.forEach(function(vote){%>
+                <%if (system.id === vote.systemID) { %>
+                <td class="systemTotalVotes"><%=vote.numVotes%></td>                          
+                <%}%>
+                <%});%>                
             </tr>            
         <%});%>
     </tbody>

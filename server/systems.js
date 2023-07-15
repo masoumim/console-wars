@@ -7,6 +7,9 @@ const router = express.Router();
 // Requre in the requests module
 const requests = require("../services/requests.js");
 
+// Require in the ranking module
+const ranking = require("../utils/ranking.js");
+
 // Require the express-validator library. Used as middleware in routes to check data validity
 const { check, validationResult } = require("express-validator");
 
@@ -34,21 +37,31 @@ router.use('/systems', async (req, res, next) => {
 
 // GET systems (/systems)
 router.get("/systems", async (req, res) => {
-    // Get the number of comments for each system
-    const systemNumComments = [];
+    // Get the number of comments for each system    
+    const systemNumComments = [];    
     for (element in req.systems) {
         const obj = {};
         obj.systemID = req.systems[element].id
         const comments = await requests.getCommentsBySystemID(obj.systemID);
-        obj.numComments = comments.length;
-        console.log(`obj.systemID = ${obj.systemID}`);
-        console.log(`obj.numComments = ${obj.numComments}`);
+        obj.numComments = comments.length;        
         systemNumComments.push(obj);
     }
-    // TODO: Get the number of votes for each system
+    
+    // Get the number of votes for each system
+    const systemNumVotes = [];
+    for (element in req.systems) {
+        const obj = {};
+        obj.systemID = req.systems[element].id
+        const votes = await requests.getVotesBySystemID(obj.systemID);
+        obj.numVotes = votes.length;        
+        systemNumVotes.push(obj);
+    }
 
-    // Render the systems page using systems data and num of comments
-    res.status(200).render("systems", { systems: req.systems, numComments: systemNumComments });
+    // Get the ranking number for each system
+    const systemRanks = await ranking.rankAllSystems(systemNumVotes);
+
+    // Render the systems page using systems data, num of comments and num of votes
+    res.status(200).render("systems", { systems: req.systems, numComments: systemNumComments, numVotes: systemNumVotes, systemRanks: systemRanks});
 });
 
 // GET Compare (/systems/compare)
@@ -135,7 +148,7 @@ router.get("/systems/:id", async (req, res) => {
             if (commentsResult.length > 0) {
                 for (element in commentsResult) {
                     const obj = {};
-                    obj.id = commentsResult[element].dataValues.id;
+                    obj.id = commentsResult[element].dataValues.id;                    
                     obj.comment = commentsResult[element].dataValues.comment;
                     obj.user_id = commentsResult[element].dataValues.user_id;
                     obj.system_id = commentsResult[element].dataValues.system_id;
@@ -144,20 +157,48 @@ router.get("/systems/:id", async (req, res) => {
             }
 
             // Get the user for each of the comments            
-            const users = [];
-            const usersResult = await requests.getUsersByCommentID(comments);
-            if (usersResult.length > 0) {
-                for (element in usersResult) {
+            const commentUsers = [];
+            const commentUsersResult = await requests.getUsersByCommentID(comments);
+            if (commentUsersResult.length > 0) {
+                for (element in commentUsersResult) {
                     const obj = {};
-                    obj.id = usersResult[element].id;
-                    obj.name = usersResult[element].name;
-                    obj.email = usersResult[element].email;
-                    users.push(obj);
+                    obj.id = commentUsersResult[element].id;
+                    obj.name = commentUsersResult[element].name;
+                    obj.email = commentUsersResult[element].email;
+                    commentUsers.push(obj);
                 }
             }
 
+            // Get the votes for this system
+            const votes = [];
+            const votesResult = await requests.getVotesBySystemID(req.params.id);
+            if (votesResult.length > 0) {                
+                for (element in votesResult) {
+                    const obj = {};                    
+                    obj.id = votesResult[element].dataValues.id;                                                          
+                    obj.user_id = votesResult[element].dataValues.user_id;                                         
+                    obj.system_id = votesResult[element].dataValues.system_id;                      
+                    votes.push(obj);
+                }
+            }
+
+            // Get the user for each of the votes            
+            const voteUsers = [];
+            const voteUserResult = await requests.getUsersByVoteID(votes);
+            if (voteUserResult.length > 0) {
+                for (element in voteUserResult) {
+                    const obj = {};
+                    obj.id = voteUserResult[element].id;
+                    obj.name = voteUserResult[element].name;
+                    obj.email = voteUserResult[element].email;
+                    voteUsers.push(obj);
+                }
+            }
+            
+            // TODO: Get Rank for system
+
             // Render page with retrieved system data, comments + users       
-            res.status(200).render("system", { system: systemData, manufacturer: systemManufacturer, specs: systemSpecs, comments: comments, users: users });
+            res.status(200).render("system", { system: systemData, manufacturer: systemManufacturer, specs: systemSpecs, comments: comments, commentUsers: commentUsers, votes: votes, voteUsers: voteUsers });
         }
     } catch (err) {
         res.status(500).send(err);
@@ -225,7 +266,6 @@ router.post("/systems/:id/vote", async (req, res) => {
         res.status(500).send(err);
     }
 });
-
 
 // Export the user router
 module.exports = router;

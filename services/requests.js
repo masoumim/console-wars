@@ -217,6 +217,43 @@ const getUserVote = async (userID) => {
     }
 }
 
+// GET ALL VOTES BY SYSTEM ID
+const getVotesBySystemID = async (systemID) => {
+    try {
+        const getQuery = await Votes.findAll({ where: { system_id: systemID } });
+        return getQuery;
+    } catch (err) {
+        return err;
+    }
+}
+
+// GET USER(S) FOR EACH VOTE ID
+const getUsersByVoteID = async (votes) => {
+    try {
+        let users = [];
+        for (element in votes) {
+            // Get the user by their id
+            const getQuery = await getUserByID(votes[element].user_id);
+            users.push(getQuery[0].dataValues);
+
+            // // We only want to add a user once, even if one user has multiple comments,
+            // // So we check if the user is in the array already
+            // const isFound = users.some(element => {
+            //     return element.id === getQuery[0].dataValues.id;
+            // });
+
+            // // If user not found, add them to array
+            // if (!isFound) {
+            //     // Add the user to the users array
+            //     users.push(getQuery[0].dataValues);
+            // }
+        }
+        return users;
+    } catch (err) {
+        return err;
+    }
+}
+
 module.exports = {
     getAllSystems,
     getSystem,
@@ -235,5 +272,7 @@ module.exports = {
     getCommentsByUserID,
     getUsersByCommentID,
     addVoteForSystem,
-    getUserVote
+    getUserVote,
+    getVotesBySystemID,
+    getUsersByVoteID
 }

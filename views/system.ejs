@@ -17,7 +17,7 @@
 <h4>Media Type: <%=specs.media_type%></h4>
 <h4>Max Resolution: <%=specs.max_res%></h4>
 <h4>Comments: <%=comments.length%></h4>
-<h4>Votes: <%=system.total_votes%></h4>
+<h4>Votes: <%=votes.length%></h4>
 
 <!-- VOTE BUTTON -->
 <form action="/systems/<%=system.id%>/vote" method="post">
@@ -35,11 +35,24 @@
 Comments:
 <br>
 <% comments.forEach(function(comment){ %>
-    <% users.forEach(function(user){ %>
+    <% commentUsers.forEach(function(user){ %>
         <%if (comment.user_id === user.id) { %>
             <br>
             <b><%=user.name%> - <%=user.email%></b>:
             <%=comment.comment%>
+            <br> 
+        <% } %>
+    <% }); %>
+<% }); %>
+
+<br>
+Users who voted for <%=system.name%>:
+<br>
+<% votes.forEach(function(vote){ %>
+    <% voteUsers.forEach(function(user){ %>
+        <%if (vote.user_id === user.id) { %>
+            <br>
+            <b><%=user.name%> <%=user.email%></b>          
             <br> 
         <% } %>
     <% }); %>
