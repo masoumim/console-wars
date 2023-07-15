@@ -7,6 +7,9 @@ const router = express.Router();
 // Requre in the requests module
 const requests = require("../services/requests.js");
 
+// Require the express-validator library. Used as middleware in routes to check data validity
+const { check, validationResult } = require("express-validator");
+
 // Middleware to select all systems and add them to the request parameter
 // for routes that begin with '/systems'
 router.use('/systems', async (req, res, next) => {
@@ -110,16 +113,76 @@ router.get("/systems/:id", async (req, res) => {
             const systemManufacturer = systemManufacturerResult[0].dataValues.name;
 
             // Get the system's specs
-            const systemSpcesResult = await requests.getSystemSpecsBySystemID(systemData.id);
-            const systemSpecs = systemSpcesResult[0].dataValues;
+            const systemSpecesResult = await requests.getSystemSpecsBySystemID(systemData.id);
+            const systemSpecs = systemSpecesResult[0].dataValues;
+
+            // Get the comments for this system
+            const comments = [];
+            const commentsResult = await requests.getCommentsBySystemID(req.params.id);
+            if (commentsResult.length > 0) {                
+                for (element in commentsResult) {
+                    const obj = {};
+                    obj.id = commentsResult[element].dataValues.id;
+                    obj.comment = commentsResult[element].dataValues.comment;
+                    obj.user_id = commentsResult[element].dataValues.user_id;
+                    obj.system_id = commentsResult[element].dataValues.system_id;                    
+                    comments.push(obj);
+                }
+            }
+
+            // Get the user for each of the comments            
+            const users = [];
+            const usersResult = await requests.getUsersByCommentID(comments);
+            if (usersResult.length > 0) {                                
+                for (element in usersResult) {
+                    const obj = {};                    
+                    obj.id = usersResult[element].id;
+                    obj.name = usersResult[element].name;
+                    obj.email = usersResult[element].email;                                        
+                    users.push(obj);
+                }
+            }
 
             // Render page with retrieved system        
-            res.status(200).render("system", { system: systemData, manufacturer: systemManufacturer, specs: systemSpecs });
+            res.status(200).render("system", { system: systemData, manufacturer: systemManufacturer, specs: systemSpecs, comments: comments, users: users });
         }
     } catch (err) {
         res.status(500).send(err);
     }
 });
+
+// POST Comment (/systems/:id)
+router.post("/systems/:id",
+    [
+        check('comment').not().isEmpty().withMessage('Comment can not be empty'),
+        check('comment').isLength({ min: 3 }).withMessage('Comment must be at least 3 characters long')
+    ], async (req, res) => {
+        try {            
+            // If express-validator catches any errors, throw them to catch block
+            const errors = validationResult(req).array();
+            if (errors.length > 0) {
+                throw errors[0].msg;
+            }
+
+            // Check if there is an active, authenticated User currently logged in
+            if (req.user) {                
+
+                // Get the submitted comment
+                const submittedComment = req.body.comment;
+
+                // Add the comment to the db
+                await requests.addComment(submittedComment, req.user.id, parseInt(req.params.id));
+                
+                // Reload the page to show the new comment
+                res.status(201).redirect(req.originalUrl);                
+            }
+            else {
+                res.redirect("/");
+            }
+        } catch (err) {
+            res.status(500).send(err);
+        }
+    });
 
 // Export the user router
 module.exports = router;

@@ -14,6 +14,9 @@ const { Systemspecs } = require('../db/models/systemspecs.js');
 // Get the User model
 const { AppUsers } = require('../db/models/appusers.js');
 
+// Get the comment model
+const { Comments } = require('../db/models/comments.js');
+
 // GET ALL SYSTEMS
 const getAllSystems = async () => {
     try {
@@ -133,6 +136,62 @@ const getUserByID = async (id) => {
         return err;
     }
 }
+
+// ADD COMMENT
+const addComment = async (comment, userID, systemID) => {
+    try {
+        const insertQuery = await Comments.create({ comment: comment, user_id: userID, system_id: systemID });
+        return insertQuery;
+    } catch (err) {
+        return err;
+    }
+}
+
+// GET ALL COMMENTS BY SYSTEM ID
+const getCommentsBySystemID = async (systemID) => {
+    try {
+        const getQuery = await Comments.findAll({ where: { system_id: systemID } });
+        return getQuery;
+    } catch (err) {
+        return err;
+    }
+}
+
+// GET ALL COMMENTS BY USER ID
+const getCommentsByUserID = async (userID) => {
+    try {
+        const getQuery = await Comments.findAll({ where: { user_id: userID } });
+        return getQuery;
+    } catch (err) {
+        return err;
+    }
+}
+
+// GET USER(S) FOR EACH COMMENT ID
+const getUsersByCommentID = async (comments) => {
+    try {
+        let users = [];
+        for (element in comments) {                                                
+            // Get the user by their id
+            const getQuery = await getUserByID(comments[element].user_id);
+
+            // We only want to add a user once, even if one user has multiple comments,
+            // So we check if the user is in the array already
+            const isFound = users.some(element => {
+                return element.id === getQuery[0].dataValues.id;
+            });
+
+            // If user not found, add them to array
+            if (!isFound) {
+                // Add the user to the users array
+                users.push(getQuery[0].dataValues);
+            }
+        }        
+        return users;
+    } catch (err) {
+        return err;
+    }
+}
     
 module.exports = {
     getAllSystems,
@@ -146,5 +205,9 @@ module.exports = {
     getAllUsers,
     addUser,
     getUserByName,
-    getUserByID
+    getUserByID,
+    addComment,
+    getCommentsBySystemID,
+    getCommentsByUserID,
+    getUsersByCommentID
 }
