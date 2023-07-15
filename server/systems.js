@@ -34,8 +34,21 @@ router.use('/systems', async (req, res, next) => {
 
 // GET systems (/systems)
 router.get("/systems", async (req, res) => {
-    // Render the systems page using systems data
-    res.status(200).render("systems", { systems: req.systems });
+    // Get the number of comments for each system
+    const systemNumComments = [];
+    for(element in req.systems){
+        const obj = {};
+        obj.systemID = req.systems[element].id
+        const comments = await requests.getCommentsBySystemID(obj.systemID);
+        obj.numComments = comments.length;
+        console.log(`obj.systemID = ${obj.systemID}`);
+        console.log(`obj.numComments = ${obj.numComments}`);
+        systemNumComments.push(obj);
+    }
+    // TODO: Get the number of votes for each system
+
+    // Render the systems page using systems data and num of comments
+    res.status(200).render("systems", { systems: req.systems, numComments: systemNumComments });
 });
 
 // GET Compare (/systems/compare)
@@ -143,7 +156,7 @@ router.get("/systems/:id", async (req, res) => {
                 }
             }
 
-            // Render page with retrieved system        
+            // Render page with retrieved system data, comments + users       
             res.status(200).render("system", { system: systemData, manufacturer: systemManufacturer, specs: systemSpecs, comments: comments, users: users });
         }
     } catch (err) {

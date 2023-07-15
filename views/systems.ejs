@@ -42,6 +42,7 @@
     </thead>
     <tbody id="tableBody">        
         <% systems.forEach(function(system){%>
+            
             <tr>
                 <div class="systemID" hidden><%=system.id%></div>               
                 <td class="systemName"><a href="/systems/<%=system.id%>"><%=system.name%></a></td>                
@@ -54,9 +55,13 @@
                 <td class="systemType"><%=system.system_type%></td>
                 <td class="systemSuccessor"><%=system.successor%></td>
                 <td class="systemPredecessor"><%=system.predecessor%></td>
-                <td class="systemComments"><%=system.comments%></td>
+                <% numComments.forEach(function(commentCount){%>
+                <%if (system.id === commentCount.systemID) { %>
+                <td class="systemComments"><%=commentCount.numComments%></td>
+                <%}%>
+                <%});%>
                 <td class="systemTotalVotes"><%=system.total_votes%></td>                          
-            </tr>
+            </tr>            
         <%});%>
     </tbody>
 </table>
