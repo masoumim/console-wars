@@ -19,6 +19,11 @@
 <h4>Comments: <%=comments.length%></h4>
 <h4>Votes: <%=system.total_votes%></h4>
 
+<!-- VOTE BUTTON -->
+<form action="/systems/<%=system.id%>/vote" method="post">
+    <button class="vote-button">VOTE</button>
+    </form>
+
 <!-- SUBMIT COMMENT FORM -->
 <form action="/systems/<%=system.id%>" method="post">    
     <input type="text" name="comment" class="comment">

@@ -17,6 +17,9 @@ const { AppUsers } = require('../db/models/appusers.js');
 // Get the comment model
 const { Comments } = require('../db/models/comments.js');
 
+// Get the votes model
+const { Votes } = require('../db/models/votes.js');
+
 // GET ALL SYSTEMS
 const getAllSystems = async () => {
     try {
@@ -30,19 +33,19 @@ const getAllSystems = async () => {
 // GET SYSTEM BY ID
 const getSystem = async (id) => {
     try {
-        const getQuery = await Systems.findAll({ where: { id: id } });                
-        return getQuery;        
+        const getQuery = await Systems.findAll({ where: { id: id } });
+        return getQuery;
     } catch (err) {
         return err;
     }
 }
 
 // GET SYSTEM BY NAME
-const getSystemByName = async (systemName) =>{
-    try{
-        const getQuery = await Systems.findAll({where: {name: systemName}});
+const getSystemByName = async (systemName) => {
+    try {
+        const getQuery = await Systems.findAll({ where: { name: systemName } });
         return getQuery;
-    }catch(err){
+    } catch (err) {
         return err;
     }
 }
@@ -60,8 +63,8 @@ const addSystem = async (name, releaseYear, discontinueYear, gameTitles, generat
 // GET MANUFACTURER BY ID
 const getManufacturerByID = async (id) => {
     try {
-        const getQuery = await Manufacturers.findAll({ where: { id: id } });                
-        return getQuery;        
+        const getQuery = await Manufacturers.findAll({ where: { id: id } });
+        return getQuery;
     } catch (err) {
         return err;
     }
@@ -80,8 +83,8 @@ const addManufacturer = async (name) => {
 // GET SYSTEM SPECS BY SYSTEM ID
 const getSystemSpecsBySystemID = async (id) => {
     try {
-        const getQuery = await Systemspecs.findAll({ where: { system_id: id } });                
-        return getQuery;        
+        const getQuery = await Systemspecs.findAll({ where: { system_id: id } });
+        return getQuery;
     } catch (err) {
         return err;
     }
@@ -171,7 +174,7 @@ const getCommentsByUserID = async (userID) => {
 const getUsersByCommentID = async (comments) => {
     try {
         let users = [];
-        for (element in comments) {                                                
+        for (element in comments) {
             // Get the user by their id
             const getQuery = await getUserByID(comments[element].user_id);
 
@@ -186,13 +189,34 @@ const getUsersByCommentID = async (comments) => {
                 // Add the user to the users array
                 users.push(getQuery[0].dataValues);
             }
-        }        
+        }
         return users;
     } catch (err) {
         return err;
     }
 }
-    
+
+// ADD VOTE FOR A SYSTEM
+const addVoteForSystem = async (userID, systemID) => {
+    try{
+        const insertQuery = await Votes.create({ user_id: userID, system_id: systemID });
+        return insertQuery;
+
+    }catch(err){
+
+    }
+}
+
+// GET USER VOTE FOR A SYSTEM
+const getUserVote = async (userID) => {
+    try {
+        const getQuery = await Votes.findAll({ where: { user_id: userID } });
+        return getQuery;
+    } catch (err) {
+        return err;
+    }
+}
+
 module.exports = {
     getAllSystems,
     getSystem,
@@ -209,5 +233,7 @@ module.exports = {
     addComment,
     getCommentsBySystemID,
     getCommentsByUserID,
-    getUsersByCommentID
+    getUsersByCommentID,
+    addVoteForSystem,
+    getUserVote
 }

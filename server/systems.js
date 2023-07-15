@@ -36,7 +36,7 @@ router.use('/systems', async (req, res, next) => {
 router.get("/systems", async (req, res) => {
     // Get the number of comments for each system
     const systemNumComments = [];
-    for(element in req.systems){
+    for (element in req.systems) {
         const obj = {};
         obj.systemID = req.systems[element].id
         const comments = await requests.getCommentsBySystemID(obj.systemID);
@@ -132,13 +132,13 @@ router.get("/systems/:id", async (req, res) => {
             // Get the comments for this system
             const comments = [];
             const commentsResult = await requests.getCommentsBySystemID(req.params.id);
-            if (commentsResult.length > 0) {                
+            if (commentsResult.length > 0) {
                 for (element in commentsResult) {
                     const obj = {};
                     obj.id = commentsResult[element].dataValues.id;
                     obj.comment = commentsResult[element].dataValues.comment;
                     obj.user_id = commentsResult[element].dataValues.user_id;
-                    obj.system_id = commentsResult[element].dataValues.system_id;                    
+                    obj.system_id = commentsResult[element].dataValues.system_id;
                     comments.push(obj);
                 }
             }
@@ -146,12 +146,12 @@ router.get("/systems/:id", async (req, res) => {
             // Get the user for each of the comments            
             const users = [];
             const usersResult = await requests.getUsersByCommentID(comments);
-            if (usersResult.length > 0) {                                
+            if (usersResult.length > 0) {
                 for (element in usersResult) {
-                    const obj = {};                    
+                    const obj = {};
                     obj.id = usersResult[element].id;
                     obj.name = usersResult[element].name;
-                    obj.email = usersResult[element].email;                                        
+                    obj.email = usersResult[element].email;
                     users.push(obj);
                 }
             }
@@ -170,7 +170,7 @@ router.post("/systems/:id",
         check('comment').not().isEmpty().withMessage('Comment can not be empty'),
         check('comment').isLength({ min: 3 }).withMessage('Comment must be at least 3 characters long')
     ], async (req, res) => {
-        try {            
+        try {
             // If express-validator catches any errors, throw them to catch block
             const errors = validationResult(req).array();
             if (errors.length > 0) {
@@ -178,16 +178,16 @@ router.post("/systems/:id",
             }
 
             // Check if there is an active, authenticated User currently logged in
-            if (req.user) {                
+            if (req.user) {
 
                 // Get the submitted comment
                 const submittedComment = req.body.comment;
 
                 // Add the comment to the db
                 await requests.addComment(submittedComment, req.user.id, parseInt(req.params.id));
-                
+
                 // Reload the page to show the new comment
-                res.status(201).redirect(req.originalUrl);                
+                res.status(201).redirect(req.originalUrl);
             }
             else {
                 res.redirect("/");
@@ -196,6 +196,36 @@ router.post("/systems/:id",
             res.status(500).send(err);
         }
     });
+
+// POST VOTE (/systems/:id/vote)
+router.post("/systems/:id/vote", async (req, res) => {
+    try {
+        // Check if there is an active, authenticated User currently logged in
+        if (req.user) {
+
+            // Check if user has already placed a vote for a system
+            const userVote = await requests.getUserVote(req.user.id);
+            
+            if (userVote.length === 0) {
+                // Add the vote to the DB
+                await requests.addVoteForSystem(req.user.id,req.params.id);
+
+                // Redirect user to the systems page
+                res.status(201).redirect("/systems");
+            }
+            else {
+                // Otherwise, redirect user to their profile page
+                res.status(409).redirect("/profile");
+            }
+        }
+        else {
+            res.redirect("/");
+        }
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
 
 // Export the user router
 module.exports = router;
