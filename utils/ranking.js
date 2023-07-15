@@ -9,7 +9,7 @@ const rankAllSystems = async (systems) => {
             sortedSystems[i].rank = i + 1;
         }
         else {
-            sortedSystems[i].rank = 0;
+            sortedSystems[i].rank = 99;
         }
     }
 
@@ -28,10 +28,15 @@ const rankAllSystems = async (systems) => {
     return sortedSystems;
 }
 
-
 // Return an individual systems rank
-const systemRank = async (systems, systemID) => {
-
+const systemRank = async (systems, systemID) => {    
+    const allSystemsRank = await rankAllSystems(systems);
+    
+    for(element in allSystemsRank){                        
+        if(allSystemsRank[element].systemID === parseInt(systemID)){                        
+            return allSystemsRank[element].rank;
+        }   
+    }
 }
 
 module.exports = { rankAllSystems, systemRank }

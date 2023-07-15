@@ -195,10 +195,22 @@ router.get("/systems/:id", async (req, res) => {
                 }
             }
             
-            // TODO: Get Rank for system
-
+            // Get Rank for system
+            // Get the number of votes for each system
+            const systemNumVotes = [];
+            for (element in req.systems) {
+                const obj = {};
+                obj.systemID = req.systems[element].id
+                const votes = await requests.getVotesBySystemID(obj.systemID);
+                obj.numVotes = votes.length;
+                systemNumVotes.push(obj);
+            }
+            
+            // Get the ranking number for each system
+            const systemRank = await ranking.systemRank(systemNumVotes, req.params.id);
+            
             // Render page with retrieved system data, comments + users       
-            res.status(200).render("system", { system: systemData, manufacturer: systemManufacturer, specs: systemSpecs, comments: comments, commentUsers: commentUsers, votes: votes, voteUsers: voteUsers });
+            res.status(200).render("system", { system: systemData, manufacturer: systemManufacturer, specs: systemSpecs, comments: comments, commentUsers: commentUsers, votes: votes, voteUsers: voteUsers, systemRank: systemRank });
         }
     } catch (err) {
         res.status(500).send(err);

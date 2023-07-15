@@ -127,8 +127,8 @@ function buildTable(systemsArray) {
 // Get the table data from systems.ejs and store in array
 const systems = getTableData();
 
-// When Systems page is loaded, automatically sort by Rank Descending
-sortByRankDes();
+// When Systems page is loaded, automatically sort by Rank Ascending
+sortByRankAsc();
 
 /*
 ====================================================
