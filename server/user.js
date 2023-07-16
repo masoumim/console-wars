@@ -27,7 +27,12 @@ router.get("/", (req, res) => {
 // GET PROFILE
 router.get("/profile", async (req, res) => {
     if (req.user) {
-        try {            
+        try {
+            
+            
+            // Get user Vote
+            const userVote = requests.getUserVote(req.user.id);
+
             // Render the profile page with user data from DB
             res.status(200).render("profile", { user: req.user });
 
