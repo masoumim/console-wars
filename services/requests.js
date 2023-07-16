@@ -1,6 +1,6 @@
 // Require in the dotenv module
 // Will load environment variables contained in .env file
-// require('dotenv').config();
+require('dotenv').config();
 
 // Get the Systems model
 const { Systems } = require("../db/models/systems.js");
@@ -20,11 +20,28 @@ const { Comments } = require('../db/models/comments.js');
 // Get the votes model
 const { Votes } = require('../db/models/votes.js');
 
-// GET ALL SYSTEMS
+const { Sequelize, QueryTypes } = require('sequelize');
+
+const sequelize = new Sequelize({
+    database: process.env.DATABASE_NAME,
+    username: process.env.DATABASE_USERNAME,
+    password: process.env.DATABASE_PASSWORD,
+    host: process.env.DATABASE_HOST,
+    port: process.env.DATABASE_PORT,
+    dialect: "postgres",
+    dialectOptions: {
+      ssl: {
+        // require: true, // This will help you. But you will see nwe error
+        rejectUnauthorized: false // This line will fix new error
+      }
+    },
+  });
+
+// GET ALL SYSTEMS INCLUDING NUM OF VOTES AND NUM OF COMMENTS
 const getAllSystems = async () => {
     try {
-        const getQuery = await Systems.findAll();
-        return getQuery;
+        const [results, metadata] = await sequelize.query("SELECT systems.id, systems.name, systems.release_year, systems.discontinue_year, systems.game_titles, systems.generation, systems.units_sold, systems.system_type, systems.successor, systems.predecessor, COUNT(votes.id) as votes, COUNT(comments.id) as comments FROM systems LEFT JOIN votes ON systems.id = votes.system_id LEFT JOIN comments ON comments.system_id = systems.id GROUP BY(systems.id)");
+        return results;
     } catch (err) {
         return err;
     }
@@ -198,11 +215,11 @@ const getUsersByCommentID = async (comments) => {
 
 // ADD VOTE FOR A SYSTEM
 const addVoteForSystem = async (userID, systemID) => {
-    try{
+    try {
         const insertQuery = await Votes.create({ user_id: userID, system_id: systemID });
         return insertQuery;
 
-    }catch(err){
+    } catch (err) {
 
     }
 }

@@ -18,17 +18,18 @@ const { check, validationResult } = require("express-validator");
 router.use('/systems', async (req, res, next) => {
     try {
         // Get all systems from the DB
-        const resultArray = await requests.getAllSystems();
+        // const resultArray = await requests.getAllSystems();
+        const result = await requests.getAllSystems();
 
-        // Store only the dataValue objects in a systems array
-        // (dataValue objects are single objects that contain the data for one system)
+        // Store each system object in an array
         const systems = [];
-        for (element in resultArray) {
-            systems.push(resultArray[element].dataValues);
+        for (element in result) {
+            systems.push(result[element]);
         }
 
         // Add the systems array to the request parameter
         req.systems = systems;
+
         next();
     } catch (err) {
         res.status(500).send(err);
