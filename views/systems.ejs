@@ -48,7 +48,7 @@
             <tr>
                 <div class="systemID" hidden><%=system.id%></div>               
                 <% systemRanks.forEach(function(ranking){%>
-                <%if (system.id === ranking.systemID) {%>
+                <%if (system.id === ranking.id) {%>
                 <td class="systemRank"><%=ranking.rank%></td>
                 <%}%>
                 <%});%>
@@ -62,16 +62,8 @@
                 <td class="systemType"><%=system.system_type%></td>
                 <td class="systemSuccessor"><%=system.successor%></td>
                 <td class="systemPredecessor"><%=system.predecessor%></td>
-                <% numComments.forEach(function(comment){%>
-                <%if (system.id === comment.systemID) { %>
-                <td class="systemComments"><%=comment.numComments%></td>
-                <%}%>
-                <%});%>
-                <% numVotes.forEach(function(vote){%>
-                <%if (system.id === vote.systemID) { %>
-                <td class="systemTotalVotes"><%=vote.numVotes%></td>                          
-                <%}%>
-                <%});%>                
+                <td class="systemComments"><%=system.comments%></td>
+                <td class="systemTotalVotes"><%=system.votes%></td>                          
             </tr>            
         <%});%>
     </tbody>

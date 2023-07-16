@@ -37,32 +37,22 @@ router.use('/systems', async (req, res, next) => {
 });
 
 // GET systems (/systems)
-router.get("/systems", async (req, res) => {
-    // Get the number of comments for each system    
-    const systemNumComments = [];    
-    for (element in req.systems) {
-        const obj = {};
-        obj.systemID = req.systems[element].id
-        const comments = await requests.getCommentsBySystemID(obj.systemID);
-        obj.numComments = comments.length;        
-        systemNumComments.push(obj);
-    }
-    
+router.get("/systems", async (req, res) => {    
     // Get the number of votes for each system
-    const systemNumVotes = [];
-    for (element in req.systems) {
-        const obj = {};
-        obj.systemID = req.systems[element].id
-        const votes = await requests.getVotesBySystemID(obj.systemID);
-        obj.numVotes = votes.length;        
-        systemNumVotes.push(obj);
-    }
+    // const systemNumVotes = [];
+    // for (element in req.systems) {
+    //     const obj = {};
+    //     obj.systemID = req.systems[element].id
+    //     const votes = await requests.getVotesBySystemID(obj.systemID);
+    //     obj.numVotes = votes.length;        
+    //     systemNumVotes.push(obj);
+    // }
 
     // Get the ranking number for each system
-    const systemRanks = await ranking.rankAllSystems(systemNumVotes);
+    const systemRanks = await ranking.rankAllSystems(req.systems);
 
-    // Render the systems page using systems data, num of comments and num of votes
-    res.status(200).render("systems", { systems: req.systems, numComments: systemNumComments, numVotes: systemNumVotes, systemRanks: systemRanks});
+    // Render the systems page using systems data and ranks
+    res.status(200).render("systems", { systems: req.systems, systemRanks:systemRanks });
 });
 
 // GET Compare (/systems/compare)

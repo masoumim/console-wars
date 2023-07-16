@@ -1,11 +1,11 @@
 // Return an array of all systems sorted by rank
 const rankAllSystems = async (systems) => {
-    // Sort the systems according to each element's numComments property
-    const sortedSystems = systems.sort(function (a, b) { return b.numVotes - a.numVotes });
+    // Sort the systems according to each element's votes property
+    const sortedSystems = systems.sort(function (a, b) { return b.votes - a.votes });
 
     // Attach a rank number to each object element in the array
     for (let i = 0; i < sortedSystems.length; i++) {
-        if (sortedSystems[i].numVotes > 0) {
+        if (sortedSystems[i].votes > 0) {
             sortedSystems[i].rank = i + 1;
         }
         else {
@@ -17,7 +17,7 @@ const rankAllSystems = async (systems) => {
     // but different rankings, they will both be ranked as the lower number of the two rankings
     for(let i = 0; i < sortedSystems.length; i++){
         for(let j = 0; j < sortedSystems.length; j++){
-            if(sortedSystems[i].numVotes === sortedSystems[j].numVotes){
+            if(sortedSystems[i].votes === sortedSystems[j].votes){
                 // Set both systems to have the higher rank (lower rank number)
                 const higherRank = Math.min(sortedSystems[i].rank, sortedSystems[j].rank);
                 sortedSystems[i].rank = higherRank;
