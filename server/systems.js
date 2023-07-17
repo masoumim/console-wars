@@ -38,16 +38,6 @@ router.use('/systems', async (req, res, next) => {
 
 // GET systems (/systems)
 router.get("/systems", async (req, res) => {    
-    // Get the number of votes for each system
-    // const systemNumVotes = [];
-    // for (element in req.systems) {
-    //     const obj = {};
-    //     obj.systemID = req.systems[element].id
-    //     const votes = await requests.getVotesBySystemID(obj.systemID);
-    //     obj.numVotes = votes.length;        
-    //     systemNumVotes.push(obj);
-    // }
-
     // Get the ranking number for each system
     const systemRanks = await ranking.rankAllSystems(req.systems);
 
@@ -114,18 +104,17 @@ router.get("/systems/vs", async (req, res) => {
 // GET system (/systems/:systemId)
 router.get("/systems/:id", async (req, res) => {
     try {
-        // Get the system by id
-        const resultArray = await requests.getSystem(req.params.id);
-
+        // Get the system data, num votes, num of comments
+        const system = await requests.getSystem(req.params.id);
+        const systemData = system[0];
+       
+        
         // Throw error if no system has that ID
-        if (resultArray.length === 0) {
+        if (system.length === 0) {
             throw "That system doesn't exist!";
         }
         else {
-            // Get the system data from the result array
-            const systemData = resultArray[0].dataValues;
-
-            // Get the system's manufacturer
+            // // Get the system's manufacturer
             const systemManufacturerResult = await requests.getManufacturerByID(systemData.manufacturer_id);
             const systemManufacturer = systemManufacturerResult[0].dataValues.name;
 
@@ -133,75 +122,17 @@ router.get("/systems/:id", async (req, res) => {
             const systemSpecesResult = await requests.getSystemSpecsBySystemID(systemData.id);
             const systemSpecs = systemSpecesResult[0].dataValues;
 
-            // Get the comments for this system
-            const comments = [];
-            const commentsResult = await requests.getCommentsBySystemID(req.params.id);
-            if (commentsResult.length > 0) {
-                for (element in commentsResult) {
-                    const obj = {};
-                    obj.id = commentsResult[element].dataValues.id;                    
-                    obj.comment = commentsResult[element].dataValues.comment;
-                    obj.user_id = commentsResult[element].dataValues.user_id;
-                    obj.system_id = commentsResult[element].dataValues.system_id;
-                    comments.push(obj);
-                }
-            }
+            // Get user comments
+            const userComments = await requests.getUserComments(req.params.id);
 
-            // Get the user for each of the comments            
-            const commentUsers = [];
-            const commentUsersResult = await requests.getUsersByCommentID(comments);
-            if (commentUsersResult.length > 0) {
-                for (element in commentUsersResult) {
-                    const obj = {};
-                    obj.id = commentUsersResult[element].id;
-                    obj.name = commentUsersResult[element].name;
-                    obj.email = commentUsersResult[element].email;
-                    commentUsers.push(obj);
-                }
-            }
-
-            // Get the votes for this system
-            const votes = [];
-            const votesResult = await requests.getVotesBySystemID(req.params.id);
-            if (votesResult.length > 0) {                
-                for (element in votesResult) {
-                    const obj = {};                    
-                    obj.id = votesResult[element].dataValues.id;                                                          
-                    obj.user_id = votesResult[element].dataValues.user_id;                                         
-                    obj.system_id = votesResult[element].dataValues.system_id;                      
-                    votes.push(obj);
-                }
-            }
-
-            // Get the user for each of the votes            
-            const voteUsers = [];
-            const voteUserResult = await requests.getUsersByVoteID(votes);
-            if (voteUserResult.length > 0) {
-                for (element in voteUserResult) {
-                    const obj = {};
-                    obj.id = voteUserResult[element].id;
-                    obj.name = voteUserResult[element].name;
-                    obj.email = voteUserResult[element].email;
-                    voteUsers.push(obj);
-                }
-            }
-            
-            // Get Rank for system
-            // Get the number of votes for each system
-            const systemNumVotes = [];
-            for (element in req.systems) {
-                const obj = {};
-                obj.systemID = req.systems[element].id
-                const votes = await requests.getVotesBySystemID(obj.systemID);
-                obj.numVotes = votes.length;
-                systemNumVotes.push(obj);
-            }
-            
-            // Get the ranking number for each system
-            const systemRank = await ranking.systemRank(systemNumVotes, req.params.id);
+            // Get user votes
+            const userVotes = await requests.getUserVotes(req.params.id);
+                        
+            // Get the rank for this system
+            const systemRank = await ranking.systemRank(req.systems, req.params.id);
             
             // Render page with retrieved system data, comments + users       
-            res.status(200).render("system", { system: systemData, manufacturer: systemManufacturer, specs: systemSpecs, comments: comments, commentUsers: commentUsers, votes: votes, voteUsers: voteUsers, systemRank: systemRank });
+            res.status(200).render("system", { system: systemData, systemRank: systemRank, manufacturer: systemManufacturer, specs: systemSpecs, userComments: userComments, userVotes: userVotes });
         }
     } catch (err) {
         res.status(500).send(err);

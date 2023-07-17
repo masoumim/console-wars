@@ -47,11 +47,31 @@ const getAllSystems = async () => {
     }
 }
 
-// GET SYSTEM BY ID
-const getSystem = async (id) => {
+// GETS USERS AND COMMENTS FOR A SYSTEM
+const getUserComments = async (systemID) =>{
+    try{
+        const [results, metadata] = await sequelize.query(`SELECT comments.comment, app_users.name, app_users.email FROM comments JOIN app_users ON comments.user_id = app_users.id WHERE comments.system_id = ${systemID}`);
+        return results;
+    }catch(err){
+        return err;
+    }
+}
+
+// GETS USERS AND VOTES FOR A SYSTEM
+const getUserVotes = async (systemID) =>{
+    try{
+        const [results, metadata] = await sequelize.query(`SELECT app_users.name, app_users.email FROM app_users JOIN votes ON app_users.id = votes.user_id WHERE votes.system_id = ${systemID}`);
+        return results;
+    }catch(err){
+        return err;
+    }
+}
+
+// GETS A SYSTEM + NUM VOTES + NUM COMMENTS
+const getSystem = async (systemID) => {
     try {
-        const getQuery = await Systems.findAll({ where: { id: id } });
-        return getQuery;
+        const [results, metadata] = await sequelize.query(`SELECT systems.id, systems.name, systems.release_year, systems.discontinue_year, systems.game_titles, systems.generation, systems.units_sold, systems.system_type, systems.successor, systems.predecessor, systems.manufacturer_id, COUNT(votes.id) as votes, COUNT(comments.id) as comments FROM systems LEFT JOIN votes ON systems.id = votes.system_id LEFT JOIN comments ON comments.system_id = systems.id WHERE systems.id = ${systemID} GROUP BY(systems.id)`);
+        return results;
     } catch (err) {
         return err;
     }
@@ -261,6 +281,8 @@ const getUsersByVoteID = async (votes) => {
 
 module.exports = {
     getAllSystems,
+    getUserComments,
+    getUserVotes,
     getSystem,
     getSystemByName,
     addSystem,

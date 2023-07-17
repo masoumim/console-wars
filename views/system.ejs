@@ -17,8 +17,8 @@
 <h4>Storage: <%=specs.storage%></h4>
 <h4>Media Type: <%=specs.media_type%></h4>
 <h4>Max Resolution: <%=specs.max_res%></h4>
-<h4>Comments: <%=comments.length%></h4>
-<h4>Votes: <%=votes.length%></h4>
+<h4>Comments: <%=system.comments%></h4>
+<h4>Votes: <%=system.votes%></h4>
 
 <!-- VOTE BUTTON -->
 <form action="/systems/<%=system.id%>/vote" method="post">
@@ -35,26 +35,15 @@
 <br>
 Comments:
 <br>
-<% comments.forEach(function(comment){ %>
-    <% commentUsers.forEach(function(user){ %>
-        <%if (comment.user_id === user.id) { %>
-            <br>
-            <b><%=user.name%> - <%=user.email%></b>:
-            <%=comment.comment%>
-            <br> 
-        <% } %>
-    <% }); %>
+<% userComments.forEach(function(comment){ %>
+<%=comment.name%> <%=comment.email%> : <%=comment.comment%>
+<br>
 <% }); %>
 
 <br>
 Users who voted for <%=system.name%>:
 <br>
-<% votes.forEach(function(vote){ %>
-    <% voteUsers.forEach(function(user){ %>
-        <%if (vote.user_id === user.id) { %>
-            <br>
-            <b><%=user.name%> <%=user.email%></b>          
-            <br> 
-        <% } %>
-    <% }); %>
+<% userVotes.forEach(function(vote){ %>
+<%=vote.name%> <%=vote.email%>
+<br>
 <% }); %>
