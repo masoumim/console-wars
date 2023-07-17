@@ -5,7 +5,6 @@ disableSubmit();
 document.querySelector(".system1").addEventListener("change", checkSelections);
 document.querySelector(".system2").addEventListener("change", checkSelections);
 
-
 // Get list of valid consoles
 const validSystems = getValidSystems();
 

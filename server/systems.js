@@ -46,7 +46,7 @@ router.get("/systems", async (req, res) => {
 });
 
 // GET Compare (/systems/compare)
-router.get("/systems/compare", async (req, res) => {
+router.get("/systems/compare", async (req, res) => {    
     // Render the compare page using systems data
     res.status(200).render("compare", { systems: req.systems });
 });
@@ -103,9 +103,6 @@ router.get("/systems/vs", async (req, res) => {
         }
     }
 });
-
-// TODO: Add a systems/compare/:id route from a system page
-// To take user to the compare page with one of the systems pre-selected
 
 // GET system (/systems/:systemId)
 router.get("/systems/:id", async (req, res) => {
@@ -205,6 +202,9 @@ router.post("/systems/:id/vote", async (req, res) => {
         res.status(500).send(err);
     }
 });
+
+
+
 
 // Export the user router
 module.exports = router;

@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
         res.status(200).redirect("/profile");
     }
     else {
-        // Otherwise, render home / index        
+        // Otherwise, render home / index              
         res.status(200).render("index");
     }
 });
