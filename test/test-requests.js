@@ -31,7 +31,7 @@ const { Votes } = require('../db/models/votes.js');
 
 describe('Requests', () => {
     describe('getAllSystems', () => {
-        it('Will return an array of all systems', async () => {
+        it('Will return an array of all systems including num of votes and num of comments', async () => {
             // Exercise:
             const response = await requests.getAllSystems();
 
@@ -40,7 +40,7 @@ describe('Requests', () => {
         });
     });
     describe('getSystem', () => {
-        it('Will return an array representing a system and its data', async () => {
+        it('Will return an array representing a system and its data including num of votes and num of comments', async () => {
             // Setup:
             // Add dummy data row in manufacturers table because adding a row to the system table requires a valid manufacturer foreign key 
             await requests.addManufacturer("Test Manufacturer");
@@ -195,15 +195,6 @@ describe('Requests', () => {
             await Manufacturers.destroy({ where: { name: "Test Manufacturer" } });
         });
     });
-    describe('getAllUsers', () => {
-        it('Will return an array containing all users', async () => {
-            // Exercise:
-            const result = await requests.getAllUsers();
-
-            // Verify:
-            assert.isArray(result);
-        });
-    });
     describe('addUser', () => {
         it('Will add a user and return an object if insert is successful', async () => {
             // Exercise:
@@ -223,23 +214,6 @@ describe('Requests', () => {
 
             // Exercise:
             const result = await requests.getUserByName("Foo");
-
-            // Verify:
-            assert.isArray(result);
-
-            // Teardown: delete the temporary user
-            await AppUsers.destroy({ where: { name: "Foo" } });
-        });
-    });
-    describe('getUserByID', () => {
-        it('Will return an array containing the user', async () => {
-            // Setup: Create a temporary user
-            await requests.addUser("Foo", "Foo123@Bar.com", "Foo123");
-            const user = await AppUsers.findAll({ where: { name: "Foo" } });
-            const user_id = user[0].dataValues.id;
-
-            // Exercise:
-            const result = await requests.getUserByID(user_id);
 
             // Verify:
             assert.isArray(result);
@@ -276,108 +250,6 @@ describe('Requests', () => {
             await Manufacturers.destroy({ where: { name: "Test Manufacturer" } });
             // Delete user dummy data
             await AppUsers.destroy({ where: { name: "Foo" } });
-        });
-    });
-    describe('getCommentsBySystemID', () => {
-        it('Will return an array of comments belonging to a system', async () => {
-            // Setup: Create a Manufacturer > System > User > Comment
-            await requests.addManufacturer("Test Manufacturer");
-            const manufacturer = await Manufacturers.findAll({ where: { name: "Test Manufacturer" } });
-            const manufacturer_id = manufacturer[0].dataValues.id;
-            await requests.addSystem("Test System", 1972, 1975, 28, 1, 350000, "Console", 0, "Test System 2", null, 0, null, manufacturer_id);
-            const system = await Systems.findAll({ where: { name: "Test System" } });
-            const system_id = system[0].dataValues.id;
-            await requests.addUser("Foo", "Foo123@Bar.com", "Foo123");
-            const user = await AppUsers.findAll({ where: { name: "Foo" } });
-            const user_id = user[0].dataValues.id;
-            await requests.addComment("Hello World", user_id, system_id);
-
-            // Exercise:
-            const result = await requests.getCommentsBySystemID(system_id);
-
-            // Verify:
-            assert.isArray(result);
-
-            // Teardown:
-            // Delete Comment
-            await Comments.destroy({ where: { comment: "Hello World" } });
-            // Delete systems dummy data
-            await Systems.destroy({ where: { name: "Test System" } });
-            // Delete manufacturer dummy data
-            await Manufacturers.destroy({ where: { name: "Test Manufacturer" } });
-            // Delete user dummy data
-            await AppUsers.destroy({ where: { name: "Foo" } });
-        });
-    });
-    describe('getCommentsByUserID', () => {
-        it('Will return an array of comments belonging to a user', async () => {
-            // Setup: Create a Manufacturer > System > User > Comment
-            await requests.addManufacturer("Test Manufacturer");
-            const manufacturer = await Manufacturers.findAll({ where: { name: "Test Manufacturer" } });
-            const manufacturer_id = manufacturer[0].dataValues.id;
-            await requests.addSystem("Test System", 1972, 1975, 28, 1, 350000, "Console", 0, "Test System 2", null, 0, null, manufacturer_id);
-            const system = await Systems.findAll({ where: { name: "Test System" } });
-            const system_id = system[0].dataValues.id;
-            await requests.addUser("Foo", "Foo123@Bar.com", "Foo123");
-            const user = await AppUsers.findAll({ where: { name: "Foo" } });
-            const user_id = user[0].dataValues.id;
-            await requests.addComment("Hello World", user_id, system_id);
-
-            // Exercise:
-            const result = await requests.getCommentsByUserID(user_id);
-
-            // Verify:
-            assert.isArray(result);
-
-            // Teardown:
-            // Delete Comment
-            await Comments.destroy({ where: { comment: "Hello World" } });
-            // Delete systems dummy data
-            await Systems.destroy({ where: { name: "Test System" } });
-            // Delete manufacturer dummy data
-            await Manufacturers.destroy({ where: { name: "Test Manufacturer" } });
-            // Delete user dummy data
-            await AppUsers.destroy({ where: { name: "Foo" } });
-        });
-    });
-    describe('getUsersByCommentID', () => {
-        it('Will return an array of users for each of the comments', async () => {
-            // Setup: Create a Manufacturer > System > User > Comment
-            await requests.addManufacturer("Test Manufacturer");
-            const manufacturer = await Manufacturers.findAll({ where: { name: "Test Manufacturer" } });
-            const manufacturer_id = manufacturer[0].dataValues.id;
-            await requests.addSystem("Test System", 1972, 1975, 28, 1, 350000, "Console", 0, "Test System 2", null, 0, null, manufacturer_id);
-            const system = await Systems.findAll({ where: { name: "Test System" } });
-            const system_id = system[0].dataValues.id;
-            await requests.addUser("Foo1", "Foo123@Bar.com", "Foo123");
-            await requests.addUser("Foo2", "Foo123@Bar.com", "Foo123");
-            const user1 = await AppUsers.findAll({ where: { name: "Foo1" } });
-            const user1_id = user1[0].dataValues.id;
-            const user2 = await AppUsers.findAll({ where: { name: "Foo2" } });
-            const user2_id = user2[0].dataValues.id;
-            await requests.addComment("Hello World", user1_id, system_id);
-            await requests.addComment("Hello World 2", user2_id, system_id);
-            const commentsResult = await requests.getCommentsBySystemID(system_id);
-            const commentsData = commentsResult[0].dataValues;
-            const comments = [commentsData];
-
-            // Exercise:
-            const result = await requests.getUsersByCommentID(comments);
-
-            // Verify:
-            assert.isArray(result);
-
-            // Teardown:
-            // Delete Comments
-            await Comments.destroy({ where: { comment: "Hello World" } });
-            await Comments.destroy({ where: { comment: "Hello World 2" } });
-            // Delete systems dummy data
-            await Systems.destroy({ where: { name: "Test System" } });
-            // Delete manufacturer dummy data
-            await Manufacturers.destroy({ where: { name: "Test Manufacturer" } });
-            // Delete user dummy data
-            await AppUsers.destroy({ where: { name: "Foo1" } });
-            await AppUsers.destroy({ where: { name: "Foo2" } });
         });
     });
     describe('addVoteForSystem', () => {
@@ -441,8 +313,40 @@ describe('Requests', () => {
             await AppUsers.destroy({ where: { name: "Foo" } });
         });
     });
-    describe('getVotesBySystemID', () => {
-        it('Will return an array of votes belonging to a system', async () => {
+
+    describe('getUserComments', () => {
+        it('Will return an array of comments belonging to a system along with the users who posted them', async () => {
+            // Setup: Create a Manufacturer > System > User > Comment
+            await requests.addManufacturer("Test Manufacturer");
+            const manufacturer = await Manufacturers.findAll({ where: { name: "Test Manufacturer" } });
+            const manufacturer_id = manufacturer[0].dataValues.id;
+            await requests.addSystem("Test System", 1972, 1975, 28, 1, 350000, "Console", 0, "Test System 2", null, 0, null, manufacturer_id);
+            const system = await Systems.findAll({ where: { name: "Test System" } });
+            const system_id = system[0].dataValues.id;
+            await requests.addUser("Foo", "Foo123@Bar.com", "Foo123");
+            const user = await AppUsers.findAll({ where: { name: "Foo" } });
+            const user_id = user[0].dataValues.id;
+            await requests.addComment("Hello World", user_id, system_id);
+
+            // Exercise:
+            const result = await requests.getUserComments(system_id);
+
+            // Verify:
+            assert.isArray(result);
+
+            // Teardown:
+            // Delete Comment
+            await Comments.destroy({ where: { comment: "Hello World" } });
+            // Delete systems dummy data
+            await Systems.destroy({ where: { name: "Test System" } });
+            // Delete manufacturer dummy data
+            await Manufacturers.destroy({ where: { name: "Test Manufacturer" } });
+            // Delete user dummy data
+            await AppUsers.destroy({ where: { name: "Foo" } });
+        });
+    });
+    describe('getUserVotes', () => {
+        it('Will return an array of votes belonging to a system including the users who made the votes', async () => {
             // Setup: Create a Manufacturer > System > User > Vote
             await requests.addManufacturer("Test Manufacturer");
             const manufacturer = await Manufacturers.findAll({ where: { name: "Test Manufacturer" } });
@@ -456,7 +360,7 @@ describe('Requests', () => {
             await requests.addVoteForSystem(user_id, system_id);
 
             // Exercise:
-            const result = await requests.getVotesBySystemID(system_id);
+            const result = await requests.getUserVotes(system_id);
 
             // Verify:
             assert.isArray(result);
@@ -470,53 +374,6 @@ describe('Requests', () => {
             await Manufacturers.destroy({ where: { name: "Test Manufacturer" } });
             // Delete user dummy data
             await AppUsers.destroy({ where: { name: "Foo" } });
-
-        });
-    });
-    describe('getUsersByVoteID', () => {
-        it('Will return an array of users for each of the votes', async () => {
-            // Setup: Create a Manufacturer > System > User > Votes
-            await requests.addManufacturer("Test Manufacturer");
-            const manufacturer = await Manufacturers.findAll({ where: { name: "Test Manufacturer" } });
-            const manufacturer_id = manufacturer[0].dataValues.id;
-            await requests.addSystem("Test System", 1972, 1975, 28, 1, 350000, "Console", 0, "Test System 2", null, 0, null, manufacturer_id);
-            const system1 = await Systems.findAll({ where: { name: "Test System" } });
-            const system1_id = system1[0].dataValues.id;
-            await requests.addSystem("Test System 2", 1972, 1975, 28, 1, 350000, "Console", 0, "Test System 2", null, 0, null, manufacturer_id);
-            const system2 = await Systems.findAll({ where: { name: "Test System 2" } });
-            const system2_id = system2[0].dataValues.id;
-            await requests.addUser("Foo1", "Foo123@Bar.com", "Foo123");
-            await requests.addUser("Foo2", "Foo123@Bar.com", "Foo123");
-            const user1 = await AppUsers.findAll({ where: { name: "Foo1" } });
-            const user1_id = user1[0].dataValues.id;
-            const user2 = await AppUsers.findAll({ where: { name: "Foo2" } });
-            const user2_id = user2[0].dataValues.id;
-            await requests.addVoteForSystem(user1_id, system1_id);
-            await requests.addVoteForSystem(user2_id, system2_id);
-            const votesResult1 = await requests.getVotesBySystemID(system1_id);
-            const votesResult2 = await requests.getVotesBySystemID(system2_id);
-            const votes1Data = votesResult1[0].dataValues;
-            const votes2Data = votesResult2[0].dataValues;
-            const votes = [votes1Data, votes1Data];
-
-            // Exercise:
-            const result = await requests.getUsersByVoteID(votes);
-
-            // Verify:
-            assert.isArray(result);
-
-            // Teardown:
-            // Delete votes
-            await Votes.destroy({ where: { user_id: user1_id } });
-            await Votes.destroy({ where: { user_id: user2_id } });
-            // Delete systems dummy data
-            await Systems.destroy({ where: { name: "Test System" } });
-            await Systems.destroy({ where: { name: "Test System 2" } });
-            // Delete manufacturer dummy data
-            await Manufacturers.destroy({ where: { name: "Test Manufacturer" } });
-            // Delete user dummy data
-            await AppUsers.destroy({ where: { name: "Foo1" } });
-            await AppUsers.destroy({ where: { name: "Foo2" } });
         });
     });
 });

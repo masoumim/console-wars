@@ -29,7 +29,7 @@ router.get("/profile", async (req, res) => {
     if (req.user) {
         try {
             
-            
+            // TODO: Replace this method with one that gets user vote + the corresponding system
             // Get user Vote
             const userVote = requests.getUserVote(req.user.id);
 

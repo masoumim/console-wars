@@ -137,16 +137,6 @@ const addSystemspecs = async (cpu, ram, storage, mediaType, maxRes, systemID) =>
     }
 }
 
-// GET ALL USERS
-const getAllUsers = async () => {
-    try {
-        const getQuery = await AppUsers.findAll();
-        return getQuery;
-    } catch (err) {
-        return err;
-    }
-}
-
 // ADD USER TO DB
 const addUser = async (name, password, email) => {
     try {
@@ -167,67 +157,11 @@ const getUserByName = async (name) => {
     }
 }
 
-// GET USER BY ID
-const getUserByID = async (id) => {
-    try {
-        const getQuery = await AppUsers.findAll({ where: { id: id } });
-        return getQuery;
-    } catch (err) {
-        return err;
-    }
-}
-
 // ADD COMMENT
 const addComment = async (comment, userID, systemID) => {
     try {
         const insertQuery = await Comments.create({ comment: comment, user_id: userID, system_id: systemID });
         return insertQuery;
-    } catch (err) {
-        return err;
-    }
-}
-
-// GET ALL COMMENTS BY SYSTEM ID
-const getCommentsBySystemID = async (systemID) => {
-    try {
-        const getQuery = await Comments.findAll({ where: { system_id: systemID } });
-        return getQuery;
-    } catch (err) {
-        return err;
-    }
-}
-
-// GET ALL COMMENTS BY USER ID
-const getCommentsByUserID = async (userID) => {
-    try {
-        const getQuery = await Comments.findAll({ where: { user_id: userID } });
-        return getQuery;
-    } catch (err) {
-        return err;
-    }
-}
-
-// GET USER(S) FOR EACH COMMENT ID
-const getUsersByCommentID = async (comments) => {
-    try {
-        let users = [];
-        for (element in comments) {
-            // Get the user by their id
-            const getQuery = await getUserByID(comments[element].user_id);
-
-            // We only want to add a user once, even if one user has multiple comments,
-            // So we check if the user is in the array already
-            const isFound = users.some(element => {
-                return element.id === getQuery[0].dataValues.id;
-            });
-
-            // If user not found, add them to array
-            if (!isFound) {
-                // Add the user to the users array
-                users.push(getQuery[0].dataValues);
-            }
-        }
-        return users;
     } catch (err) {
         return err;
     }
@@ -244,36 +178,12 @@ const addVoteForSystem = async (userID, systemID) => {
     }
 }
 
+// TODO: improve this by matching user vote with the system they voted for
 // GET USER VOTE FOR A SYSTEM
 const getUserVote = async (userID) => {
     try {
         const getQuery = await Votes.findAll({ where: { user_id: userID } });
         return getQuery;
-    } catch (err) {
-        return err;
-    }
-}
-
-// GET ALL VOTES BY SYSTEM ID
-const getVotesBySystemID = async (systemID) => {
-    try {
-        const getQuery = await Votes.findAll({ where: { system_id: systemID } });
-        return getQuery;
-    } catch (err) {
-        return err;
-    }
-}
-
-// GET USER(S) FOR EACH VOTE ID
-const getUsersByVoteID = async (votes) => {
-    try {
-        let users = [];
-        for (element in votes) {
-            // Get the user by their id
-            const getQuery = await getUserByID(votes[element].user_id);
-            users.push(getQuery[0].dataValues);
-        }
-        return users;
     } catch (err) {
         return err;
     }
@@ -290,16 +200,9 @@ module.exports = {
     getManufacturerByID,
     getSystemSpecsBySystemID,
     addSystemspecs,
-    getAllUsers,
     addUser,
     getUserByName,
-    getUserByID,
     addComment,
-    getCommentsBySystemID,
-    getCommentsByUserID,
-    getUsersByCommentID,
     addVoteForSystem,
     getUserVote,
-    getVotesBySystemID,
-    getUsersByVoteID
 }
