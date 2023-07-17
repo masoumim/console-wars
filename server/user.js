@@ -28,13 +28,15 @@ router.get("/", (req, res) => {
 router.get("/profile", async (req, res) => {
     if (req.user) {
         try {
-            
-            // TODO: Replace this method with one that gets user vote + the corresponding system
-            // Get user Vote
-            const userVote = requests.getUserVote(req.user.id);
+            // Get system the user voted for
+            const userVote = await requests.getUserVote(req.user.id);                        
+            const userVoteData = userVote[0];
+
+            // Get the comments and systems the user made
+            const userComments = await requests.getUserComments(req.user.id);            
 
             // Render the profile page with user data from DB
-            res.status(200).render("profile", { user: req.user });
+            res.status(200).render("profile", { user: req.user, userVoteData: userVoteData, userComments: userComments });
 
         } catch (err) {
             res.status(500).send(err);

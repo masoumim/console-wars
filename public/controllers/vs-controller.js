@@ -384,6 +384,41 @@ function compareVotes() {
     }
 }
 
+// Compare Ranks
+function compareRanks() {   
+    // Get system 1 rank
+    let system1Rank = document.querySelector(".system1Rank").textContent;
+    // Get system 2 rank
+    let system2Rank = document.querySelector(".system2Rank").textContent;
+
+    // Convert to integers
+    system1Rank = parseInt(system1Rank);
+    system2Rank = parseInt(system2Rank);
+
+    // Get system 1 rank arrow element
+    let system1RankArrow = document.querySelector(".system1RankArrow");
+    // Get system 2 rank arrow element
+    let system2RankArrow = document.querySelector(".system2RankArrow");
+
+    // Compare values
+    if (system1Rank === system2Rank) {
+        return;
+    }
+    else if (system1Rank === Math.min(system1Rank, system2Rank)) {
+        // Set System 1 arrow to up
+        system1RankArrow.className = "arrow up";
+        // Set system 2 arrow to down
+        system2RankArrow.className = "arrow down";
+    }
+    else {
+        // Set System 1 arrow to down
+        system1RankArrow.className = "arrow down";
+
+        // Set System 2 arrow to up
+        system2RankArrow.className = "arrow up";
+    }
+}
+
 /*
 =============================================================
         When page loads, run the comparison functions
@@ -399,6 +434,8 @@ compareRAM();
 compareStorage();
 compareMaxResolution();
 compareComments();
+compareVotes();
+compareRanks();
 
 /*
 =============================================================

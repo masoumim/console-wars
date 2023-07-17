@@ -33,7 +33,7 @@ const systemRank = async (systems, systemID) => {
     const allSystemsRank = await rankAllSystems(systems);
     
     for(element in allSystemsRank){                        
-        if(allSystemsRank[element].systemID === parseInt(systemID)){                        
+        if(allSystemsRank[element].id === parseInt(systemID)){                                    
             return allSystemsRank[element].rank;
         }   
     }

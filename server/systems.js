@@ -70,8 +70,8 @@ router.get("/systems/vs", async (req, res) => {
         else {
             // Get data for system 1
             const dataResult1 = await requests.getSystemByName(req.query.system1)
-            const system1 = dataResult1[0].dataValues;
-
+            const system1 = dataResult1[0];
+            
             // Get specs for system 1
             const specsResult1 = await requests.getSystemSpecsBySystemID(system1.id);
             const system1Specs = specsResult1[0].dataValues;
@@ -80,9 +80,12 @@ router.get("/systems/vs", async (req, res) => {
             const manufacturerResult1 = await requests.getManufacturerByID(system1.manufacturer_id);
             const system1Manufacturer = manufacturerResult1[0].dataValues;
 
+            // Get rank for system 1
+            const system1Rank = await ranking.systemRank(req.systems, system1.id);
+            
             // Get data for system 2
             const dataResult2 = await requests.getSystemByName(req.query.system2)
-            const system2 = dataResult2[0].dataValues;
+            const system2 = dataResult2[0];
 
             // Get specs for system 2
             const specsResult2 = await requests.getSystemSpecsBySystemID(system2.id);
@@ -92,8 +95,11 @@ router.get("/systems/vs", async (req, res) => {
             const manufacturerResult2 = await requests.getManufacturerByID(system2.manufacturer_id);
             const system2Manufacturer = manufacturerResult2[0].dataValues;
 
+            // Get rank for system 1
+            const system2Rank = await ranking.systemRank(req.systems, system2.id);
+
             // Render the VS page using the two systems data
-            res.status(200).render("vs", { system1: system1, system1Specs: system1Specs, system1Manufacturer: system1Manufacturer, system2: system2, system2Specs: system2Specs, system2Manufacturer: system2Manufacturer });
+            res.status(200).render("vs", { system1: system1, system1Specs: system1Specs, system1Manufacturer: system1Manufacturer, system2: system2, system2Specs: system2Specs, system2Manufacturer: system2Manufacturer, system1Rank: system1Rank, system2Rank: system2Rank });
         }
     }
 });
@@ -108,7 +114,6 @@ router.get("/systems/:id", async (req, res) => {
         const system = await requests.getSystem(req.params.id);
         const systemData = system[0];
        
-        
         // Throw error if no system has that ID
         if (system.length === 0) {
             throw "That system doesn't exist!";
@@ -123,7 +128,7 @@ router.get("/systems/:id", async (req, res) => {
             const systemSpecs = systemSpecesResult[0].dataValues;
 
             // Get user comments
-            const userComments = await requests.getUserComments(req.params.id);
+            const userComments = await requests.getUsersComments(req.params.id);
 
             // Get user votes
             const userVotes = await requests.getUserVotes(req.params.id);

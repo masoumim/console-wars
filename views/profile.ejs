@@ -4,4 +4,12 @@ Welcome back, <%=user.name%>
 
 <a href="/logout"><button class="logout-button">Log out</button></a>
 
-<h4>You voted for: </h4>
+<h4>You voted for: <%=userVoteData.name%></h4>
+<!-- I COULD ADD THE REST OF THE CONSOLE DATA HERE??? -->
+
+<!-- Make this a table? -->
+<h4>Your Comments:</h4>
+<% userComments.forEach(function(comment){ %>
+    <%=comment.systemname%>: <%=comment.comment%>
+    <br>
+    <% }); %>

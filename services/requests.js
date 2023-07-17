@@ -47,8 +47,8 @@ const getAllSystems = async () => {
     }
 }
 
-// GETS USERS AND COMMENTS FOR A SYSTEM
-const getUserComments = async (systemID) =>{
+// GETS COMMENTS AND CORRESPONDING USER FOR A SYSTEM
+const getUsersComments = async (systemID) =>{
     try{
         const [results, metadata] = await sequelize.query(`SELECT comments.comment, app_users.name, app_users.email FROM comments JOIN app_users ON comments.user_id = app_users.id WHERE comments.system_id = ${systemID}`);
         return results;
@@ -67,7 +67,7 @@ const getUserVotes = async (systemID) =>{
     }
 }
 
-// GETS A SYSTEM + NUM VOTES + NUM COMMENTS
+// GETS A SYSTEM BY ID INCLUDING NUM VOTES AND NUM COMMENTS
 const getSystem = async (systemID) => {
     try {
         const [results, metadata] = await sequelize.query(`SELECT systems.id, systems.name, systems.release_year, systems.discontinue_year, systems.game_titles, systems.generation, systems.units_sold, systems.system_type, systems.successor, systems.predecessor, systems.manufacturer_id, COUNT(votes.id) as votes, COUNT(comments.id) as comments FROM systems LEFT JOIN votes ON systems.id = votes.system_id LEFT JOIN comments ON comments.system_id = systems.id WHERE systems.id = ${systemID} GROUP BY(systems.id)`);
@@ -77,11 +77,11 @@ const getSystem = async (systemID) => {
     }
 }
 
-// GET SYSTEM BY NAME
+// GET SYSTEM BY NAME INCLUDING NUM VOTES AND NUM COMMENTS
 const getSystemByName = async (systemName) => {
     try {
-        const getQuery = await Systems.findAll({ where: { name: systemName } });
-        return getQuery;
+        const [results, metadata] = await sequelize.query(`SELECT systems.id, systems.name, systems.release_year, systems.discontinue_year, systems.game_titles, systems.generation, systems.units_sold, systems.system_type, systems.successor, systems.predecessor, systems.manufacturer_id, COUNT(votes.id) as votes, COUNT(comments.id) as comments FROM systems LEFT JOIN votes ON systems.id = votes.system_id LEFT JOIN comments ON comments.system_id = systems.id WHERE systems.name = '${systemName}' GROUP BY(systems.id)`);        
+        return results;
     } catch (err) {
         return err;
     }
@@ -157,6 +157,16 @@ const getUserByName = async (name) => {
     }
 }
 
+// GET USER BY ID
+const getUserByID = async (id) => {
+    try {
+        const getQuery = await AppUsers.findAll({ where: { id: id } });
+        return getQuery;
+    } catch (err) {
+        return err;
+    }
+}
+
 // ADD COMMENT
 const addComment = async (comment, userID, systemID) => {
     try {
@@ -178,19 +188,30 @@ const addVoteForSystem = async (userID, systemID) => {
     }
 }
 
-// TODO: improve this by matching user vote with the system they voted for
 // GET USER VOTE FOR A SYSTEM
 const getUserVote = async (userID) => {
     try {
-        const getQuery = await Votes.findAll({ where: { user_id: userID } });
-        return getQuery;
+        const [result, metadata] = await sequelize.query(`SELECT systems.name, systems.release_year, systems.discontinue_year, systems.game_titles, systems.generation, systems.units_sold, systems.system_type, systems.successor, systems.predecessor, systems.manufacturer_id, votes.id FROM systems JOIN votes ON systems.id = votes.system_id WHERE votes.user_id = ${userID}`);        
+        return result;
     } catch (err) {
+        return err;
+    }
+}
+
+// GETS ALL OF A SINGLE USERS COMMENTS AND CORRESPONDING SYSTEM
+const getUserComments = async (userID) =>{
+    try{
+        const [results, metadata] = await sequelize.query(`SELECT comments.comment, systems.name as systemname FROM comments JOIN app_users ON comments.user_id = app_users.id JOIN systems ON systems.id = comments.system_id WHERE comments.user_id = ${userID}`);
+        console.log(`TESTING getUserComments() = ${results}`);
+        return results;
+    }catch(err){
         return err;
     }
 }
 
 module.exports = {
     getAllSystems,
+    getUsersComments,
     getUserComments,
     getUserVotes,
     getSystem,
@@ -202,6 +223,7 @@ module.exports = {
     addSystemspecs,
     addUser,
     getUserByName,
+    getUserByID,
     addComment,
     addVoteForSystem,
     getUserVote,
