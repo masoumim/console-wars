@@ -10,6 +10,9 @@ const requests = require("../services/requests.js");
 // Require in the ranking module
 const ranking = require("../utils/ranking.js");
 
+// Require in the system descriptions JSON file
+const systemDescriptionsJSON = require("../public/json/descriptions.json");
+
 // Require the express-validator library. Used as middleware in routes to check data validity
 const { check, validationResult } = require("express-validator");
 
@@ -141,9 +144,16 @@ router.get("/systems/:id", async (req, res) => {
                         
             // Get the rank for this system
             const systemRank = await ranking.systemRank(req.systems, req.params.id);
+
+            // Get the description from JSON file
+            const systemName = systemData.name;
+            let systemDescription = systemDescriptionsJSON[systemName];
+            
+            // Add line breaks to text by splitting text on '\n'
+            systemDescription = systemDescription.split("\n");            
             
             // Render page with retrieved system data, comments + users       
-            res.status(200).render("system", { system: systemData, systemRank: systemRank, manufacturer: systemManufacturer, specs: systemSpecs, userComments: userComments, userVotes: userVotes });
+            res.status(200).render("system", { system: systemData, systemRank: systemRank, manufacturer: systemManufacturer, specs: systemSpecs, userComments: userComments, userVotes: userVotes, systemDescription: systemDescription });
         }
     } catch (err) {
         res.status(500).send(err);
