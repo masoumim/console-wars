@@ -65,8 +65,11 @@ router.get('/logout', function (req, res, next) {
 router.post("/register",
     [
         check('username').not().isEmpty().withMessage('Username is required'),
+        check('username').isLength({min: 5}).withMessage('Username must be at least 5 characters long'),
+        check('username').isLength({max: 25}).withMessage('Username can not be longer than 25 characters'),
         check('password').not().isEmpty().withMessage('Password is required'),
-        check('password').isLength({min: 5}).withMessage('Password must be at least 5 characters long')
+        check('password').isLength({min: 5}).withMessage('Password must be at least 5 characters long'),
+        check('password').isLength({max: 5}).withMessage('Password can not be longer than 25 characters')
     ], async (req, res) => {
         try {
             // If express-validator catches any errors, throw them to catch block

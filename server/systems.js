@@ -154,7 +154,8 @@ router.get("/systems/:id", async (req, res) => {
 router.post("/systems/:id",
     [
         check('comment').not().isEmpty().withMessage('Comment can not be empty'),
-        check('comment').isLength({ min: 3 }).withMessage('Comment must be at least 3 characters long')
+        check('comment').isLength({ min: 3 }).withMessage('Comment must be at least 3 characters long'),
+        check('comment').isLength({ max: 200 }).withMessage('Comment can not be longer that 200 characters')
     ], async (req, res) => {
         try {
             // If express-validator catches any errors, throw them to catch block
