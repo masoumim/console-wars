@@ -51,6 +51,15 @@ router.get("/systems/compare", async (req, res) => {
     res.status(200).render("compare", { systems: req.systems });
 });
 
+// GET Compare System 1 Pre-selected (/systems/compare/:system1)
+router.get("/systems/compare/:system1", async (req, res) => {
+
+    const system1 = req.params.system1;
+
+    // Render the compare page using systems data and system1 pre-selected
+    res.status(200).render("comparesystem1", { systems: req.systems, system1: system1 });
+});
+
 // GET VS (systems/vs)
 router.get("/systems/vs", async (req, res) => {
     // If either system1 or system2 aren't included in the URL, redirect user back to compare page

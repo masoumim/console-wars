@@ -1,0 +1,1 @@
+document.querySelector(".system1").value = document.querySelector(".preselectedsystem").textContent;
