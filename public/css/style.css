@@ -1,3 +1,20 @@
+/* GLOBALS */
+body{
+    background-color: 313131;
+    color: whitesmoke;
+}
+
+/* INDEX / LANDING PAGE */
+#login-form{
+    background-color: 414141;
+}
+
+#login-form-submit-btn{
+    background-color: #CA3E47;
+    border: none;
+}
+
+
 /* VS.EJS */
 .arrow.up {
     border: solid green;
