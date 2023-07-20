@@ -32,11 +32,23 @@ router.get("/profile", async (req, res) => {
             const userVote = await requests.getUserVote(req.user.id);                        
             const userVoteData = userVote[0];
 
+            // Set flag if user voted
+            let userVoted = 0;
+            if(userVoteData){
+                userVoted = 1;
+            }
+
             // Get the comments and systems the user made
             const userComments = await requests.getUserComments(req.user.id);            
 
+            // Set flag if user made any comments
+            let userCommented = 0;
+            if(userComments.length > 0){
+                userCommented = 1;
+            }
+            
             // Render the profile page with user data from DB
-            res.status(200).render("profile", { user: req.user, userVoteData: userVoteData, userComments: userComments });
+            res.status(200).render("profile", { user: req.user, userVoteData: userVoteData, userComments: userComments, userVoted: userVoted, userCommented: userCommented });
 
         } catch (err) {
             res.status(500).send(err);
@@ -69,7 +81,7 @@ router.post("/register",
         check('username').isLength({max: 25}).withMessage('Username can not be longer than 25 characters'),
         check('password').not().isEmpty().withMessage('Password is required'),
         check('password').isLength({min: 5}).withMessage('Password must be at least 5 characters long'),
-        check('password').isLength({max: 5}).withMessage('Password can not be longer than 25 characters')
+        check('password').isLength({max: 25}).withMessage('Password can not be longer than 25 characters')
     ], async (req, res) => {
         try {
             // If express-validator catches any errors, throw them to catch block

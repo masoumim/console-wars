@@ -191,7 +191,7 @@ const addVoteForSystem = async (userID, systemID) => {
 // GET USER VOTE FOR A SYSTEM
 const getUserVote = async (userID) => {
     try {
-        const [result, metadata] = await sequelize.query(`SELECT systems.name, systems.release_year, systems.discontinue_year, systems.game_titles, systems.generation, systems.units_sold, systems.system_type, systems.successor, systems.predecessor, systems.manufacturer_id, votes.id FROM systems JOIN votes ON systems.id = votes.system_id WHERE votes.user_id = ${userID}`);        
+        const [result, metadata] = await sequelize.query(`SELECT systems.name, systems.release_year, systems.discontinue_year, systems.game_titles, systems.generation, systems.units_sold, systems.system_type, systems.successor, systems.predecessor, systems.manufacturer_id, manufacturers.name AS manufacturer, votes.id FROM systems JOIN votes ON systems.id = votes.system_id JOIN manufacturers ON manufacturers.id = systems.manufacturer_id WHERE votes.user_id = ${userID}`);        
         return result;
     } catch (err) {
         return err;
@@ -201,8 +201,7 @@ const getUserVote = async (userID) => {
 // GETS ALL OF A SINGLE USERS COMMENTS AND CORRESPONDING SYSTEM
 const getUserComments = async (userID) =>{
     try{
-        const [results, metadata] = await sequelize.query(`SELECT comments.comment, systems.name as systemname FROM comments JOIN app_users ON comments.user_id = app_users.id JOIN systems ON systems.id = comments.system_id WHERE comments.user_id = ${userID}`);
-        console.log(`TESTING getUserComments() = ${results}`);
+        const [results, metadata] = await sequelize.query(`SELECT comments.id, comments.comment, systems.name as systemname FROM comments JOIN app_users ON comments.user_id = app_users.id JOIN systems ON systems.id = comments.system_id WHERE comments.user_id = ${userID}`);        
         return results;
     }catch(err){
         return err;
