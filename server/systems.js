@@ -4,7 +4,7 @@ const express = require("express");
 // Create the user router
 const router = express.Router();
 
-// Requre in the requests module
+// Require in the requests module
 const requests = require("../services/requests.js");
 
 // Require in the ranking module

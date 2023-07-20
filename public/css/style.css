@@ -1,25 +1,50 @@
 /* GLOBALS */
-body{
+body {
     background-color: 313131;
     color: whitesmoke;
 }
 
+/* NAV BAR */
+.navbar {
+    background-color: #CA3E47;
+    font-family: 'Teko', sans-serif;
+}
+
+.navbar a {
+    color: white;
+    font-size: 30px;
+}
+
+.navbar a:hover {
+    color: 525252;
+}
+
+/* NAV BAR (custom hamburger color) */
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+/* NAV BAR (custom hamburger color) */
+.custom-toggler.navbar-toggler {
+    border-color: rgb(255, 255, 255);
+}
+
 /* INDEX / LANDING PAGE */
-#login-form{
+#login-form {
     background-color: 414141;
 }
 
-#login-form-submit-btn{
+#login-form-submit-btn {
     background-color: #CA3E47;
     border: none;
 }
 
-#index-title{
+#index-title {
     font-family: 'Teko', sans-serif;
     font-size: 70px;
 }
 
-#index-subtitle{
+#index-subtitle {
     font-family: 'Teko', sans-serif;
 }
 

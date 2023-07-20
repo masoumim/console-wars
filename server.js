@@ -32,8 +32,14 @@ const pgSession = require('connect-pg-simple')(session);
 // Helmet sets HTTP headers to comply with web security standards
 const helmet = require("helmet");
 
-// Use the Helment library
-app.use(helmet());
+// Use the Helmet library:
+// Configure Helmet's Content Security Policy by whitelisting sources used by BOOTSTRAP
+app.use(helmet.contentSecurityPolicy({
+    directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", 'code.jquery.com', 'https://cdn.jsdelivr.net'],
+    }
+}));
 
 // Enables body parsing
 app.use(express.json());
