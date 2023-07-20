@@ -14,6 +14,15 @@ body{
     border: none;
 }
 
+#index-title{
+    font-family: 'Teko', sans-serif;
+    font-size: 70px;
+}
+
+#index-subtitle{
+    font-family: 'Teko', sans-serif;
+}
+
 
 /* VS.EJS */
 .arrow.up {
