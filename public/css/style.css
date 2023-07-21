@@ -99,7 +99,6 @@ body {
 
 /* SYSTEMS PAGE */
 
-
 table{
     font-family: 'Teko', sans-serif;
     font-size: large;
@@ -112,6 +111,38 @@ table{
 #systems-row-1-col-1{
     border: 1px solid white;
 }
+
+#dropdownMenuLink{
+    background-color: #CA3E47;
+    font-family: 'Teko', sans-serif;
+    font-size: larger;
+    width: 150px;
+}
+
+.dropdown-item{
+    font-family: 'Teko', sans-serif;
+    font-size: larger;
+    color: white;
+}
+
+.dropdown-menu{
+    background-color: 414141;
+}
+
+.dropdown-menu :hover{
+    background-color: #CA3E47;
+}
+
+#systems-table-column{
+    border: 2px solid #747474;
+    background-color: 525252;
+}
+
+#systems-table a{
+    color: white;
+}
+
+
 
 /* VS.EJS */
 .arrow.up {
