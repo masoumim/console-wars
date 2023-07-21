@@ -1,26 +1,21 @@
 /*
 ====================================================
-                Button Listners
+                Button Listeners
 ====================================================
 */
-document.querySelector(".sort-by-release-year-asc").addEventListener("click", sortByReleaseYearAsc);
-document.querySelector(".sort-by-release-year-des").addEventListener("click", sortByReleaseYearDes);
-document.querySelector(".sort-by-discontinue-year-asc").addEventListener("click", sortByDiscontinuedYearAsc);
-document.querySelector(".sort-by-discontinue-year-des").addEventListener("click", sortByDiscontinuedYearDes);
-document.querySelector(".sort-by-lifespan-asc").addEventListener("click", sortByLifespanAsc);
-document.querySelector(".sort-by-lifespan-des").addEventListener("click", sortByLifespanDes);
-document.querySelector(".sort-by-gametitles-asc").addEventListener("click", sortByGameTitlesAsc);
-document.querySelector(".sort-by-gametitles-des").addEventListener("click", sortByGameTitlesDes);
-document.querySelector(".sort-by-generation-asc").addEventListener("click", sortByGenerationAsc);
-document.querySelector(".sort-by-generation-des").addEventListener("click", sortByGenerationDes);
-document.querySelector(".sort-by-units-sold-asc").addEventListener("click", sortByUnitsSoldAsc);
-document.querySelector(".sort-by-units-sold-des").addEventListener("click", sortByUnitsSoldDes);
-document.querySelector(".sort-by-comments-asc").addEventListener("click", sortByCommentsAsc);
-document.querySelector(".sort-by-comments-des").addEventListener("click", sortByCommentsDes);
-document.querySelector(".sort-by-votes-asc").addEventListener("click", sortByTotalVotesAsc);
-document.querySelector(".sort-by-votes-des").addEventListener("click", sortByTotalVotesDes);
-document.querySelector(".sort-by-rank-asc").addEventListener("click", sortByRankAsc);
-document.querySelector(".sort-by-rank-des").addEventListener("click", sortByRankDes);
+document.getElementById("sort-by-rank-asc").addEventListener("click", sortByRankAsc);
+document.getElementById("sort-by-rank-des").addEventListener("click", sortByRankDes);
+document.getElementById("sort-by-release-year-asc").addEventListener("click", sortByReleaseYearAsc);
+document.getElementById("sort-by-release-year-des").addEventListener("click", sortByReleaseYearDes);
+document.getElementById("sort-by-discontinue-year-asc").addEventListener("click", sortByDiscontinuedYearAsc);
+document.getElementById("sort-by-discontinue-year-des").addEventListener("click", sortByDiscontinuedYearDes);
+document.getElementById("sort-by-lifespan-asc").addEventListener("click", sortByLifespanAsc);
+document.getElementById("sort-by-lifespan-des").addEventListener("click", sortByLifespanDes);
+document.getElementById("sort-by-units-sold-asc").addEventListener("click", sortByUnitsSoldAsc);
+document.getElementById("sort-by-units-sold-des").addEventListener("click", sortByUnitsSoldDes);
+document.getElementById("sort-by-votes-asc").addEventListener("click", sortByTotalVotesAsc);
+document.getElementById("sort-by-votes-des").addEventListener("click", sortByTotalVotesDes);
+
 
 /*
 ====================================================
@@ -35,14 +30,8 @@ function getTableData() {
     const systemNames = document.querySelectorAll(".systemName");
     const systemReleaseYears = document.querySelectorAll(".systemReleaseYear");
     const systemDiscontinueYears = document.querySelectorAll(".systemDiscontinueYear");
-    const systemLifespans = document.querySelectorAll(".systemLifespan");
-    const systemGameTitles = document.querySelectorAll(".systemGameTitles");
-    const systemGenerations = document.querySelectorAll(".systemGeneration");
-    const systemUnitsSold = document.querySelectorAll(".systemUnitsSold");
-    const systemTypes = document.querySelectorAll(".systemType");
-    const systemSuccessors = document.querySelectorAll(".systemSuccessor");
-    const systemPredecessors = document.querySelectorAll(".systemPredecessor");
-    const systemComments = document.querySelectorAll(".systemComments");
+    const systemLifespans = document.querySelectorAll(".systemLifespan");      
+    const systemUnitsSold = document.querySelectorAll(".systemUnitsSold");        
     const systemTotalVotes = document.querySelectorAll(".systemTotalVotes");
 
     // Reassemble each system's property into a single object and store in array for sorting    
@@ -68,28 +57,10 @@ function getTableData() {
         
         // Lifespan
         if (obj.discontinueYear > 0) { obj.lifespan = parseInt(systemLifespans[i].textContent); } else { obj.lifespan = ""; }
-        
-        // Game Titles
-        obj.gameTitles = parseInt(systemGameTitles[i].textContent);
-        
-        // Generation
-        obj.generation = parseInt(systemGenerations[i].textContent);
-        
+                                        
         // Units Sold
         if (parseInt(systemUnitsSold[i].textContent) > 0) { obj.unitsSold = parseInt(systemUnitsSold[i].textContent) } else { obj.unitsSold = ""; }
-        
-        // System Type
-        obj.systemType = systemTypes[i].textContent;
-        
-        // Successor
-        obj.successor = systemSuccessors[i].textContent;
-        
-        // Predecessor
-        obj.predecessor = systemPredecessors[i].textContent;
-        
-        // Comments
-        obj.comments = parseInt(systemComments[i].textContent);
-        
+                                            
         // Total Votes
         obj.totalVotes = parseInt(systemTotalVotes[i].textContent);
         
@@ -110,14 +81,8 @@ function buildTable(systemsArray) {
             + `<td class=\"systemName\"><a href=\"/systems/${systemsArray[element].id}\">${systemsArray[element].name}</a></td>`
             + `<td class=\"systemReleaseYear\">${systemsArray[element].releaseYear}</td>`
             + `<td class=\"systemDiscontinueYear\">${systemsArray[element].discontinueYear}</td>`
-            + `<td class=\"systemLifespan\">${systemsArray[element].lifespan}</td>`
-            + `<td class=\"systemGameTitles\">${systemsArray[element].gameTitles}</td>`
-            + `<td class=\"systemGeneration\">${systemsArray[element].generation}</td>`
-            + `<td class=\"systemUnitsSold\">${systemsArray[element].unitsSold}</td>`
-            + `<td class=\"systemType\">${systemsArray[element].systemType}</td>`
-            + `<td class=\"systemSuccessor\">${systemsArray[element].successor}</td>`
-            + `<td class=\"systemPredecessor\">${systemsArray[element].predecessor}</td>`
-            + `<td class=\"systemComments\">${systemsArray[element].comments}</td>`
+            + `<td class=\"systemLifespan\">${systemsArray[element].lifespan}</td>`                       
+            + `<td class=\"systemUnitsSold\">${systemsArray[element].unitsSold}</td>`            
             + `<td class=\"systemTotalVotes\">${systemsArray[element].totalVotes}</td>`
     }
     htmlString += `\n</tr>\n`;
@@ -137,7 +102,7 @@ sortByRankAsc();
 */
 
 // Sorts data by Release Year in Ascending order
-function sortByReleaseYearAsc() {
+function sortByReleaseYearAsc() {    
     // Sort by Release Year (ascending)
     const sortedSystems = quicksort({ array: systems, sortingField: "releaseYear" });
 
@@ -155,7 +120,7 @@ function sortByReleaseYearDes() {
 }
 
 // Sorts data by Discontinued Year in Ascending Order
-function sortByDiscontinuedYearAsc() {
+function sortByDiscontinuedYearAsc() {    
     // Sort by Discontinued Year (ascending)
     const sortedSystems = quicksort({ array: systems, sortingField: "discontinueYear" });
 
@@ -164,7 +129,7 @@ function sortByDiscontinuedYearAsc() {
 }
 
 // Sorts data by Discontinued Year in Descending Order
-function sortByDiscontinuedYearDes() {
+function sortByDiscontinuedYearDes() {        
     // Sort by Discontinued Year (descending)
     const sortedSystems = reverseBubbleSort(systems, "discontinueYear");
 
@@ -173,7 +138,7 @@ function sortByDiscontinuedYearDes() {
 }
 
 // Sorts data by Lifespan in Ascending order
-function sortByLifespanAsc() {
+function sortByLifespanAsc() {    
     // Sort by Lifespan (ascending)
     const sortedSystems = quicksort({ array: systems, sortingField: "lifespan" });
 
@@ -182,7 +147,7 @@ function sortByLifespanAsc() {
 }
 
 // Sorts data by Lifespan in Descending Order
-function sortByLifespanDes() {
+function sortByLifespanDes() {    
     // Sort by Lifespan (descending)
     const sortedSystems = reverseBubbleSort(systems, "lifespan");
 
@@ -190,44 +155,8 @@ function sortByLifespanDes() {
     buildTable(sortedSystems);
 }
 
-// Sorts data by Game Titles in Ascending order
-function sortByGameTitlesAsc() {
-    // Sort by Game Titles (ascending)
-    const sortedSystems = quicksort({ array: systems, sortingField: "gameTitles" });
-
-    // Build the table
-    buildTable(sortedSystems);
-}
-
-// Sorts data by Game Titles in Descending Order
-function sortByGameTitlesDes() {
-    // Sort by Game Titles (descending)
-    const sortedSystems = reverseBubbleSort(systems, "gameTitles");
-
-    // Build the table
-    buildTable(sortedSystems);
-}
-
-// Sorts data by Generation in Ascending order
-function sortByGenerationAsc() {
-    // Sort by Generation (ascending)
-    const sortedSystems = quicksort({ array: systems, sortingField: "generation" });
-
-    // Build the table
-    buildTable(sortedSystems);
-}
-
-// Sorts data by Generation in Descending Order
-function sortByGenerationDes() {
-    // Sort by Generation (descending)
-    const sortedSystems = reverseBubbleSort(systems, "generation");
-
-    // Build the table
-    buildTable(sortedSystems);
-}
-
 // Sorts data by Units Sold in Ascending order
-function sortByUnitsSoldAsc() {
+function sortByUnitsSoldAsc() {        
     // Sort by Units Sold (ascending)
     const sortedSystems = quicksort({ array: systems, sortingField: "unitsSold" });
 
@@ -236,7 +165,7 @@ function sortByUnitsSoldAsc() {
 }
 
 // Sorts data by Units Sold in Descending Order
-function sortByUnitsSoldDes() {
+function sortByUnitsSoldDes() {        
     // Sort by Units Sold (descending)
     const sortedSystems = reverseBubbleSort(systems, "unitsSold");
 
@@ -244,26 +173,8 @@ function sortByUnitsSoldDes() {
     buildTable(sortedSystems);
 }
 
-// Sorts data by Comments in Ascending order
-function sortByCommentsAsc() {
-    // Sort by Comments (ascending)
-    const sortedSystems = quicksort({ array: systems, sortingField: "comments" });
-
-    // Build the table
-    buildTable(sortedSystems);
-}
-
-// Sorts data by Comments in Descending Order
-function sortByCommentsDes() {
-    // Sort by Comments (descending)
-    const sortedSystems = reverseBubbleSort(systems, "comments");
-
-    // Build the table
-    buildTable(sortedSystems);
-}
-
 // Sorts data by Votes in Ascending order
-function sortByTotalVotesAsc() {
+function sortByTotalVotesAsc() {            
     // Sort by Total Votes (ascending)
     const sortedSystems = quicksort({ array: systems, sortingField: "totalVotes" });
 
@@ -272,7 +183,7 @@ function sortByTotalVotesAsc() {
 }
 
 // Sorts data by Votes in Descending Order
-function sortByTotalVotesDes() {
+function sortByTotalVotesDes() {        
     // Sort by Total Votes (descending)
     const sortedSystems = reverseBubbleSort(systems, "totalVotes");
 
@@ -281,7 +192,7 @@ function sortByTotalVotesDes() {
 }
 
 // Sorts data by Rank in Ascending order
-function sortByRankAsc() {
+function sortByRankAsc() {        
     // Sort by Rank (ascending)
     const sortedSystems = quicksort({ array: systems, sortingField: "rank" });
 
@@ -290,7 +201,7 @@ function sortByRankAsc() {
 }
 
 // Sorts data by Rank in Descending Order
-function sortByRankDes() {
+function sortByRankDes() {        
     // Sort by Rank (descending)
     const sortedSystems = reverseBubbleSort(systems, "rank");
 
@@ -340,24 +251,9 @@ function partition(array, leftIndex, rightIndex, sortingField) {
         pivot = array[Math.floor((rightIndex + leftIndex) / 2)].lifespan;
     }
 
-    // sorting by: gameTitles
-    if (sortingField === "gameTitles") {
-        pivot = array[Math.floor((rightIndex + leftIndex) / 2)].gameTitles;
-    }
-
-    // sorting by: generation
-    if (sortingField === "generation") {
-        pivot = array[Math.floor((rightIndex + leftIndex) / 2)].generation;
-    }
-
     // sorting by: unitsSold
     if (sortingField === "unitsSold") {
         pivot = array[Math.floor((rightIndex + leftIndex) / 2)].unitsSold;
-    }
-
-    // sorting by: comments
-    if (sortingField === "comments") {
-        pivot = array[Math.floor((rightIndex + leftIndex) / 2)].comments;
     }
 
     // sorting by: totalVotes
@@ -398,30 +294,9 @@ function partition(array, leftIndex, rightIndex, sortingField) {
             }
         }
 
-        // sorting by: gameTitles
-        if (sortingField === "gameTitles") {
-            while (array[leftIndex].gameTitles < pivot) {
-                leftIndex++;
-            }
-        }
-
-        // sorting by: generation
-        if (sortingField === "generation") {
-            while (array[leftIndex].generation < pivot) {
-                leftIndex++;
-            }
-        }
-
         // sorting by: unitsSold
         if (sortingField === "unitsSold") {
             while (array[leftIndex].unitsSold < pivot) {
-                leftIndex++;
-            }
-        }
-
-        // sorting by: comments
-        if (sortingField === "comments") {
-            while (array[leftIndex].comments < pivot) {
                 leftIndex++;
             }
         }
@@ -464,30 +339,9 @@ function partition(array, leftIndex, rightIndex, sortingField) {
             }
         }
 
-        // sorting by: gameTitles
-        if (sortingField === "gameTitles") {
-            while (array[rightIndex].gameTitles > pivot) {
-                rightIndex--;
-            }
-        }
-
-        // sorting by: generation
-        if (sortingField === "generation") {
-            while (array[rightIndex].generation > pivot) {
-                rightIndex--;
-            }
-        }
-
         // sorting by: unitsSold
         if (sortingField === "unitsSold") {
             while (array[rightIndex].unitsSold > pivot) {
-                rightIndex--;
-            }
-        }
-
-        // sorting by: comments
-        if (sortingField === "comments") {
-            while (array[rightIndex].comments > pivot) {
                 rightIndex--;
             }
         }
@@ -566,28 +420,7 @@ function reverseBubbleSort(array, sortingField) {
                     swapping = true;
                 }
             }
-            // sorting by: gameTitles
-            if (sortingField === "gameTitles") {
-                if (array[i].gameTitles < array[i + 1].gameTitles) {
-                    // If so, perform swap of elements
-                    swap(array, i, i + 1);
-                    // Increment the swap counter
-                    swapCount++;
-                    // Set the swapping flag to true
-                    swapping = true;
-                }
-            }
-            // sorting by: generation
-            if (sortingField === "generation") {
-                if (array[i].generation < array[i + 1].generation) {
-                    // If so, perform swap of elements
-                    swap(array, i, i + 1);
-                    // Increment the swap counter
-                    swapCount++;
-                    // Set the swapping flag to true
-                    swapping = true;
-                }
-            }
+
             // sorting by: unitsSold
             if (sortingField === "unitsSold") {
                 if (array[i].unitsSold < array[i + 1].unitsSold) {
@@ -599,17 +432,7 @@ function reverseBubbleSort(array, sortingField) {
                     swapping = true;
                 }
             }
-            // sorting by: comments
-            if (sortingField === "comments") {
-                if (array[i].comments < array[i + 1].comments) {
-                    // If so, perform swap of elements
-                    swap(array, i, i + 1);
-                    // Increment the swap counter
-                    swapCount++;
-                    // Set the swapping flag to true
-                    swapping = true;
-                }
-            }
+
             // sorting by: totalVotes
             if (sortingField === "totalVotes") {
                 if (array[i].totalVotes < array[i + 1].totalVotes) {

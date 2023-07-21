@@ -1,48 +1,119 @@
-<!-- CSS FILE -->
-<link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+<head>
+    <title>Console Wars - Ranking</title>
 
-<!-- JS (The defer attribute specifies scripts should be executed after the HTML file is completely parsed) -->
-<script type="text/javascript" src="/public/controllers/systems-controller.js" defer></script>
+    <!-- Required meta tags for Bootstrap-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- BUTTONS -->
-<button class="sort-by-release-year-asc">Sort by Release Year (asc)</button>
-<button class="sort-by-release-year-des">Sort by Release Year (des)</button>
-<button class="sort-by-discontinue-year-asc">Sort by Discontinued Year (asc)</button>
-<button class="sort-by-discontinue-year-des">Sort by Discontinued Year (des)</button>
-<button class="sort-by-lifespan-asc">Sort by Lifespan (asc)</button>
-<button class="sort-by-lifespan-des">Sort by Lifespan (des)</button>
-<button class="sort-by-gametitles-asc">Sort by Game Titles (asc)</button>
-<button class="sort-by-gametitles-des">Sort by Game Titles (des)</button>
-<button class="sort-by-generation-asc">Sort by Generation (asc)</button>
-<button class="sort-by-generation-des">Sort by Generation (des)</button>
-<button class="sort-by-units-sold-asc">Sort by Units Sold (asc)</button>
-<button class="sort-by-units-sold-des">Sort by Units Sold (des)</button>
-<button class="sort-by-comments-asc">Sort by Comments (asc)</button>
-<button class="sort-by-comments-des">Sort by Comments (des)</button>
-<button class="sort-by-votes-asc">Sort by Votes (asc)</button>
-<button class="sort-by-votes-des">Sort by Votes (des)</button>
-<button class="sort-by-rank-asc">Sort by Rank (asc)</button>
-<button class="sort-by-rank-des">Sort by Rank (des)</button>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+    
+    <!-- JS (The defer attribute specifies scripts should be executed after the HTML file is completely parsed) -->
+    <script type="text/javascript" src="/public/controllers/systems-controller.js" defer></script>
+    
+    <!-- Google Web Font (Teko 500) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap" rel="stylesheet">
+    
+    <!-- Google Web Font (Teko 300) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap" rel="stylesheet">
+</head>
 
-<!-- TODO: Integrate Bootstap 4 table formatting -->  
-<table class="table">
-    <thead>
-        <tr>            
-            <th scope="col">Rank</th>
-            <th scope="col">Name</th>
-            <th scope="col">Release Year</th>
-            <th scope="col">Discontinued Year</th>
-            <th scope="col">Lifespan (years)</th>
-            <th scope="col">Game Titles</th>
-            <th scope="col">Generation</th>
-            <th scope="col">Units Sold</th>
-            <th scope="col">System Type</th>
-            <th scope="col">Successor</th>
-            <th scope="col">Predecessor</th>
-            <th scope="col">Comments</th>
-            <th scope="col">Votes</th>
-        </tr>
-    </thead>
+<body>
+<!-- HEADER / NAVBAR -->
+<%- include('../layout/header'); -%>
+
+<!-- Main container -->
+<div class="container" id="systems-container">    
+    <!-- ROW 1 -->
+    <div class="row justify-content-center" id="systems-row-1">
+        <!-- ROW 1 COL 1 -->
+        <div class="col" id="systems-row-1-col-1">
+            <!-- ROW 1 COL 1 ROW 1 -->
+            <div class="row justify-content-center" id="systems-row-1-col-1-row-1">
+                <!-- ROW 1 COL 1 ROW 1 COL 1 -->
+                <div class="col-md-6 d-flex justify-content-center" id="systems-row-1-col-1-row-1-col-1">
+                    <div class="dropdown show mx-auto">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Rank
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <a class="dropdown-item" id="sort-by-rank-asc" href="#">Ascending</a>
+                          <a class="dropdown-item" id="sort-by-rank-des" href="#">Descending</a>
+                        </div>
+                      </div>
+                    <div class="dropdown show mx-auto">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Release Year
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <a class="dropdown-item" id="sort-by-release-year-asc" href="#">Ascending</a>
+                          <a class="dropdown-item" id="sort-by-release-year-des" href="#">Descending</a>
+                        </div>
+                      </div>        
+                    <div class="dropdown show mx-auto">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Discontinued Year
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <a class="dropdown-item" id="sort-by-discontinue-year-asc" href="#">Ascending</a>
+                          <a class="dropdown-item" id="sort-by-discontinue-year-des" href="#">Descending</a>
+                        </div>
+                      </div> 
+                </div>
+                <!-- ROW 1 COL 1 ROW 1 COL 2 -->
+                <div class="col-md-6 d-flex justify-content-center" id="systems-row-1-col-1-row-1-col-2">
+                    <div class="dropdown show mx-auto">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Lifespan
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <a class="dropdown-item" id="sort-by-lifespan-asc" href="#">Ascending</a>
+                          <a class="dropdown-item" id="sort-by-lifespan-des" href="#">Descending</a>
+                        </div>
+                      </div>          
+                    <div class="dropdown show mx-auto">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Units Sold
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <a class="dropdown-item" id="sort-by-units-sold-asc" href="#">Ascending</a>
+                          <a class="dropdown-item" id="sort-by-units-sold-des" href="#">Descending</a>
+                        </div>
+                      </div>            
+                    <div class="dropdown show mx-auto">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Votes
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <a class="dropdown-item" id="sort-by-votes-asc" href="#">Ascending</a>
+                          <a class="dropdown-item" id="sort-by-votes-des" href="#">Descending</a>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>            
+    </div>
+</div>
+
+    
+<table class="table table-sm table-hover">
+    <tr>
+        <td scope="col">Rank</td>
+        <td scope="col">Name</td>
+        <td scope="col">Release Year</td>
+        <td scope="col">Discontinued Year</td>
+        <td scope="col">Lifespan (years)</td>             
+        <td scope="col">Units Sold</td>                
+        <td scope="col">Votes</td>
+    </tr>
     <tbody id="tableBody">        
         <% systems.forEach(function(system){%>       
             <tr>
@@ -55,16 +126,12 @@
                 <td class="systemName"><a href="/systems/<%=system.id%>"><%=system.name%></a></td>                
                 <td class="systemReleaseYear"><%=system.release_year%></td>
                 <td class="systemDiscontinueYear"><%=system.discontinue_year%></td>                
-                <td class="systemLifespan"><% if (system.discontinue_year > 0){%><%=system.discontinue_year - system.release_year%><%}%></td>
-                <td class="systemGameTitles"><%=system.game_titles%></td>
-                <td class="systemGeneration"><%=system.generation%></td>
-                <td class="systemUnitsSold"><%=system.units_sold%></td>
-                <td class="systemType"><%=system.system_type%></td>
-                <td class="systemSuccessor"><%=system.successor%></td>
-                <td class="systemPredecessor"><%=system.predecessor%></td>
-                <td class="systemComments"><%=system.comments%></td>
+                <td class="systemLifespan"><% if (system.discontinue_year > 0){%><%=system.discontinue_year - system.release_year%><%}%></td>                               
+                <td class="systemUnitsSold"><%=system.units_sold%></td>                                
                 <td class="systemTotalVotes"><%=system.votes%></td>                          
             </tr>            
         <%});%>
     </tbody>
 </table>
+
+</body>

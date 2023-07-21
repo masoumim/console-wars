@@ -77,52 +77,40 @@ body {
     background-color: 525252;
     font-family: 'Teko', sans-serif;
     font-size: 25px;
-    /* border-top: #CA3E47;
-    border-left: #CA3E47;
-    border-right: #CA3E47;
-    border-width: 1px;
-    border-style: solid; */
 }
 
 #profile-row-3-col-1{
     background-color: 525252;
     font-family: 'Teko', sans-serif;
     font-size: 25px;
-    /* border-left: #CA3E47;
-    border-right: #CA3E47;
-    border-bottom: #CA3E47;
-    border-width: 1px;
-    border-style: solid; */
 }
-
-/* #profile-row-4{
-    border: white;
-    border-width: 1px;
-    border-style: solid;
-} */
 
 #profile-row-4-col-1{
     background-color: 525252;
     font-family: 'Teko', sans-serif;
     font-size: 25px;
-    /* border: white;
-    border-width: 1px;
-    border-style: solid; */
 }
-
-/* #profile-row-5{
-    border: white;
-    border-width: 1px;
-    border-style: solid;
-} */
 
 #profile-row-5-col-1{
     background-color: 525252;
     font-family: 'Teko', sans-serif;
-    font-size: 25px;
-    /* border: white;
-    border-width: 1px;
-    border-style: solid; */
+    font-size: 25px;    
+}
+
+/* SYSTEMS PAGE */
+
+
+table{
+    font-family: 'Teko', sans-serif;
+    font-size: large;
+}
+
+#systems-row-1{
+    border: 1px solid white;
+}
+
+#systems-row-1-col-1{
+    border: 1px solid white;
 }
 
 /* VS.EJS */
