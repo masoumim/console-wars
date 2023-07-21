@@ -1,5 +1,69 @@
+<head>
+    <title>Console Wars - Register</title>
+    
+    <!-- Required meta tags for Bootstrap-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+    <!-- Google Web Font (Teko 500) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap" rel="stylesheet">
+    <!-- Google Web Font (Teko 300) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- HEADER / NAVBAR -->
+    <%- include('../layout/header'); -%>
+        <!-- Container -->
+        <div class="container">
+            <!-- Row -->
+            <div class="row mt-5">
+                <!-- Column 1: Title & Subtitle -->
+                <div class="col-md-6">
+                    <h1 id="index-title" class="text-center">CONSOLE</h1>
+                    <h1 id="index-title" class="text-center">WARS</h1>
+                    <h3 id="index-subtitle" class="text-center my-4 font-weight-light">Registration</h3>
+                </div>
+                <!-- Column 2: Login Form -->
+                <div class="col-md-6">
+                    <div id="login-form" class="col p-3 rounded">
+                        <form action="/register" method="post">
+                            <div class="form-group">
+                                <label>User Name</label>
+                                <input type="text" name="username" class="form-control"
+                                    aria-describedby="emailHelp" placeholder="Enter user name" required minlength="5" maxlength="25">
+                            </div>
+                            <div class="form-group">
+                                <label>Email (optional)</label>
+                                <input type="email" name="email" class="form-control"
+                                    placeholder="email">
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" name="password" class="form-control"
+                                    placeholder="Password" required minlength="5" maxlength="25">
+                            </div>                            
+                            <button id="login-form-submit-btn" type="submit"
+                                class="btn btn-primary btn-lg btn-block">Register</button>                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
 <!-- REGISTER FORM -->
-<form action="/register" method="post">
+<!-- <form action="/register" method="post">
     <label>User name</label>
     <br>
     <input type="text" class="username" name="username" required minlength="5" maxlength="25">
@@ -16,4 +80,4 @@
     <br>
     <br>
     <button type="submit" class="register-button">Register</button>
-</form>
+</form> -->
