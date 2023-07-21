@@ -1,60 +1,259 @@
-<h3>System Info:</h3>
-<h4>Rank: <%=systemRank%></h4>
-<h4>System Name: <%=system.name%></h4>
-<h4>Manufacturer: <%=manufacturer%></h4>
-<h4>Release Year: <%=system.release_year%></h4>
-<h4>Discontinue Year: <%=system.discontinue_year%></h4>
-<h4>Lifespan (Years): <% if (system.discontinue_year > 0){%><%=system.discontinue_year - system.release_year%><%}%></h4>
-<h4>Game Titles: <%=system.game_titles%></h4>
-<h4>Generation: <%=system.generation%></h4>
-<h4>Units Sold: <%=system.units_sold%></h4>
-<h4>System Type: <%=system.system_type%></h4>
-<h4>Successor: <%=system.successor%></h4>
-<h4>Predecessor: <%=system.predecessor%></h4>
-<h3>System Specs:</h3>
-<h4>CPU: <%=specs.cpu%></h4>
-<h4>RAM: <%=specs.ram%></h4>
-<h4>Storage: <%=specs.storage%></h4>
-<h4>Media Type: <%=specs.media_type%></h4>
-<h4>Max Resolution: <%=specs.max_res%></h4>
-<h4>Comments: <%=system.comments%></h4>
-<h4>Votes: <%=system.votes%></h4>
-<br>
-<% systemDescription.forEach(function(line){ %>
-    <%=line%>
-    <br>
-    <br>
-    <% }); %>
+<head>
+    <title>Console Wars - <%=system.name%></title>
 
-<!-- VOTE BUTTON -->
-<form action="/systems/<%=system.id%>/vote" method="post">
-    <button class="vote-button">VOTE</button>
-    </form>
+    <!-- Required meta tags for Bootstrap-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- COMPARE BUTTON -->
-<form action="/systems/compare/<%=system.name%>" method="get">
-    <button class="compare-button">COMPARE</button>
-    </form>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+    
+    <!-- Google Web Font (Teko 500) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap" rel="stylesheet">
+    
+    <!-- Google Web Font (Teko 300) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap" rel="stylesheet">
+</head>
 
-<!-- SUBMIT COMMENT FORM -->
-<form action="/systems/<%=system.id%>" method="post">    
-    <input type="text" name="comment" class="comment" required minlength="3" maxlength="200">
-    <br>
-    <button type="submit" class="comment-button">Submit Comment</button>
-</form>
+<body>
+    <!-- HEADER / NAVBAR -->
+    <%- include('../layout/header'); -%>
 
-<br>
-Comments:
-<br>
-<% userComments.forEach(function(comment){ %>
-<%=comment.name%> <%=comment.email%> : <%=comment.comment%>
-<br>
-<% }); %>
-
-<br>
-Users who voted for <%=system.name%>:
-<br>
-<% userVotes.forEach(function(vote){ %>
-<%=vote.name%> <%=vote.email%>
-<br>
-<% }); %>
+    <!-- Main container -->
+    <div class="container mt-5" id="system-container">
+        <!-- ROW 1 (System Name)-->
+        <div class="row rounded-top pt-3" id="system-row-1">
+            <!-- ROW 1 COL 1 -->
+            <div class="col d-flex justify-content-center" id="system-row-1-col-1">
+                <h2><%=system.name%></h2>
+            </div>
+        </div>
+        <!-- ROW 2 (System Info & Specs)-->
+        <div class="row rounded-bottom" id="system-row-2">
+            <div class="col">
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        Rank
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <%=systemRank%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        Manufacturer
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <%=manufacturer%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        Release Year
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <%=system.release_year%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        Discontinued Year
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <%=system.discontinue_year%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        Lifespan
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <% if (system.discontinue_year > 0){%><%=system.discontinue_year - system.release_year%><%}%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        Game Titles
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <%=system.game_titles%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        Generation
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <%=system.generation%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        Units Sold
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <%=system.units_sold%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        System Type
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <%=system.system_type%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        Successor
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <%=system.successor%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        Predecessor
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <%=system.predecessor%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        CPU
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <%=specs.cpu%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        RAM
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <%=specs.ram%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        Storage
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <%=specs.storage%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        Media Type
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <%=specs.media_type%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        Max Resolution
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <%=specs.max_res%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        Comments
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <%=system.comments%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        Votes
+                    </div>
+                    <div class="col d-flex justify-content-center pb-3">
+                        <%=system.votes%>                        
+                    </div>
+                </div>
+            </div>
+        </div>                
+        <!-- ROW 3 (System Description)-->
+        <div class="row mt-3 pt-5 px-3 rounded" id="system-row-3">
+            <!-- ROW 3 COL 1 -->
+            <div class="col d-flex justify-content-center" id="system-row-3-col-1">
+                <% systemDescription.forEach(function(line){ %>
+                    <%=line%>
+                    <br>
+                    <br>
+                <% }); %>
+            </div>
+        </div>
+        <!-- ROW 4 (Vote & Compare buttons)-->
+        <div class="row mt-3 pt-4 rounded" id="system-row-4">
+            <div class="col">
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <!-- VOTE BUTTON -->
+                        <form action="/systems/<%=system.id%>/vote" method="post">
+                            <button class="vote-button" id="system-vote-button">VOTE</button>
+                        </form>
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <!-- COMPARE BUTTON -->
+                        <form action="/systems/compare/<%=system.name%>" method="get">
+                            <button class="compare-button" id="system-compare-button">COMPARE</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ROW 5 (Comment submission)-->
+        <div class="row mt-5" id="system-row-5">
+            <!-- ROW 5 COL 1 -->
+            <div class="col" id="system-row-5-col-1">
+                <form action="/systems/<%=system.id%>" method="post">                        
+                    <div class="form-group">                        
+                        <input type="text" name="comment" class="form-control" id="comment" placeholder="leave a comment about the <%=system.name%>" minlength="3" maxlength="200">
+                        <button type="submit" class="comment-button mt-3" id="comment-button">Submit Comment</button>                        
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- ROW 6 (User Comments)-->
+        <div class="row p-3 rounded" id="system-row-6">
+            <div class="col" id="system-row-6-col-1">
+                <h3>Comments</h3>                
+                <% userComments.forEach(function(comment){ %>
+                    <div class="row">                        
+                        <div class="col">
+                                <u><%=comment.name%> <%=comment.email%></u>
+                                <br>
+                                <i><%=comment.comment%></i>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+        <!-- ROW 7 (User Votes)-->
+        <div class="row mt-3 mb-5 p-3 rounded" id="system-row-7">
+            <div class="col" id="system-row-7-col-1">
+                <h3>Users who voted for the <%=system.name%></h3>                
+                <% userVotes.forEach(function(vote){ %>
+                    <div class="row">                        
+                        <div class="col">
+                            <%=vote.name%> <%=vote.email%>     
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+</body>

@@ -69,6 +69,7 @@ body {
     transition: 0.3s;
     font-family: 'Teko', sans-serif;
     font-size: 20px;
+    cursor: pointer;
 }
 
 .logout-button:hover {opacity: 1}
@@ -142,6 +143,82 @@ table{
     color: white;
 }
 
+
+/* SYSTEM PAGE */
+#system-container{
+    font-family: 'Teko', sans-serif;    
+    color: white;
+    font-size: 25px;
+}
+
+#system-row-1{
+    background-color: #414141;
+    border-top: 3px solid #525252;
+    border-left: 3px solid #525252;
+    border-right: 3px solid #525252;
+}
+
+#system-row-2{
+    background-color: #414141;    
+    border-left: 3px solid #525252;
+    border-right: 3px solid #525252;
+    border-bottom: 3px solid #525252;
+}
+
+#system-row-3{
+    background-color: #414141;    
+    border: 3px solid #525252;
+}
+
+#system-row-4{
+    background-color: #414141;    
+    border: 3px solid #525252;
+}
+
+#system-row-6{
+    background-color: #414141;    
+    border: 3px solid #525252;
+}
+
+#system-row-7{
+    background-color: #414141;    
+    border: 3px solid #525252;
+}
+
+#system-row-4 button{
+    background-color: #CA3E47;
+    border: none;
+    color: white;
+    padding: 10px 20px; 
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 8px;    
+    font-family: 'Teko', sans-serif;
+    font-size: 20px;
+    width: 100px;
+    cursor: pointer;
+}
+
+#comment-button{
+    background-color: #CA3E47;
+    border: none;
+    color: white;
+    padding: 10px 20px; 
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 8px;    
+    font-family: 'Teko', sans-serif;
+    font-size: 20px;
+    width: 200px;
+    cursor: pointer;
+}
+
+/* COMPARE SELECTION PAGE */
+.compare-container{
+    font-family: 'Teko', sans-serif;
+}
 
 
 /* VS.EJS */
