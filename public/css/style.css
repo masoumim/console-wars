@@ -105,6 +105,10 @@ table{
     font-size: large;
 }
 
+table a{
+    text-decoration: underline;
+}
+
 #systems-row-1{
     border: 1px solid white;
 }
@@ -267,6 +271,7 @@ table{
 
 #vs-container a{
     color: white;
+    text-decoration: underline;
 }
 
 #vs-system-1-row td{
