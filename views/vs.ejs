@@ -1,187 +1,228 @@
-<!-- CSS FILE -->
-<link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+<head>
+    <title>Console Wars - <%=system1.name%> VS <%=system2.name%></title>
 
-<!-- JS (The defer attribute specifies scripts should be executed after the HTML file is completely parsed) -->
-<script type="text/javascript" src="../public/controllers/vs-controller.js" defer></script>
+    <!-- JS (The defer attribute specifies scripts should be executed after the HTML file is completely parsed) -->
+    <script type="text/javascript" src="../public/controllers/vs-controller.js" defer></script>
+    
+    <!-- Required meta tags for Bootstrap-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<h4><%=system1.name%> VS <%=system2.name%></h4>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+    
+    <!-- Google Web Font (Teko 500) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap" rel="stylesheet">
+    
+    <!-- Google Web Font (Teko 300) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap" rel="stylesheet">
+</head>
 
-<table>
-    <tr>
-        <td>System Name</td>
-        <td><%=system1.name%></td>
-    </tr>
-    <tr>
-        <td>Manufacturer</td>
-        <td><%=system1Manufacturer.name%></td>
-    </tr>
-    <tr>
-        <td>Release Year</td>
-        <td><%=system1.release_year%></td>
-    </tr>
-    <tr>
-        <td>Discontinued Year</td>
-        <td><%=system1.discontinue_year%></td>
-    </tr>
-    <tr>
-        <td>Lifespan (years)</td>
-        <td class="system1Lifespan"><% if (system1.discontinue_year > 0){%><%=system1.discontinue_year - system1.release_year%><%}%></td>
-        <td><i class="system1LifespanArrow"></i></td>
-    </tr>
-    <tr>
-        <td>Game Titles</td>
-        <td class="system1GameTitles"><%=system1.game_titles%></td>
-        <td><i class="system1GameTitlesArrow"></i></td>
-    </tr>
-    <tr>
-        <td>Generation</td>
-        <td class="system1Generation"><%=system1.generation%></td>
-        <td><i class="system1GenerationArrow"></i></td>
-    </tr>
-    <tr>
-        <td>Units Sold</td>
-        <td class="system1UnitsSold"><%=system1.units_sold%></td>
-        <td><i class="system1UnitsSoldArrow"></i></td>
-    </tr>
-    <tr>
-        <td>System Type</td>
-        <td><%=system1.system_type%></td>
-    </tr>
-    <tr>
-        <td>Successor</td>
-        <td><%=system1.successor%></td>
-    </tr>
-    <tr>
-        <td>Predecessor</td>
-        <td><%=system1.predecessor%></td>
-    </tr>
-    <tr>
-        <td>CPU</td>
-        <td class="system1CPU"><%=system1Specs.cpu%></td>
-        <td><i class="system1CPUArrow"></i></td>
-    </tr>
-    <tr>
-        <td>RAM</td>
-        <td class="system1RAM"><%=system1Specs.ram%></td>
-        <td><i class="system1RAMArrow"></i></td>
-    </tr>
-    <tr>
-        <td>Storage</td>
-        <td class="system1Storage"><%=system1Specs.storage%></td>
-        <td><i class="system1StorageArrow"></i></td>
-    </tr>
-    <tr>
-        <td>Media Type</td>
-        <td><%=system1Specs.media_type%></td>
-    </tr>
-    <tr>
-        <td>Max Resolution</td>
-        <td class="system1MaxRes"><%=system1Specs.max_res%></td>
-        <td><i class="system1MaxResArrow"></i></td>
-    </tr>
-    <tr>
-        <td>Comments</td>
-        <td class="system1Comments"><%=system1.comments%></td>
-        <td><i class="system1CommentsArrow"></i></td>
-    </tr>
-    <tr>
-        <td>Votes</td>
-        <td class="system1Votes"><%=system1.votes%></td>
-        <td><i class="system1VotesArrow"></i></td>
-    </tr>
-    <tr>
-        <td>Rank</td>
-        <td class="system1Rank"><%=system1Rank%></td>
-        <td><i class="system1RankArrow"></i></td>
-    </tr>
-</table>
-<br>
-<table>
-    <tr>
-        <td>System Name</td>
-        <td><%=system2.name%></td>
-    </tr>
-    <tr>
-        <td>Manufacturer</td>
-        <td><%=system2Manufacturer.name%></td>
-    </tr>
-    <tr>
-        <td>Release Year</td>
-        <td><%=system2.release_year%></td>
-    </tr>
-    <tr>
-        <td>Discontinued Year</td>
-        <td><%=system2.discontinue_year%></td>
-    </tr>
-    <tr>
-        <td>Lifespan (years)</td>
-        <td class="system2Lifespan"><% if (system2.discontinue_year > 0){%><%=system2.discontinue_year - system2.release_year%><%}%></td>
-        <td><i class="system2LifespanArrow"></i></td>
-    </tr>
-    <tr>
-        <td>Game Titles</td>
-        <td class="system2GameTitles"><%=system2.game_titles%></td>
-        <td><i class="system2GameTitlesArrow"></i></td>
-    </tr>
-    <tr>
-        <td>Generation</td>
-        <td class="system2Generation"><%=system2.generation%></td>
-        <td><i class="system2GenerationArrow"></i></td>
-    </tr>
-    <tr>
-        <td>Units Sold</td>
-        <td class="system2UnitsSold"><%=system2.units_sold%></td>
-        <td><i class="system2UnitsSoldArrow"></i></td>
-    </tr>
-    <tr>
-        <td>System Type</td>
-        <td><%=system2.system_type%></td>
-    </tr>
-    <tr>
-        <td>Successor</td>
-        <td><%=system2.successor%></td>
-    </tr>
-    <tr>
-        <td>Predecessor</td>
-        <td><%=system2.predecessor%></td>
-    </tr>
-    <tr>
-        <td>CPU</td>
-        <td class="system2CPU"><%=system2Specs.cpu%></td>
-        <td><i class="system2CPUArrow"></i></td>
-    </tr>
-    <tr>
-        <td>RAM</td>
-        <td class="system2RAM"><%=system2Specs.ram%></td>
-        <td><i class="system2RAMArrow"></i></td>
-    </tr>
-    <tr>
-        <td>Storage</td>
-        <td class="system2Storage"><%=system2Specs.storage%></td>
-        <td><i class="system2StorageArrow"></i></td>
-    </tr>
-    <tr>
-        <td>Media Type</td>
-        <td><%=system2Specs.media_type%></td>
-    </tr>
-    <tr>
-        <td>Max Resolution</td>
-        <td class="system2MaxRes"><%=system2Specs.max_res%></td>
-        <td><i class="system2MaxResArrow"></i></td>
-    </tr>
-    <tr>
-        <td>Comments</td>
-        <td class="system2Comments"><%=system2.comments%></td>
-        <td><i class="system2CommentsArrow"></i></td>
-    </tr>
-    <tr>
-        <td>Votes</td>
-        <td class="system2Votes"><%=system2.votes%></td>
-        <td><i class="system2VotesArrow"></i></td>
-    </tr>
-    <tr>
-        <td>Rank</td>
-        <td class="system2Rank"><%=system2Rank%></td>
-        <td><i class="system2RankArrow"></i></td>
-    </tr>
-</table>
+<body>
+    <!-- HEADER / NAVBAR -->
+    <%- include('../layout/header'); -%>
+        <!-- Container -->
+        <div class="container mt-5" id="vs-container">
+            <div class="row" id="comapre-row-1">
+                <div class="col-md-5 p-5 rounded" id="compare-col-1">
+                    <div class="row justify-content-center">
+                        <h2><a href="/systems/<%=system1.id%>"><%=system1.name%></a></h2>
+                    </div>
+                    <div class="row" id="vs-system-1-row">
+                        <div class="col d-flex justify-content-center">
+                            <table>
+                                <tr>
+                                    <td>Rank</td>
+                                    <td class="system1Rank"><%=system1Rank%></td>
+                                    <td><i class="system1RankArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Manufacturer</td>
+                                    <td><%=system1Manufacturer.name%></td>
+                                </tr>
+                                <tr>
+                                    <td>Release Year</td>
+                                    <td><%=system1.release_year%></td>
+                                </tr>
+                                <tr>
+                                    <td>Discontinued Year</td>
+                                    <td><%=system1.discontinue_year%></td>
+                                </tr>
+                                <tr>
+                                    <td>Lifespan (years)</td>
+                                    <td class="system1Lifespan"><% if (system1.discontinue_year > 0){%><%=system1.discontinue_year - system1.release_year%><%}%></td>
+                                    <td><i class="system1LifespanArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Game Titles</td>
+                                    <td class="system1GameTitles"><%=system1.game_titles%></td>
+                                    <td><i class="system1GameTitlesArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Generation</td>
+                                    <td class="system1Generation"><%=system1.generation%></td>
+                                    <td><i class="system1GenerationArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Units Sold</td>
+                                    <td class="system1UnitsSold"><%=system1.units_sold%></td>
+                                    <td><i class="system1UnitsSoldArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>System Type</td>
+                                    <td><%=system1.system_type%></td>
+                                </tr>
+                                <tr>
+                                    <td>Successor</td>
+                                    <td><%=system1.successor%></td>
+                                </tr>
+                                <tr>
+                                    <td>Predecessor</td>
+                                    <td><%=system1.predecessor%></td>
+                                </tr>
+                                <tr>
+                                    <td>CPU</td>
+                                    <td class="system1CPU"><%=system1Specs.cpu%></td>
+                                    <td><i class="system1CPUArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>RAM</td>
+                                    <td class="system1RAM"><%=system1Specs.ram%></td>
+                                    <td><i class="system1RAMArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Storage</td>
+                                    <td class="system1Storage"><%=system1Specs.storage%></td>
+                                    <td><i class="system1StorageArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Media Type</td>
+                                    <td><%=system1Specs.media_type%></td>
+                                </tr>
+                                <tr>
+                                    <td>Max Resolution</td>
+                                    <td class="system1MaxRes"><%=system1Specs.max_res%></td>
+                                    <td><i class="system1MaxResArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Comments</td>
+                                    <td class="system1Comments"><%=system1.comments%></td>
+                                    <td><i class="system1CommentsArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Votes</td>
+                                    <td class="system1Votes"><%=system1.votes%></td>
+                                    <td><i class="system1VotesArrow"></i></td>
+                                </tr>             
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 d-flex justify-content-center mt-4" id="compare-col-2">
+                    <h1>VS</h1>
+                </div>
+                <div class="col-md-5 p-5 rounded" id="compare-col-1">
+                    <div class="row justify-content-center">
+                        <h2><a href="/systems/<%=system2.id%>"><%=system2.name%></a></h2>
+                    </div>
+                    <div class="row" id="vs-system-2-row">
+                        <div class="col d-flex justify-content-center">
+                            <table>
+                                <tr>
+                                    <td>Rank</td>
+                                    <td class="system2Rank"><%=system2Rank%></td>
+                                    <td><i class="system2RankArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Manufacturer</td>
+                                    <td><%=system2Manufacturer.name%></td>
+                                </tr>
+                                <tr>
+                                    <td>Release Year</td>
+                                    <td><%=system2.release_year%></td>
+                                </tr>
+                                <tr>
+                                    <td>Discontinued Year</td>
+                                    <td><%=system2.discontinue_year%></td>
+                                </tr>
+                                <tr>
+                                    <td>Lifespan (years)</td>
+                                    <td class="system2Lifespan"><% if (system2.discontinue_year > 0){%><%=system2.discontinue_year - system2.release_year%><%}%></td>
+                                    <td><i class="system2LifespanArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Game Titles</td>
+                                    <td class="system2GameTitles"><%=system2.game_titles%></td>
+                                    <td><i class="system2GameTitlesArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Generation</td>
+                                    <td class="system2Generation"><%=system2.generation%></td>
+                                    <td><i class="system2GenerationArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Units Sold</td>
+                                    <td class="system2UnitsSold"><%=system2.units_sold%></td>
+                                    <td><i class="system2UnitsSoldArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>System Type</td>
+                                    <td><%=system2.system_type%></td>
+                                </tr>
+                                <tr>
+                                    <td>Successor</td>
+                                    <td><%=system2.successor%></td>
+                                </tr>
+                                <tr>
+                                    <td>Predecessor</td>
+                                    <td><%=system2.predecessor%></td>
+                                </tr>
+                                <tr>
+                                    <td>CPU</td>
+                                    <td class="system2CPU"><%=system2Specs.cpu%></td>
+                                    <td><i class="system2CPUArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>RAM</td>
+                                    <td class="system2RAM"><%=system2Specs.ram%></td>
+                                    <td><i class="system2RAMArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Storage</td>
+                                    <td class="system2Storage"><%=system2Specs.storage%></td>
+                                    <td><i class="system2StorageArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Media Type</td>
+                                    <td><%=system2Specs.media_type%></td>
+                                </tr>
+                                <tr>
+                                    <td>Max Resolution</td>
+                                    <td class="system2MaxRes"><%=system2Specs.max_res%></td>
+                                    <td><i class="system2MaxResArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Comments</td>
+                                    <td class="system2Comments"><%=system2.comments%></td>
+                                    <td><i class="system2CommentsArrow"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Votes</td>
+                                    <td class="system2Votes"><%=system2.votes%></td>
+                                    <td><i class="system2VotesArrow"></i></td>
+                                </tr>            
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>

@@ -1,26 +1,80 @@
-<!-- JS (The defer attribute specifies scripts should be executed after the HTML file is completely parsed) -->
-<script type="text/javascript" src="/public/controllers/compare-controller.js" defer></script>
-<script type="text/javascript" src="/public/controllers/compare-controller-preselected.js" defer></script>
+<head>
+    <title>Console Wars - VS</title>
 
-<div class="preselectedsystem" hidden="true"><%=system1%></div>
+    <!-- JS (The defer attribute specifies scripts should be executed after the HTML file is completely parsed) -->
+    <script type="text/javascript" src="/public/controllers/compare-controller.js" defer></script>
+    <script type="text/javascript" src="/public/controllers/compare-controller-preselected.js" defer></script>
+    
+    <!-- Required meta tags for Bootstrap-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-Select Consoles
-<form action="/systems/vs" method="get">
-    <label for="system1">Choose console 1 from the list:</label>
-    <input list="systems1" name="system1" id="system1" class="system1">
-    <datalist id="systems1" class="dataList1">
-        <% systems.forEach(function(system){%>
-            <option value="<%=system.name%>">
-            <%});%>
-    </datalist>
-    <br>
-    <label for="system2">Choose console 2 from the list:</label>
-    <input list="systems2" name="system2" id="system2" class="system2">
-    <datalist id="systems2">
-        <% systems.forEach(function(system){%>
-            <option value="<%=system.name%>">
-            <%});%>
-    </datalist>
-    <br>
-    <input type="submit" class="submit-btn">
-  </form>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+    
+    <!-- Google Web Font (Teko 500) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap" rel="stylesheet">
+    
+    <!-- Google Web Font (Teko 300) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- HEADER / NAVBAR -->
+    <%- include('../layout/header'); -%>
+    
+    <!-- Preselected system -->
+    <div class="preselectedsystem" hidden="true"><%=system1%></div>
+    
+    <!-- Container -->
+    <div class="container mt-5" id="compare-container">        
+        <form action="/systems/vs" method="get">
+            <div class="row" id="comapre-row-1">
+                <div class="col-md-5 p-5 rounded" id="compare-col-1">
+                    <div class="row justify-content-center">
+                        <h3>SELECT SYSTEM 1</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <input list="systems1" name="system1" id="system1" class="system1">
+                            <datalist id="systems1" class="dataList1">
+                                <% systems.forEach(function(system){%>
+                                    <option value="<%=system.name%>">
+                                <%});%>
+                            </datalist>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 d-flex justify-content-center mt-4" id="compare-col-2">
+                    <h1>VS</h1>
+                </div>
+                <div class="col-md-5 p-5 rounded" id="compare-col-3">
+                    <div class="row justify-content-center">
+                       <h3>SELECT SYSTEM 2</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <input list="systems2" name="system2" id="system2" class="system2">
+                            <datalist id="systems2">
+                                <% systems.forEach(function(system){%>
+                                    <option value="<%=system.name%>">
+                                <%});%>
+                            </datalist>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center mt-4">
+                <input type="submit" class="submit-btn" id="compare-btn" value="COMPARE">
+            </div>
+        </form>
+    </div>    
+</body>

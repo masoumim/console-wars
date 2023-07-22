@@ -11,11 +11,14 @@ const validSystems = getValidSystems();
 // Disables submit button
 function disableSubmit(){
     document.querySelector(".submit-btn").disabled = true;
+    document.querySelector(".submit-btn").style.opacity = 0.5;
+    
 }
 
 // Enables submit button
 function enableSubmit(){
     document.querySelector(".submit-btn").disabled = false;
+    document.querySelector(".submit-btn").style.opacity = 1;
 }
 
 // Returns system 1 selection

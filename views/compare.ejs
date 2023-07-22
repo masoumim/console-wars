@@ -30,12 +30,12 @@
     <!-- HEADER / NAVBAR -->
     <%- include('../layout/header'); -%>
     <!-- Container -->
-    <div class="compare-container">        
+    <div class="container mt-5" id="compare-container">        
         <form action="/systems/vs" method="get">
             <div class="row" id="comapre-row-1">
-                <div class="col-md-5" id="compare-col-1">
+                <div class="col-md-5 p-5 rounded" id="compare-col-1">
                     <div class="row justify-content-center">
-                        SYSTEM 1
+                        <h3>SELECT SYSTEM 1</h3>
                     </div>
                     <div class="row">
                         <div class="col d-flex justify-content-center">
@@ -48,12 +48,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 d-flex justify-content-center" id="compare-col-2">
-                    VS
+                <div class="col-md-2 d-flex justify-content-center mt-4" id="compare-col-2">
+                    <h1>VS</h1>
                 </div>
-                <div class="col-md-5" id="compare-col-3">
+                <div class="col-md-5 p-5 rounded" id="compare-col-3">
                     <div class="row justify-content-center">
-                        SYSTEM 2
+                       <h3>SELECT SYSTEM 2</h3>
                     </div>
                     <div class="row">
                         <div class="col d-flex justify-content-center">
@@ -67,9 +67,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <input type="submit" class="submit-btn">
+            <div class="row justify-content-center mt-4">
+                <input type="submit" class="submit-btn" id="compare-btn" value="COMPARE">
             </div>
         </form>
-    </div>
+    </div>    
 </body>

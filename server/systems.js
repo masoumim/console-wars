@@ -20,8 +20,7 @@ const { check, validationResult } = require("express-validator");
 // for routes that begin with '/systems'
 router.use('/systems', async (req, res, next) => {
     try {
-        // Get all systems from the DB
-        // const resultArray = await requests.getAllSystems();
+        // Get all systems from the DB        
         const result = await requests.getAllSystems();
 
         // Store each system object in an array

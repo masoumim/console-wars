@@ -216,12 +216,68 @@ table{
 }
 
 /* COMPARE SELECTION PAGE */
-.compare-container{
+#compare-container{
+    font-family: 'Teko', sans-serif;    
+}
+
+#compare-col-1 {
+    background-color: #414141;
+    border: 3px solid #525252;
+}
+
+#system1{
+    width: 100%;
+    background-color: #CA3E47;
+    color: white;
+    font-size:larger;
+}
+
+#compare-col-3 {
+    background-color: #414141;
+    border: 3px solid #525252;
+}
+
+#system2{
+    width: 100%;
+    background-color: #CA3E47;
+    color: white;
+    font-size:larger;
+}
+
+#compare-btn{
+    background-color: #CA3E47;
+    border: none;
+    color: white;
+    padding: 10px 20px; 
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 8px;    
+    font-family: 'Teko', sans-serif;
+    font-size: 20px;
+    width: 200px;
+    cursor: pointer;
+}
+
+/* VS.EJS */
+
+#vs-container{
     font-family: 'Teko', sans-serif;
 }
 
+#vs-container a{
+    color: white;
+}
 
-/* VS.EJS */
+#vs-system-1-row td{
+    font-size: larger;
+}
+
+#vs-system-2-row td{
+    font-size: larger;
+}
+
+
 .arrow.up {
     border: solid green;
     border-width: 0 3px 3px 0;
