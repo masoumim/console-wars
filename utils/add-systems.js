@@ -28,8 +28,8 @@ addAllsystems = async () => {
         await requests.addSystem("Neo Geo AES", 1990, 1997, 117, 4, 1800000, "Console", "Neo Geo CD", null, null, 44);
         await requests.addSystem("Philips CD-i", 1991, 1998, 208, 4, 1000000, "Console", null, "Philips Videopac+ G4700", null, 41);
         await requests.addSystem("Super Nintendo Entertainment System", 1990, 2005, 1754, 4, 49000000, "Console", "Nintendo 64", "Nintendo Entertainment System", null, 31);
-        await requests.addSystem("Sega Genesis / Mega Drive", 1988, 1997, 880, 4, 30000000, "Console", "Sega Saturn", "Master System", null, 37);
-        await requests.addSystem("TurboGrafx-16 / PC Engine", 1987, 1994, 678, 4, 5620000, "Console", "PC Engine SuperGrafx", null, null, 43);
+        await requests.addSystem("Sega Genesis (Mega Drive)", 1988, 1997, 880, 4, 30000000, "Console", "Sega Saturn", "Master System", null, 37);
+        await requests.addSystem("TurboGrafx-16 (PC Engine)", 1987, 1994, 678, 4, 5620000, "Console", "PC Engine SuperGrafx", null, null, 43);
         await requests.addSystem("Game Boy", 1989, 2003, 1046, 4, 118000000, "Handheld", "Game Boy Color", "Game & Watch", null, 31);
         await requests.addSystem("Atari Lynx", 1989, 1995, 71, 4, 2000000, "Handheld", null, null, null, 35);
         await requests.addSystem("Game Gear", 1990, 1997, 366, 4, 10620000, "Handheld", "Sega Nomad", null, null, 37);
@@ -39,7 +39,7 @@ addAllsystems = async () => {
         await requests.addSystem("Sega Saturn", 1994, 2000, 1046, 5, 9260000, "Console", "Dreamcast", "Sega Genesis / Mega Drive", null, 37);
         await requests.addSystem("Sony PlayStation", 1994, 2006, 4105, 5, 102490000, "Console", "PlayStation 2", null, null, 46);
         await requests.addSystem("Nintendo 64", 1996, 2002, 388, 5, 32930000, "Console", "GameCube", "Super Nintendo Entertainment System", null, 31);
-        await requests.addSystem("Sega Nomad / Genesis Nomad", 1995, 1999, 880, 5, 100000, "Handheld", null, "Game Gear", null, 37);
+        await requests.addSystem("Sega Nomad (Genesis Nomad)", 1995, 1999, 880, 5, 100000, "Handheld", null, "Game Gear", null, 37);
         await requests.addSystem("Neo Geo Pocket", 1998, 1999, 10, 5, null, "Handheld", "Neo Geo Pocket Color", null, null, 44);
         await requests.addSystem("Dreamcast", 1998, 2001, 616, 6, 9130000, "Console", null, "Sega Saturn", null, 37);
         await requests.addSystem("PlayStation 2", 2000, 2013, 4376, 6, 158700000, "Console", "PlayStation 3", "PlayStation", null, 46);
